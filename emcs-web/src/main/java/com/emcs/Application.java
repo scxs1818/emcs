@@ -25,7 +25,6 @@ public class Application {
         properties.setProperty("reasonable", "true");
         properties.setProperty("dialect", "mysql"); // 配置mysql数据库的方言
         pageHelper.setProperties(properties);
-        //发挥的考虑好焚枯食淡后付款
         return pageHelper;
     }
 }
