@@ -66,11 +66,12 @@ public class PlatRegisterServiceImpl implements PlatRegisterService {
             result.setStatus("S");
         }catch (Exception e){
             e.printStackTrace();
+            commonResult(result, e.getMessage()) ;
         }
 
         return result;
     }
-    public void commonResult(CommonResult result, String msg) {
+    public  void commonResult(CommonResult result, String msg) {
         result.setDate(null);
         result.setMsg(msg);
         result.setStatus("F");
