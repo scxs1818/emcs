@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.emcs.mapper.plat.VaPlatAcctInfoMapper">
+
+    <insert id="insertVaPlatAccInfo" parameterType="hashMap">
+        insert into va_plat_acc_info
+        (
+            acct_id,plat_id,acct_type,
+            acct_no,acct_name,is_this_bank,
+            acct_br_no,acct_br_name,acct_ccy,
+            update_date,update_user,acct_status,acct_category
+        )
+        values
+        (
+            #{acct_id},#{plat_id},#{acct_type},
+            #{acct_no},#{acct_name},#{is_this_bank},
+            #{acct_br_no},#{acct_br_name},#{acct_ccy},
+            #{update_date},#{update_user},#{acct_status},#{acct_category}
+        )
+    </insert>
+</mapper>

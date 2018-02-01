@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.emcs.mapper.plat.VaPlatInfoMapper">
+
+
+    <insert id="insertVaPlatInfo" parameterType="hashMap" >
+        insert into va_plat_info
+        (
+            plat_id,pay_merch_id,plat_name,
+            legal_person,status,payment_type,
+            global_type,global_id,tel_no,
+            email,adress,url,create_date,
+            create_user,update_date,update_user,
+            cancel_date,cancel_user,effect_date,
+            source_type,remark,plat_type,
+            plat_level,allow_user,allow_date,allow_status
+        )
+        values
+        (
+            #{plat_id},#{pay_merch_id},#{plat_name},
+            #{legal_person},#{status},#{payment_type},
+            #{global_type},#{global_id},#{tel_no},
+            #{email},#{adress},#{url},
+            #{create_date},#{create_user},
+            #{update_date},#{update_user},
+            #{cancel_date},#{cancel_user},
+            #{effect_date},#{source_type},
+            #{remark},#{plat_type},
+            #{plat_level},#{allow_user},
+            #{allow_date},#{allow_status}
+        )
+    </insert>
+    <select id="selectByPayMerchId" parameterType="string" resultType="hashMap">
+        select
+        pay_merch_id
+        from va_plat_info
+        where
+        pay_merch_id = #{payMerchId}
+    </select>
+</mapper>
