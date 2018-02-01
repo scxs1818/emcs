@@ -51,16 +51,11 @@ public class PlatRegisterServiceImpl implements PlatRegisterService {
           int i=  VaPlatInfoService.insertVaPlatInfo(map);
             System.out.printf("i========"+i);
             //保存登记平台资金清算专户和平台结算账户
-            Map<String,Object> map1 = new HashMap<String,Object>();
-            map1=map;
-             vaPlatAccInfoService.insertVaPlatAccInfo(map1);
-            Map<String,Object> map2 = new HashMap<String,Object>();
-            map2=map;
-            int m=  vaPlatVirtualAcctService.insertVaPlatVirtualAcct(map2);
-            System.out.printf("m========"+m);
-            Map<String,Object> map3 = new HashMap<String,Object>();
-            map3=map;
-            vaPlatVirtualAcctBalService.insertVaPlatVirtualAcctBal(map3);
+             vaPlatAccInfoService.insertVaPlatAccInfo(map);
+
+            int m=  vaPlatVirtualAcctService.insertVaPlatVirtualAcct(map);
+
+            vaPlatVirtualAcctBalService.insertVaPlatVirtualAcctBal(map);
             result.setDate(null);
             result.setMsg("注册商户信息成功");
             result.setStatus("S");
