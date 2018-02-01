@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Map;
-
+@Transactional
 @Service
 public class VaPlatVirtualAcctServiceImpl implements VaPlatVirtualAcctService {
     @Resource

@@ -1,5 +1,7 @@
 package com.emcs.serviceImpl.common;
 
+import com.emcs.mapper.plat.VaPlatAcctInfoMapper;
+import com.emcs.mapper.plat.VaPlatInfoMapper;
 import com.emcs.service.common.VaPlatAccInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +12,7 @@ import java.util.Map;
 @Service
 public class VaPlatAccInfoServiceImpl implements VaPlatAccInfoService {
     @Resource
-    VaPlatAccInfoService vaPlatAccInfoService;
+    VaPlatAcctInfoMapper vaPlatAccInfoService;
     @Override
     public int insertVaPlatAccInfo(Map<String, Object> map) {
         return vaPlatAccInfoService.insertVaPlatAccInfo(map);

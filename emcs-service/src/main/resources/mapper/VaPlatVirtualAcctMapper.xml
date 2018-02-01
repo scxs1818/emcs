@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.emcs.mapper.plat.VaPlatVirtualAcctMapper">
 
-    <insert id="insertVaPlatAccInfo" parameterType="hashMap">
+    <insert id="insertVaPlatVirtualAcct" parameterType="hashMap">
         insert into va_plat_virtual_acct
         (
         vir_acct_id,plat_id,

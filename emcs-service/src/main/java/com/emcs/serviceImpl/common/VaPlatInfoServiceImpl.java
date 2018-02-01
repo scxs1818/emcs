@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
-
+@Transactional
 @Service
 public class VaPlatInfoServiceImpl implements VaPlatInfoService {
     @Resource

@@ -2,6 +2,7 @@ package com.emcs;
 
 
 import com.emcs.service.busniess.PlatRegisterService;
+import com.emcs.service.common.VaPlatAccInfoService;
 import com.emcs.util.CommonResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +16,12 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 //@WebAppConfiguration
-public class TcPlatTesting {
+public class TcPlatTesting02 {
 	@Autowired
-	PlatRegisterService platRegisterService;
+	VaPlatAccInfoService platRegisterService;
 	
 	@Test
-	public void testTcPlat(){
+	public void testTcPlat02(){
 //
 //		Gson gson =new Gson();
 //		TcPlatRequestParams param = new TcPlatRequestParams();
@@ -82,7 +83,7 @@ public class TcPlatTesting {
 		map.put("acct_no","122");
 		map.put("acct_ccy","RMB");
 		map.put("vir_acct_id","00001");
-		map.put("vir_acct_type","1");
+		map.put("vir_acct_type","00001");
 		map.put("vir_acct_sort","00001");
 		map.put("vir_acct_name","00001");
 		map.put("acct_status","N");
@@ -92,7 +93,7 @@ public class TcPlatTesting {
 		map.put("actural_bal",1233);
 		map.put("usable_bal",13);
 		map.put("freeze_bal",900);
-		CommonResult coomon =platRegisterService.platRegister(map);
+		int coomon =platRegisterService.insertVaPlatAccInfo(map);
 		System.out.printf("commom="+coomon);
 
 

@@ -3,7 +3,7 @@
 <mapper namespace="com.emcs.mapper.plat.VaPlatAcctInfoMapper">
 
     <insert id="insertVaPlatAccInfo" parameterType="hashMap">
-        insert into va_plat_acc_info
+        insert into va_plat_acct_info
         (
             acct_id,plat_id,acct_type,
             acct_no,acct_name,is_this_bank,
