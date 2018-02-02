@@ -7,4 +7,4 @@
     select GETNEXTVAL(#{sqeName}) from dual;
   </select>
 
-  </mapper>
+</mapper>

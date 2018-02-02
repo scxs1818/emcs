@@ -8,13 +8,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-//@WebAppConfiguration
+@WebAppConfiguration
 public class TcPlatTesting {
 	@Autowired
 	PlatRegisterService platRegisterService;
@@ -71,6 +72,7 @@ public class TcPlatTesting {
 //		System.out.println("params"+params);
 //		CommonResult result = registerPlatService.register(params);
 //		System.out.println("result=="+result);
+		System.out.printf("commom#############=");
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("pay_merch_id","123");
 		map.put("plat_name","测试平台");
