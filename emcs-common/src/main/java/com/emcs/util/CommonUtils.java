@@ -13,12 +13,13 @@ public class CommonUtils {
         if(StringUtils.isEmpty(num)){
             num="";
         }
-        StringBuffer sb = new StringBuffer(num);
+        StringBuffer sb = new StringBuffer("");
         if(length>num.length()){
             for(int i=0;i<length-num.length();i++){
-                num+="0"+num;
+                sb.append("0");
             }
         }
-        return num;
+        String str =sb.toString();
+        return str+num;
     }
 }
