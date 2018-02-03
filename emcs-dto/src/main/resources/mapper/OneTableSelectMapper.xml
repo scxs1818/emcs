@@ -2,20 +2,81 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.emcs.mapper.OneTableSelectMapper" >
 
-
-
-    <select id="selectVirAcctType" resultType="hashMap" >
-        select
-        *
-        from va_virtual_acct_type
+    <select id="getNextVal" parameterType="string"  resultType="int" >
+        select GETNEXTVAL(#{sqeName}) from dual
     </select>
 
-    <select id="selectByPayMerchId" parameterType="string" resultType="hashMap">
+    <select id="selectVaVirtualAcctType" parameterType="hashMap"  resultType="hashMap" >
+        select vir_acct_type,vir_acct_desc,vir_acct_sort,is_in,is_out,is_total_limit,total_limit,is_balance_limit,
+         balance_type,balance_value from va_virtual_acct_type
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
+        </trim>
+    </select>
+
+    <select id="selectIsExistVaMerchInfo" parameterType="hashMap"  resultType="int" >
+        select count(1) from va_merch_info 
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+        </trim>
+    </select>
+
+    <select id="selectIsExistVaPlatInfo" parameterType="hashMap"  resultType="int" >
+         select count(1) from va_plat_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status}</if>
+            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+            <if test="pay_merch_id !=null and pay_merch_id!='' "> and pay_merch_id = #{pay_merch_id}</if>
+        </trim>
+    </select>
+
+    <select id="selectIsExistVaCustInfo" parameterType="hashMap"  resultType="int" >
+         select count(1) from va_cust_info 
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+        </trim>
+    </select>
+
+    <select id="selectMerchInfo" parameterType="hashMap"  resultType="hashMap" >
+        
         select
-        pay_merch_id
-        from va_plat_info
-        where
-        pay_merch_id = #{payMerchId}
+            merch_id,merch_name,plat_id,
+            legal_person,status,payment_type,
+            global_type,global_id,tel_no,
+            email,adress,url,create_date,
+            create_user,update_date,update_user,
+            cancel_date,cancel_user,effect_date,
+            source_type,remark,merch_type,
+            merch_level,allow_user,allow_date,allow_status
+        from va_merch_info 
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no} </if>
+        </trim>
+    </select>
+
+    <select id="selectPlatInfo" parameterType="hashMap"  resultType="hashMap" >
+        
+        select
+            plat_id,pay_merch_id,plat_name,
+            legal_person,status,payment_type,
+            global_type,global_id,tel_no,
+            email,adress,url,create_date,
+            create_user,update_date,update_user,
+            cancel_date,cancel_user,effect_date,
+            source_type,remark,plat_type,
+            plat_level,allow_user,allow_date,allow_status
+        from va_plat_info 
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+            <if test="pay_merch_id !=null and pay_merch_id!='' "> and pay_merch_id = #{pay_merch_id} </if>
+        </trim>
     </select>
 
 </mapper>

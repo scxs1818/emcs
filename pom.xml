@@ -11,6 +11,7 @@
 		<module>emcs-dto</module>
 		<module>emcs-service</module>
 		<module>emcs-web</module>
+		<module>emcs-portal</module>
 	</modules>
 	<packaging>pom</packaging>
 

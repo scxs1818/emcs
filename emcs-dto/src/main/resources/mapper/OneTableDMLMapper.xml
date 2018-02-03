@@ -37,7 +37,7 @@
         actural_bal,
         usable_bal,
         freeze_bal,
-        charge_bal
+        recharge_bal
         )
         values
         (
@@ -47,7 +47,7 @@
         #{actural_bal},
         #{usable_bal},
         #{freeze_bal},
-        #{charge_bal}
+        #{recharge_bal}
         )
     </insert>
 
@@ -56,7 +56,7 @@
         (
         vir_acct_id,plat_id,
         vir_acct_type,vir_acct_sort,
-        vir_acct_name,acct_ccy,
+        vir_acct_name,currency,
         acct_status,rel_bank_acct,
         is_in,is_out,is_total_limit,
         total_limit,is_balance_limit,
@@ -69,7 +69,7 @@
         (
         #{vir_acct_id},#{plat_id},
         #{vir_acct_type},#{vir_acct_sort},
-        #{vir_acct_name},#{acct_ccy},
+        #{vir_acct_name},#{currency},
         #{acct_status},#{rel_bank_acct},
         #{is_in},#{is_out},#{is_total_limit},
         #{total_limit},#{is_balance_limit},
@@ -85,16 +85,238 @@
         (
         acct_id,plat_id,acct_type,
         acct_no,acct_name,is_this_bank,
-        acct_br_no,acct_br_name,acct_ccy,
+        acct_br_no,acct_br_name,currency,
         update_date,update_user,acct_status,acct_category
         )
         values
         (
         #{acct_id},#{plat_id},#{acct_type},
         #{acct_no},#{acct_name},#{is_this_bank},
-        #{acct_br_no},#{acct_br_name},#{acct_ccy},
+        #{acct_br_no},#{acct_br_name},#{currency},
         #{update_date},#{update_user},#{acct_status},#{acct_category}
         )
     </insert>
 
+    <insert id="insertVaMerchInfo" parameterType="hashMap" >
+        insert into va_merch_info
+        (
+        merch_id,merch_name,pay_merch_id,plat_id,
+        legal_person,status,payment_type,
+        global_type,global_id,tel_no,
+        email,adress,url,create_date,
+        create_user,update_date,update_user,
+        cancel_date,cancel_user,effect_date,
+        source_type,remark,merch_type,
+        merch_level,allow_user,allow_date,allow_status
+        )
+        values
+        (
+        #{merch_id},#{merch_name},#{pay_merch_id},#{plat_id},
+        #{legal_person},#{status},#{payment_type},
+        #{global_type},#{global_id},#{tel_no},
+        #{email},#{adress},#{url},
+        #{create_date},#{create_user},
+        #{update_date},#{update_user},
+        #{cancel_date},#{cancel_user},
+        #{effect_date},#{source_type},
+        #{remark},#{merch_type},
+        #{merch_level},#{allow_user},
+        #{allow_date},#{allow_status}
+        )
+    </insert>
+
+    <insert id="insertVaMerchAccInfo" parameterType="hashMap">
+        insert into va_merch_acct_info
+        (
+        acct_id,merch_id,acct_type,
+        acct_no,acct_name,is_this_bank,
+        acct_br_no,acct_br_name,currency,
+        update_date,update_user,acct_status,acct_category
+        )
+        values
+        (
+        #{acct_id},#{merch_id},#{acct_type},
+        #{acct_no},#{acct_name},#{is_this_bank},
+        #{acct_br_no},#{acct_br_name},#{currency},
+        #{update_date},#{update_user},#{acct_status},#{acct_category}
+        )
+    </insert>
+
+    <insert id="insertVaMerchVirtualAcctBal" parameterType="hashMap">
+        insert into va_merch_virtual_acct_bal
+        (
+        vir_acct_id,
+        vir_acct_type,
+        merch_id,
+        actural_bal,
+        usable_bal,
+        freeze_bal,
+        recharge_bal
+        )
+        values
+        (
+        #{vir_acct_id},
+        #{vir_acct_type},
+        #{merch_id},
+        #{actural_bal},
+        #{usable_bal},
+        #{freeze_bal},
+        #{recharge_bal}
+        )
+    </insert>
+
+    <insert id="insertVaMerchVirtualAcct" parameterType="hashMap">
+        insert into va_merch_virtual_acct
+        (
+        vir_acct_id,merch_id,plat_id,
+        vir_acct_type,vir_acct_sort,
+        vir_acct_name,currency,
+        acct_status,rel_bank_acct,
+        is_in,is_out,is_total_limit,
+        total_limit,is_balance_limit,
+        balance_type,balance_value,
+        open_date,open_user,
+        cancel_date,update_date,
+        source_user,effect_date,merch_name
+        )
+        values
+        (
+        #{vir_acct_id},#{merch_id},#{plat_id},
+        #{vir_acct_type},#{vir_acct_sort},
+        #{vir_acct_name},#{currency},
+        #{acct_status},#{rel_bank_acct},
+        #{is_in},#{is_out},#{is_total_limit},
+        #{total_limit},#{is_balance_limit},
+        #{balance_type},#{balance_value},
+        #{open_date},#{open_user},
+        #{cancel_date},#{update_date},
+        #{source_user},#{effect_date},#{merch_name}
+        )
+    </insert>
+
+    <insert id="insertVaCustInfo" parameterType="hashMap" >
+        insert into va_cust_info
+        (
+        cust_id,cust_name,plat_id,user_id,
+        status,
+        global_type,global_id,tel_no,
+        email,adress,create_date,
+        create_user,update_date,update_user,
+        cancel_date,cancel_user,effect_date,
+        source_type,remark,cust_type,
+        cust_level,allow_user,allow_date,allow_status
+        )
+        values
+        (
+        #{cust_id},#{cust_name},#{plat_id},#{user_id},
+        #{status},
+        #{global_type},#{global_id},#{tel_no},
+        #{email},#{adress},
+        #{create_date},#{create_user},
+        #{update_date},#{update_user},
+        #{cancel_date},#{cancel_user},
+        #{effect_date},#{source_type},
+        #{remark},#{cust_type},
+        #{cust_level},#{allow_user},
+        #{allow_date},#{allow_status}
+        )
+    </insert>
+
+    <insert id="insertVaCustAccInfo" parameterType="hashMap">
+        insert into va_cust_acct_info
+        (
+        acct_id,cust_id,acct_type,
+        acct_no,acct_name,is_this_bank,
+        acct_br_no,acct_br_name,currency,
+        update_date,update_user,acct_status,acct_category
+        )
+        values
+        (
+        #{acct_id},#{cust_id},#{acct_type},
+        #{acct_no},#{acct_name},#{is_this_bank},
+        #{acct_br_no},#{acct_br_name},#{currency},
+        #{update_date},#{update_user},#{acct_status},#{acct_category}
+        )
+    </insert>
+
+    <insert id="insertVaCustVirtualAcctBal" parameterType="hashMap">
+        insert into va_cust_virtual_acct_bal
+        (
+        vir_acct_id,
+        vir_acct_type,
+        cust_id,
+        actural_bal,
+        usable_bal,
+        freeze_bal,
+        recharge_bal
+        )
+        values
+        (
+        #{vir_acct_id},
+        #{vir_acct_type},
+        #{cust_id},
+        #{actural_bal},
+        #{usable_bal},
+        #{freeze_bal},
+        #{recharge_bal}
+        )
+    </insert>
+
+    <insert id="insertVaCustVirtualAcct" parameterType="hashMap">
+        insert into va_cust_virtual_acct
+        (
+        vir_acct_id,cust_id,plat_id,
+        vir_acct_type,vir_acct_sort,
+        vir_acct_name,user_id,currency,
+        acct_status,rel_bank_acct,
+        is_in,is_out,is_total_limit,
+        total_limit,is_balance_limit,
+        balance_type,balance_value,
+        open_date,open_user,
+        cancel_date,update_date,
+        source_user,effect_date,cust_name
+        )
+        values
+        (
+        #{vir_acct_id},#{cust_id},#{plat_id},
+        #{vir_acct_type},#{vir_acct_sort},
+        #{vir_acct_name},#{user_id},#{currency},
+        #{acct_status},#{rel_bank_acct},
+        #{is_in},#{is_out},#{is_total_limit},
+        #{total_limit},#{is_balance_limit},
+        #{balance_type},#{balance_value},
+        #{open_date},#{open_user},
+        #{cancel_date},#{update_date},
+        #{source_user},#{effect_date},#{cust_name}
+        )
+    </insert>
+
+    <insert id="insertCmTranSeq" parameterType="hashMap">
+        insert into cm_tran_seq
+        (
+        tran_seq,tran_date,tran_time,
+        sys_date,channel_code,
+        source_type,tran_type,business_code,
+        user_id,plat_id,
+        merch_id,cust_id,acct_no,
+        currency,tran_amt,
+        branch_id,msg_type,
+        msg_code,tran_status,
+        ret_code,resp_code,
+        fail_reason
+        )
+        values
+        (
+        #{tran_seq},#{tran_date},#{tran_time},
+        #{sys_date},#{channel_code},
+        #{source_type},#{tran_type},#{business_code},
+        #{user_id},#{plat_id},
+        #{merch_id},#{cust_id},#{acct_no},
+        #{currency},#{tran_amt},
+        #{branch_id},#{msg_type},
+        #{msg_code},#{tran_status},
+        #{ret_code},#{resp_code},
+        #{fail_reason}
+        )
+    </insert>
 </mapper>
