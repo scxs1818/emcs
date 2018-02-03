@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CommonServiceImpl implements CommonService{
     @Autowired
-    CommonMapper mapper;
+    CommonMapper oneSelect;
     @Override
     public int getNextVal(String sqeName) {
-        return mapper.getNextVal(sqeName);
+        return oneSelect.getNextVal(sqeName);
     }
 }
