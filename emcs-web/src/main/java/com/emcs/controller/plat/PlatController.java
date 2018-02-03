@@ -1,12 +1,22 @@
 package com.emcs.controller.plat;
 
-import com.emcs.service.common.VaPlatInfoService;
-import org.springframework.stereotype.Controller;
+        import com.emcs.serviceImpl.busniess.PlatformRegister;
+        import com.emcs.util.CommonResult;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.web.bind.annotation.RequestMapping;
+        import org.springframework.web.bind.annotation.RequestParam;
+        import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+        import java.util.Map;
 
-@Controller
+@RestController
 public class PlatController {
-    @Resource
-    VaPlatInfoService vaPlatInfoService;
+    @Autowired
+    PlatformRegister platRegister;
+
+
+    @RequestMapping("/plat")
+    public CommonResult platRegister(@RequestParam Map<String,Object> param) {
+        return  platRegister.doService(param);
+    }
 }
