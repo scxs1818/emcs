@@ -319,4 +319,39 @@
         #{fail_reason}
         )
     </insert>
+    <insert id="insertCmAcctTranSeq" parameterType="hashMap">
+        insert into cm_acct_tran_seq (
+            tran_seq_no,tran_date,tran_time,curreny,tran_amt,tran_type,business_code,
+            business_name,order_no,order_no_old,ref_no,merch_id,merch_name,cust_id,
+            cust_name,payer_name,payer_vir_acct_no,payee_name,payee_vir_acct_no,plat_id,
+            plat_name,payer_acct_no,payer_acct_name,payer_acct_sort,payer_is_this_bank,
+            payer_acct_bank_no,payer_acct_bank_name,payee_acct_no,payee_acct_name,
+            payee_acct_sort,payee_is_this_bank,payee_acct_bank_no,payee_acct_bank_name,
+            tran_status,ret_code,ret_msg,host_seq_no,host_tran_status,is_check,is_recover,
+            reversed,oper_time,user_id,contrast,refund_status
+            ) values (
+            #{tran_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},
+            #{business_name},#{order_no},#{order_no_old},#{ref_no},#{merch_id},#{merch_name},#{cust_id},
+            #{cust_name},#{payer_name},#{payer_vir_acct_no},#{payee_name},#{payee_vir_acct_no},#{plat_id},
+            #{plat_name},#{payer_acct_no},#{payer_acct_name},#{payer_acct_sort},#{payer_is_this_bank},
+            #{payer_acct_bank_no},#{payer_acct_bank_name},#{payee_acct_no},#{payee_acct_name},
+            #{payee_acct_sort},#{payee_is_this_bank},#{payee_acct_bank_no},#{payee_acct_bank_name},
+            #{tran_status},#{ret_code},#{ret_msg},#{host_seq_no},#{host_tran_status},#{is_check},#{is_recover},
+            #{reversed},#{oper_time},#{user_id},#{contrast},#{refund_status})
+    </insert>
+
+    <update id="updateCmAcctTranSeq" parameterType="hashMap">
+        update cm_acct_tran_seq set
+            tran_status= #{tran_status},ret_code=#{ret_code},
+            ret_msg=#{ret_msg},is_check=#{is_check},is_recover=#{is_recover},
+            reversed= #{reversed},contrast=#{contrast},refund_status=#{refund_status}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="tran_date !=null and tran_date!='' ">and tran_date=#{tran_date}</if>
+            <if test="tran_type !=null and tran_type!='' ">and tran_type=#{tran_type}</if>
+            <if test="tran_amt !=null and tran_amt!='' "> and tran_amt=#{tran_amt}</if>
+            <if test="payer_acct_no !=null and payer_acct_no!='' "> and payer_acct_no=#{payer_acct_no}</if>
+            <if test="tran_seq_no !=null and tran_seq_no!='' ">and tran_seq_no=#{tran_seq_no}</if>
+        </trim>
+    </update>
+
 </mapper>

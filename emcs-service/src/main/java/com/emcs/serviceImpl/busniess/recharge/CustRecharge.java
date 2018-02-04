@@ -7,6 +7,7 @@ import com.emcs.cache.CacheUtil;
 import com.emcs.exception.BusiException;
 import com.emcs.serviceImpl.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.serviceImpl.busniess.common.SendCorePay;
+import com.emcs.serviceImpl.busniess.common.SendNetPay;
 import com.emcs.serviceImpl.busniess.common.UpdateCmAcctTranSeq;
 import com.emcs.tool.DbUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class CustRecharge extends ServiceTransactionalY{
     UpdateCmAcctTranSeq updateCmAcctTranSeq;
     @Autowired
     SendCorePay sendCorePay;
+    @Autowired
+    SendNetPay sendNetPay;
     @Override
     protected void process(Map<String, Object> param) {
         //1.数据库级校验
@@ -59,20 +62,21 @@ public class CustRecharge extends ServiceTransactionalY{
             //2.记账无流水
             insertCmAcctTranSeq.process(param);
             flag = true;
-            //3.发核心支付
+            //3.发核心支付(下面两种方式,根据实际实现2选1)
+            sendCorePay.process(param);//核心支付
+            sendNetPay.process(param);//互联网支付
 
             //4.支付成功
-            sendCorePay.process(param);
+                //4.1增加会员虚拟账户余额
 
-            //4.1增加会员虚拟账户余额
-
-            //4.2记录充值明细
+                //4.2记录充值明细
 
             //5.更新账务流水(依据支付状态)
             updateCmAcctTranSeq.process(param);
         }catch(Exception e){
             if(flag)
                 updateCmAcctTranSeq.process(param);
+            throw e;
         }
     }
 }

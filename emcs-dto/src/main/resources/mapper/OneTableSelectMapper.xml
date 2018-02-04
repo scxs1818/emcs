@@ -91,10 +91,47 @@
             source_user,effect_date,cust_name
         from va_cust_virtual_acct
         <trim prefix="where" prefixOverrides="and">
-            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
             <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
             <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
         </trim>
+    </select>
+
+    <select id="selectVaCustRechargeDetail" parameterType="hashMap"  resultType="hashMap" >
+        select
+            cust_recharge_seq,order_no,order_no_old,
+            plat_id,cust_id,
+            vir_acct_id,tran_type,tran_amt,
+            tran_status,tran_date
+        from va_cust_recharge_detail
+        <trim prefix="where" prefixOverrides="and">
+            <if test="plat_id !=null and plat_id!='' "> and vir_acct_id = #{plat_id} </if>
+            <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
+            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+            <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
+            <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+        </trim>
+    </select>
+
+    <select id="selectVaCustRechargeAmtDay" parameterType="hashMap"  resultType="hashMap" >
+        select
+          coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
+        from va_cust_recharge_detail
+        <trim prefix="where" prefixOverrides="and">
+            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+            <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
+            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+            <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
+            <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+        </trim>
+    </select>
+
+    <select id="selectCmBusinessParaForCache" parameterType="hashMap"  resultType="hashMap" >
+        select para_key cache_key1,para_value from cm_business_para where para_status='1'
+    </select>
+
+    <select id="selectCmSystemForCache" parameterType="hashMap"  resultType="hashMap" >
+        select run_date,prev_run_date,core_run_date,ser_status_flag from cm_system
     </select>
 
 </mapper>

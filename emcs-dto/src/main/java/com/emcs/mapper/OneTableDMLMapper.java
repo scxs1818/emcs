@@ -21,6 +21,9 @@ public interface OneTableDMLMapper{
     int insertVaCustVirtualAcctBal(Map<String, Object> params);
     int insertVaCustVirtualAcct(Map<String,Object> params);
 
-    int insertCmTranSeq(Map<String,Object> params);
+    int insertCmAcctTranSeq(Map<String,Object> params);
+    int updateCmAcctTranSeq(Map<String,Object> params);
 
+    int insertCmTranSeq(Map<String,Object> params);
+    int updateCmTranSeq(Map<String,Object> params);
 }

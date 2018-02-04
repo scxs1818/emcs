@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class SendCorePay extends ServiceTransactionalN{
     @Override
-    public CommonResult process(Map<String, Object> param) {
-        return null;
+    public void process(Map<String, Object> param) {
+
     }
 }

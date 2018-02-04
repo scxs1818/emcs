@@ -25,7 +25,10 @@ public class Application {
     @Autowired
     OneTableSelectMapper oneSelect;
     public List<Map<String, Object>> loadConfig() {
-        return  oneSelect.selectVaVirtualAcctType(null);
+        oneSelect.selectVaVirtualAcctType(null);
+
+
+        return null;
     }
 
     @Bean

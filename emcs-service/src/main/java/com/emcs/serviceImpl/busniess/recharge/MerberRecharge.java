@@ -17,8 +17,6 @@ public class MerberRecharge extends ServiceTransactionalY{
     MerchRecharge merchRecharge;
     @Override
     protected void process(Map<String, Object> param) {
-        //1.非空和域合法性校验
-
         //2.数据库级校验
         param.put("status","N");//正常
         param.put("acct_status","N");

@@ -18,12 +18,15 @@ public final class Logger {
     }
 
     public void info( String message) {
-
         this.info(message, (Object[])null);
     }
 
     public void info(String message, Object[] params) {
         logger.info(StringUtil.format(message, params));
     }
-}
 
+    public void info(String message,Throwable t) {
+        logger.info(message,t);
+    }
+
+}
