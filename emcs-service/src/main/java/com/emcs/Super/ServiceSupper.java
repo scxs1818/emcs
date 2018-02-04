@@ -16,7 +16,6 @@ import java.util.Map;
  * Created by Administrator on 2018/2/4.
  */
 abstract class ServiceSupper {
-    public ServiceSupper(){}
     protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
 
     @Resource
@@ -28,17 +27,6 @@ abstract class ServiceSupper {
     @Resource
     protected ManyTableDMLMapper manyDML;
     protected CommonResult result = new CommonResult();
-
-    protected CommonResult before(Map<String, Object> param){
-//        Map sysMap = (Map)param.get("SYS_HEAD");
-//        param.put("TRAN_DATE",sysMap.get("TRAN_DATE"));
-//        oneDML.insertVaCustAccInfo(param);//插入交易流水
-        return null;
-    }
-    protected CommonResult after(Map<String, Object> param){
-//        oneDML.UpdateVaCustAccInfo(param);//更新交易流水
-        return null;
-    }
     public CommonResult doService(Map<String, Object> param){
         try{
             before(param);
@@ -47,7 +35,7 @@ abstract class ServiceSupper {
             result.setMsg("交易成功");
             result.setStatus("S");
         }catch(Exception e){
-            log.info("交易失败",e);
+            log.error("交易失败",e);
             result.setMsg(e.getMessage());
             result.setStatus("F");
             DoException.doThrowException(e);
@@ -55,4 +43,6 @@ abstract class ServiceSupper {
         return result;
     }
     protected abstract void process(Map<String, Object> param);
+    protected abstract CommonResult after(Map<String, Object> param);
+    protected abstract CommonResult before(Map<String, Object> param);
 }

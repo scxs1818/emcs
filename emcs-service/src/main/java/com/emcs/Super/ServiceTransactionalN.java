@@ -21,5 +21,4 @@ public abstract class ServiceTransactionalN extends ServiceSupper{
     protected CommonResult after(Map<String, Object> param){
         return null;
     }
-    protected abstract void process(Map<String, Object> param);
 }

@@ -28,5 +28,8 @@ public final class Logger {
     public void info(String message,Throwable t) {
         logger.info(message,t);
     }
+    public void error(String message,Throwable t) {
+        logger.error(message,t);
+    }
 
 }

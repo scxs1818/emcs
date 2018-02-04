@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.emcs.mapper.OneTableDMLMapper" >
+
     <insert id="insertVaPlatInfo" parameterType="hashMap" >
         insert into va_plat_info
         (
@@ -28,6 +29,7 @@
         #{allow_date},#{allow_status}
         )
     </insert>
+
     <insert id="insertVaPlatVirtualAcctBal" parameterType="hashMap">
         insert into va_plat_virtual_acct_bal
         (
@@ -50,6 +52,31 @@
         #{recharge_bal}
         )
     </insert>
+
+    <update id="updateVaPlatVirtualAcctBalSub" parameterType="hashMap">
+        update va_merch_virtual_acct_bal set
+        actural_bal = actural_bal - #{tran_amt},
+        usable_bal = usable_bal - #{usable_bal},
+        recharge_bal = recharge_bal - #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="plat_id!=null and plat_id!=''">and plat_id=#{plat_id}</if>
+            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+        </trim>
+    </update>
+
+    <update id="updateVaPlatVirtualAcctBalAdd" parameterType="hashMap">
+        update va_merch_virtual_acct_bal set
+        actural_bal = actural_bal + #{tran_amt},
+        usable_bal = usable_bal + #{usable_bal},
+        recharge_bal = recharge_bal + #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="plat_id!=null and plat_id!=''">and plat_id=#{plat_id}</if>
+            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+        </trim>
+    </update>
+
 
     <insert id="insertVaPlatVirtualAcct" parameterType="hashMap">
         insert into va_plat_virtual_acct
@@ -165,6 +192,30 @@
         )
     </insert>
 
+    <update id="insertVaMerchVirtualAcctBalSub" parameterType="hashMap">
+        update va_merch_virtual_acct_bal set
+            actural_bal = actural_bal - #{tran_amt},
+            usable_bal = usable_bal - #{usable_bal},
+            recharge_bal = recharge_bal - #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="merch_id!=null and merch_id!=''">and merch_id=#{merch_id}</if>
+            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+        </trim>
+    </update>
+
+    <update id="insertVaMerchVirtualAcctBalAdd" parameterType="hashMap">
+        update va_merch_virtual_acct_bal set
+            actural_bal = actural_bal + #{tran_amt},
+            usable_bal = usable_bal + #{usable_bal},
+            recharge_bal = recharge_bal + #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="merch_id!=null and merch_id!=''">and merch_id=#{merch_id}</if>
+            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+        </trim>
+    </update>
+
     <insert id="insertVaMerchVirtualAcct" parameterType="hashMap">
         insert into va_merch_virtual_acct
         (
@@ -262,6 +313,30 @@
         )
     </insert>
 
+    <insert id="updateVaCustVirtualAcctBalAdd" parameterType="hashMap">
+        update va_cust_virtual_acct_bal SET
+            actural_bal = actural_bal + #{tran_amt},
+            usable_bal = usable_bal + #{usable_bal},
+            recharge_bal = recharge_bal + #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
+            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+        </trim>
+    </insert>
+
+    <insert id="updateVaCustVirtualAcctBalSub" parameterType="hashMap">
+        update va_cust_virtual_acct_bal SET
+            actural_bal = actural_bal - #{tran_amt},
+            usable_bal = usable_bal - #{usable_bal},
+            recharge_bal = recharge_bal - #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
+            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+        </trim>
+    </insert>
+
     <insert id="insertVaCustVirtualAcct" parameterType="hashMap">
         insert into va_cust_virtual_acct
         (
@@ -319,6 +394,7 @@
         #{fail_reason}
         )
     </insert>
+
     <insert id="insertCmAcctTranSeq" parameterType="hashMap">
         insert into cm_acct_tran_seq (
             tran_seq_no,tran_date,tran_time,curreny,tran_amt,tran_type,business_code,

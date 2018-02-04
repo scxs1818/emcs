@@ -1,6 +1,6 @@
 package com.emcs.serviceImpl.busniess.recharge;
 import com.emcs.Super.ServiceTransactionalY;
-import com.emcs.Constant.BusiCommon;
+import com.emcs.Constant.BusiConstant;
 import com.emcs.exception.BusiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +22,10 @@ public class MerberRecharge extends ServiceTransactionalY{
         param.put("acct_status","N");
         if(oneSelect.selectIsExistVaPlatInfo(param)==0)throw new BusiException("交易平台不存在或者处于异常状态","600003");
 
-        if(BusiCommon.ROLE_CUST.equals(param.get("role_type"))){
+        if(BusiConstant.ROLE_CUST.equals(param.get("role_type"))){
             param.put("cust_id",param.get("merber_id"));
             custRecharge.process(param);
-        }else if(BusiCommon.ROLE_MERCH.equals(param.get("role_type"))){
+        }else if(BusiConstant.ROLE_MERCH.equals(param.get("role_type"))){
             param.put("merch_id",param.get("merber_id"));
             merchRecharge.process(param);
         }else{

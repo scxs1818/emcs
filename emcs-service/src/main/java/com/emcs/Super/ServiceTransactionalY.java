@@ -24,11 +24,11 @@ public abstract class ServiceTransactionalY extends ServiceSupper{
     protected CommonResult before(Map<String, Object> param){
 //        Map sysMap = (Map)param.get("SYS_HEAD");
 //        param.put("TRAN_DATE",sysMap.get("TRAN_DATE"));
-//        oneDML.insertVaCustAccInfo(param);
+//        oneDML.insertVaCustAccInfo(param);//插入交易流水
         return null;
     }
     protected CommonResult after(Map<String, Object> param){
+//        oneDML.UpdateVaCustAccInfo(param);//更新交易流水
         return null;
     }
-    protected abstract void process(Map<String, Object> param);
 }

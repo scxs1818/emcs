@@ -11,10 +11,11 @@ public class ServiceUtil {
     public static String getSeqNo(OneTableSelectMapper selectOne, String seqName,int length){
         String seqVal = selectOne.getNextVal(seqName)+"";
         int len = seqVal.length();
-        if(len<length){
-            for(int i=0;i<length-len;i++)
-                seqVal = 0+seqVal;
+        StringBuilder sb = new StringBuilder();
+        if(len<length) {
+            for (int i = 0; i < length - len; i++)
+                sb.append("0");
         }
-        return seqVal;
+        return sb.append(seqVal).toString();
     }
 }

@@ -10,14 +10,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import com.emcs.Constant.BusiCommon;
+import com.emcs.Constant.BusiConstant;
 import com.emcs.exception.BusiException;
 import com.emcs.mapper.OneTableSelectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.Resource;
 
 /** 缓存常用数据库配置类 */
 public class CacheData {
@@ -111,13 +108,13 @@ public class CacheData {
 
     private List<Map<String,Object>> loadtable(OneTableSelectMapper oneSelect,String tableName) {
         List<Map<String,Object>> list = null;
-        if(BusiCommon.CACHE_VA_VIRTUAL_ACCT_TYPE.equals(tableName)){
+        if(BusiConstant.CACHE_VA_VIRTUAL_ACCT_TYPE.equals(tableName)){
             log.info("122-----------------");
             list = oneSelect.selectVaVirtualAcctType(null);
-        }else if(BusiCommon.CACHE_CM_BUSINESS_PARA.equals(tableName)){
+        }else if(BusiConstant.CACHE_CM_BUSINESS_PARA.equals(tableName)){
             log.info("123-----------------");
             list = oneSelect.selectCmBusinessParaForCache(null);
-        }else if(BusiCommon.CACHE_CM_SYSTEM.equals(tableName)){
+        }else if(BusiConstant.CACHE_CM_SYSTEM.equals(tableName)){
             log.info("124-----------------");
             list = oneSelect.selectCmSystemForCache(null);
         }

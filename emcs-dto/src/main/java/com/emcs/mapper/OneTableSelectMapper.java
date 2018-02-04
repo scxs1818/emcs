@@ -8,17 +8,21 @@ import java.util.Map;
  * Created by Administrator on 2018/2/2.
  */
 public interface OneTableSelectMapper{
-    List<Map<String,Object>> selectVaVirtualAcctType(Object param);
-    int selectIsExistVaMerchInfo(Object param);
-    int selectIsExistVaPlatInfo(Object param);
-    int selectIsExistVaCustInfo(Object param);
-    List<Map<String,Object>> selectPlatInfo(Object param);
-    List<Map<String,Object>> selectMerchInfo(Object param);
-    List<Map<String,Object>> selectVaCustVirtualAcctInfo(Object param);
-    List<Map<String,Object>> selectVaCustRechargeDetail(Object param);
-    List<Map<String,Object>> selectVaCustRechargeAmtDay(Object param);
-    List<Map<String,Object>> selectCmBusinessParaForCache(Object param);
-    List<Map<String,Object>> selectCmSystemForCache(Object param);
+
+    List<Map<String,Object>> selectVaVirtualAcctType(Map<String, Object> param);
+    int selectIsExistVaMerchInfo(Map<String, Object> param);
+    int selectIsExistVaPlatInfo(Map<String, Object> param);
+    int selectIsExistVaCustInfo(Map<String, Object> param);
+
+    List<Map<String,Object>> selectPlatInfo(Map<String, Object> param);
+    List<Map<String,Object>> selectMerchInfo(Map<String, Object> param);
+
+    List<Map<String,Object>> selectVaCustVirtualAcctInfo(Map<String, Object> param);
+    List<Map<String,Object>> selectVaCustRechargeDetail(Map<String, Object> param);
+    List<Map<String,Object>> selectVaCustRechargeAmtDay(Map<String, Object> param);
+
+    List<Map<String,Object>> selectCmBusinessParaForCache(Map<String, Object> param);
+    List<Map<String,Object>> selectCmSystemForCache(Map<String, Object> param);
 
     int getNextVal(String sqeName);
 }
