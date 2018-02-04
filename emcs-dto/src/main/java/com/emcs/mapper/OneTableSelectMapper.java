@@ -13,5 +13,7 @@ public interface OneTableSelectMapper{
     int selectIsExistVaCustInfo(Object param);
     List<Map<String,Object>> selectPlatInfo(Object param);
     List<Map<String,Object>> selectMerchInfo(Object param);
+    List<Map<String,Object>> selectVaCustVirtualAcctInfo(Object param);
+
     int getNextVal(String sqeName);
 }

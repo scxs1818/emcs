@@ -1,9 +1,7 @@
 package com.emcs;
 
 
-import com.emcs.serviceImpl.busniess.CustRegister;
-import com.emcs.serviceImpl.busniess.MerchRegister;
-import com.emcs.serviceImpl.busniess.PlatformRegister;
+import com.emcs.serviceImpl.busniess.register.CustRegister;
 import com.emcs.util.CommonResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;

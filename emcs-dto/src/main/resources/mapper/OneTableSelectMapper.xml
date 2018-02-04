@@ -77,4 +77,24 @@
         </trim>
     </select>
 
+    <select id="selectVaCustVirtualAcctInfo" parameterType="hashMap"  resultType="hashMap" >
+        select
+            vir_acct_id,cust_id,plat_id,
+            vir_acct_type,vir_acct_sort,
+            vir_acct_name,user_id,currency,
+            acct_status,rel_bank_acct,
+            is_in,is_out,is_total_limit,
+            total_limit,is_balance_limit,
+            balance_type,balance_value,
+            open_date,open_user,
+            cancel_date,update_date,
+            source_user,effect_date,cust_name
+        from va_cust_virtual_acct
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+        </trim>
+    </select>
+
 </mapper>

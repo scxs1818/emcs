@@ -1,4 +1,4 @@
-package com.emcs.serviceImpl.busniess;
+package com.emcs.serviceImpl.busniess.register;
 
 import com.emcs.Super.ServiceTransactionalY;
 import com.emcs.common.BusiCommon;
@@ -20,6 +20,8 @@ public class MerchRegister extends ServiceTransactionalY{
         //1.非空和域合法性校验
 
         //2.数据库级的校验
+        param.put("status","N");
+        if(oneSelect.selectIsExistVaPlatInfo(param)==0)throw new BusiException("交易平台不存在或者处于异常状态","600003");
         if(oneSelect.selectIsExistVaMerchInfo(param)>0)throw new BusiException("该商户已经注册","600004");
 
         //3.生成商户编号

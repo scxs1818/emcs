@@ -34,9 +34,9 @@ public abstract class ServiceTransactionalY {
     protected ManyTableDMLMapper manyDML;
     protected CommonResult result = new CommonResult();
     protected CommonResult before(Map<String, Object> param){
-        Map sysMap = (Map)param.get("SYS_HEAD");
-        param.put("TRAN_DATE",sysMap.get("TRAN_DATE"));
-        oneDML.insertVaCustAccInfo(param);
+//        Map sysMap = (Map)param.get("SYS_HEAD");
+//        param.put("TRAN_DATE",sysMap.get("TRAN_DATE"));
+//        oneDML.insertVaCustAccInfo(param);
         return null;
     }
     protected CommonResult after(Map<String, Object> param){
@@ -51,6 +51,7 @@ public abstract class ServiceTransactionalY {
             result.setMsg("交易成功");
             result.setStatus("S");
         }catch(Exception e){
+            e.printStackTrace();
             result.setMsg(e.getMessage());
             result.setStatus("F");
             if(e instanceof BusiException)throw e;
