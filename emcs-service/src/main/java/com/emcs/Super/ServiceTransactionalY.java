@@ -37,9 +37,6 @@ public abstract class ServiceTransactionalY {
         Map sysMap = (Map)param.get("SYS_HEAD");
         param.put("TRAN_DATE",sysMap.get("TRAN_DATE"));
         oneDML.insertVaCustAccInfo(param);
-
-
-
         return null;
     }
     protected CommonResult after(Map<String, Object> param){

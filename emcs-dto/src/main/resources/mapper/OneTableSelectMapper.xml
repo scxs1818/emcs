@@ -42,7 +42,6 @@
     </select>
 
     <select id="selectMerchInfo" parameterType="hashMap"  resultType="hashMap" >
-        
         select
             merch_id,merch_name,plat_id,
             legal_person,status,payment_type,
@@ -61,7 +60,6 @@
     </select>
 
     <select id="selectPlatInfo" parameterType="hashMap"  resultType="hashMap" >
-        
         select
             plat_id,pay_merch_id,plat_name,
             legal_person,status,payment_type,

@@ -1,4 +1,4 @@
-package com.emcs.mapper.common;
+package com.emcs.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
