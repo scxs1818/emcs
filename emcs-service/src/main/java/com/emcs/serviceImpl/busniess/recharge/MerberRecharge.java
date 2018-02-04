@@ -1,6 +1,6 @@
 package com.emcs.serviceImpl.busniess.recharge;
 import com.emcs.Super.ServiceTransactionalY;
-import com.emcs.common.BusiCommon;
+import com.emcs.Constant.BusiCommon;
 import com.emcs.exception.BusiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ public class MerberRecharge extends ServiceTransactionalY{
 
         //2.数据库级校验
         param.put("status","N");//正常
+        param.put("acct_status","N");
         if(oneSelect.selectIsExistVaPlatInfo(param)==0)throw new BusiException("交易平台不存在或者处于异常状态","600003");
 
         if(BusiCommon.ROLE_CUST.equals(param.get("role_type"))){

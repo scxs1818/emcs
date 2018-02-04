@@ -22,20 +22,18 @@ public abstract class ServiceTransactionalN {
     public ManyTableSelectMapper manySelect;
     @Resource
     public ManyTableDMLMapper manyDML;
-    public Map<String, Object> param;
     public CommonResult result;
-    private CommonResult before(){
+    private CommonResult before(Map<String, Object> param){
         return null;
     }
-    private CommonResult after(){
+    private CommonResult after(Map<String, Object> param){
         return null;
     }
     public CommonResult doService(Map<String, Object> param){
-        this.param = param;
-        before();
-        result = process();
-        after();
+        before(param);
+        result = process(param);
+        after(param);
         return result;
     }
-    protected abstract CommonResult process();
+    protected abstract CommonResult process(Map<String, Object> param);
 }

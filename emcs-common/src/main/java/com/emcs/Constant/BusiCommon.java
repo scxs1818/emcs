@@ -1,4 +1,4 @@
-package com.emcs.common;
+package com.emcs.Constant;
 
 /**
  * Created by Administrator on 2018/2/3.
@@ -12,6 +12,11 @@ public class BusiCommon {
     public static final int SEQ_NO_CUST_LENGTH = 12;
     public static final int SEQ_NO_CUST_BAN_LENGTH = 12;
     public static final int SEQ_NO_CUST_VIR_LENGTH = 12;
+
+    public static final String CACHE_VA_VIRTUAL_ACCT_TYPE = "va_virtual_acct_type";
+    public static final String CACHE_CM_SYSTEM = "cm_system ";
+    public static final String CACHE_CM_BUSINESS_PARA = "cm_business_para";
+
 
     public static final String SEQ_NAME_MERCH = "MERCH_SEQ_NO";
     public static final String SEQ_NAME_PLAT = "PLAT_SEQ_NO";

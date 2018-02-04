@@ -1,10 +1,9 @@
 package com.emcs.serviceImpl.busniess.register;
 
 import com.emcs.Super.ServiceTransactionalY;
-import com.emcs.common.BusiCommon;
+import com.emcs.Constant.BusiCommon;
 import com.emcs.exception.BusiException;
 import com.emcs.tool.ServiceUtil;
-import com.emcs.util.CommonResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
