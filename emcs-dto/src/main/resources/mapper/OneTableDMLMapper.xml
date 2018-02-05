@@ -1,58 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.emcs.mapper.OneTableDMLMapper" >
-
+    <!---注册平台信息-->
     <insert id="insertVaPlatInfo" parameterType="hashMap" >
         insert into va_plat_info
         (
-        plat_id,pay_merch_id,plat_name,
-        legal_person,status,payment_type,
-        global_type,global_id,tel_no,
-        email,adress,url,create_date,
-        create_user,update_date,update_user,
-        cancel_date,cancel_user,effect_date,
-        source_type,remark,plat_type,
-        plat_level,allow_user,allow_date,allow_status
+            plat_id,pay_merch_id,plat_name,
+            legal_person,status,payment_type,
+            global_type,global_id,tel_no,
+            email,adress,url,create_date,
+            create_user,update_date,update_user,
+            cancel_date,cancel_user,effect_date,
+            source_type,remark,plat_type,
+            plat_level,allow_user,allow_date,allow_status
         )
         values
         (
-        #{plat_id},#{pay_merch_id},#{plat_name},
-        #{legal_person},#{status},#{payment_type},
-        #{global_type},#{global_id},#{tel_no},
-        #{email},#{adress},#{url},
-        #{create_date},#{create_user},
-        #{update_date},#{update_user},
-        #{cancel_date},#{cancel_user},
-        #{effect_date},#{source_type},
-        #{remark},#{plat_type},
-        #{plat_level},#{allow_user},
-        #{allow_date},#{allow_status}
+            #{plat_id},#{pay_merch_id},#{plat_name},
+            #{legal_person},#{status},#{payment_type},
+            #{global_type},#{global_id},#{tel_no},
+            #{email},#{adress},#{url},
+            #{create_date},#{create_user},
+            #{update_date},#{update_user},
+            #{cancel_date},#{cancel_user},
+            #{effect_date},#{source_type},
+            #{remark},#{plat_type},
+            #{plat_level},#{allow_user},
+            #{allow_date},#{allow_status}
         )
     </insert>
 
+    <!---注册平台虚拟账户-->
     <insert id="insertVaPlatVirtualAcctBal" parameterType="hashMap">
         insert into va_plat_virtual_acct_bal
-        (
-        vir_acct_id,
-        vir_acct_type,
-        plat_id,
-        actural_bal,
-        usable_bal,
-        freeze_bal,
-        recharge_bal
-        )
+          ( vir_acct_id, vir_acct_type,plat_id, actural_bal,usable_bal,freeze_bal, recharge_bal)
         values
-        (
-        #{vir_acct_id},
-        #{vir_acct_type},
-        #{plat_id},
-        #{actural_bal},
-        #{usable_bal},
-        #{freeze_bal},
-        #{recharge_bal}
-        )
+          (#{vir_acct_id}, #{vir_acct_type}, #{plat_id}, #{actural_bal},#{usable_bal},#{freeze_bal}, #{recharge_bal})
     </insert>
 
+    <!---扣减平台虚拟账户余额-->
     <update id="updateVaPlatVirtualAcctBalSub" parameterType="hashMap">
         update va_merch_virtual_acct_bal set
         actural_bal = actural_bal - #{tran_amt},
@@ -65,6 +51,7 @@
         </trim>
     </update>
 
+    <!---增加平台虚拟账户余额-->
     <update id="updateVaPlatVirtualAcctBalAdd" parameterType="hashMap">
         update va_merch_virtual_acct_bal set
         actural_bal = actural_bal + #{tran_amt},
@@ -77,81 +64,84 @@
         </trim>
     </update>
 
-
+    <!---注册平台虚拟账户-->
     <insert id="insertVaPlatVirtualAcct" parameterType="hashMap">
         insert into va_plat_virtual_acct
         (
-        vir_acct_id,plat_id,
-        vir_acct_type,vir_acct_sort,
-        vir_acct_name,currency,
-        acct_status,rel_bank_acct,
-        is_in,is_out,is_total_limit,
-        total_limit,is_balance_limit,
-        balance_type,balance_value,
-        open_date,open_user,
-        cancel_date,update_date,
-        source_user,effect_date,plat_name
+            vir_acct_id,plat_id,
+            vir_acct_type,vir_acct_sort,
+            vir_acct_name,currency,
+            acct_status,rel_bank_acct,
+            is_in,is_out,is_total_limit,
+            total_limit,is_balance_limit,
+            balance_type,balance_value,
+            open_date,open_user,
+            cancel_date,update_date,
+            source_user,effect_date,plat_name
         )
         values
         (
-        #{vir_acct_id},#{plat_id},
-        #{vir_acct_type},#{vir_acct_sort},
-        #{vir_acct_name},#{currency},
-        #{acct_status},#{rel_bank_acct},
-        #{is_in},#{is_out},#{is_total_limit},
-        #{total_limit},#{is_balance_limit},
-        #{balance_type},#{balance_value},
-        #{open_date},#{open_user},
-        #{cancel_date},#{update_date},
-        #{source_user},#{effect_date},#{plat_name}
+            #{vir_acct_id},#{plat_id},
+            #{vir_acct_type},#{vir_acct_sort},
+            #{vir_acct_name},#{currency},
+            #{acct_status},#{rel_bank_acct},
+            #{is_in},#{is_out},#{is_total_limit},
+            #{total_limit},#{is_balance_limit},
+            #{balance_type},#{balance_value},
+            #{open_date},#{open_user},
+            #{cancel_date},#{update_date},
+            #{source_user},#{effect_date},#{plat_name}
         )
     </insert>
 
+    <!---给平台绑定银行账户信息-->
     <insert id="insertVaPlatAccInfo" parameterType="hashMap">
         insert into va_plat_acct_info
         (
-        acct_id,plat_id,acct_type,
-        acct_no,acct_name,is_this_bank,
-        acct_br_no,acct_br_name,currency,
-        update_date,update_user,acct_status,acct_category
+            acct_id,plat_id,acct_type,
+            acct_no,acct_name,is_this_bank,
+            acct_br_no,acct_br_name,currency,
+            update_date,update_user,acct_status,acct_category
         )
         values
         (
-        #{acct_id},#{plat_id},#{acct_type},
-        #{acct_no},#{acct_name},#{is_this_bank},
-        #{acct_br_no},#{acct_br_name},#{currency},
-        #{update_date},#{update_user},#{acct_status},#{acct_category}
+            #{acct_id},#{plat_id},#{acct_type},
+            #{acct_no},#{acct_name},#{is_this_bank},
+            #{acct_br_no},#{acct_br_name},#{currency},
+            #{update_date},#{update_user},#{acct_status},#{acct_category}
         )
     </insert>
 
+    <!---注册商户信息-->
     <insert id="insertVaMerchInfo" parameterType="hashMap" >
         insert into va_merch_info
         (
-        merch_id,merch_name,pay_merch_id,plat_id,
-        legal_person,status,payment_type,
-        global_type,global_id,tel_no,
-        email,adress,url,create_date,
-        create_user,update_date,update_user,
-        cancel_date,cancel_user,effect_date,
-        source_type,remark,merch_type,
-        merch_level,allow_user,allow_date,allow_status
+            merch_id,merch_name,pay_merch_id,plat_id,
+            legal_person,status,payment_type,
+            global_type,global_id,tel_no,
+            email,adress,url,create_date,
+            create_user,update_date,update_user,
+            cancel_date,cancel_user,effect_date,
+            source_type,remark,merch_type,
+            merch_level,allow_user,allow_date,allow_status
         )
         values
         (
-        #{merch_id},#{merch_name},#{pay_merch_id},#{plat_id},
-        #{legal_person},#{status},#{payment_type},
-        #{global_type},#{global_id},#{tel_no},
-        #{email},#{adress},#{url},
-        #{create_date},#{create_user},
-        #{update_date},#{update_user},
-        #{cancel_date},#{cancel_user},
-        #{effect_date},#{source_type},
-        #{remark},#{merch_type},
-        #{merch_level},#{allow_user},
-        #{allow_date},#{allow_status}
+            #{merch_id},#{merch_name},#{pay_merch_id},#{plat_id},
+            #{legal_person},#{status},#{payment_type},
+            #{global_type},#{global_id},#{tel_no},
+            #{email},#{adress},#{url},
+            #{create_date},#{create_user},
+            #{update_date},#{update_user},
+            #{cancel_date},#{cancel_user},
+            #{effect_date},#{source_type},
+            #{remark},#{merch_type},
+            #{merch_level},#{allow_user},
+            #{allow_date},#{allow_status}
         )
     </insert>
 
+    <!---给商户绑定银行账户信息-->
     <insert id="insertVaMerchAccInfo" parameterType="hashMap">
         insert into va_merch_acct_info
         (
@@ -169,29 +159,15 @@
         )
     </insert>
 
+    <!---注册商户虚拟账户余额信息-->
     <insert id="insertVaMerchVirtualAcctBal" parameterType="hashMap">
         insert into va_merch_virtual_acct_bal
-        (
-        vir_acct_id,
-        vir_acct_type,
-        merch_id,
-        actural_bal,
-        usable_bal,
-        freeze_bal,
-        recharge_bal
-        )
+          ( vir_acct_id, vir_acct_type,merch_id,actural_bal,usable_bal,freeze_bal,recharge_bal )
         values
-        (
-        #{vir_acct_id},
-        #{vir_acct_type},
-        #{merch_id},
-        #{actural_bal},
-        #{usable_bal},
-        #{freeze_bal},
-        #{recharge_bal}
-        )
+          ( #{vir_acct_id},#{vir_acct_type}, #{merch_id},#{actural_bal},#{usable_bal}, #{freeze_bal},#{recharge_bal})
     </insert>
 
+    <!---扣减商户虚拟账户余额-->
     <update id="insertVaMerchVirtualAcctBalSub" parameterType="hashMap">
         update va_merch_virtual_acct_bal set
             actural_bal = actural_bal - #{tran_amt},
@@ -204,6 +180,7 @@
         </trim>
     </update>
 
+    <!---增加商户虚拟账户余额-->
     <update id="insertVaMerchVirtualAcctBalAdd" parameterType="hashMap">
         update va_merch_virtual_acct_bal set
             actural_bal = actural_bal + #{tran_amt},
@@ -216,127 +193,79 @@
         </trim>
     </update>
 
+    <!---注册商户虚拟账户-->
     <insert id="insertVaMerchVirtualAcct" parameterType="hashMap">
         insert into va_merch_virtual_acct
         (
-        vir_acct_id,merch_id,plat_id,
-        vir_acct_type,vir_acct_sort,
-        vir_acct_name,currency,
-        acct_status,rel_bank_acct,
-        is_in,is_out,is_total_limit,
-        total_limit,is_balance_limit,
-        balance_type,balance_value,
-        open_date,open_user,
-        cancel_date,update_date,
-        source_user,effect_date,merch_name
+            vir_acct_id,merch_id,plat_id,
+            vir_acct_type,vir_acct_sort,
+            vir_acct_name,currency,
+            acct_status,rel_bank_acct,
+            is_in,is_out,is_total_limit,
+            total_limit,is_balance_limit,
+            balance_type,balance_value,
+            open_date,open_user,
+            cancel_date,update_date,
+            source_user,effect_date,merch_name
         )
         values
         (
-        #{vir_acct_id},#{merch_id},#{plat_id},
-        #{vir_acct_type},#{vir_acct_sort},
-        #{vir_acct_name},#{currency},
-        #{acct_status},#{rel_bank_acct},
-        #{is_in},#{is_out},#{is_total_limit},
-        #{total_limit},#{is_balance_limit},
-        #{balance_type},#{balance_value},
-        #{open_date},#{open_user},
-        #{cancel_date},#{update_date},
-        #{source_user},#{effect_date},#{merch_name}
+            #{vir_acct_id},#{merch_id},#{plat_id},
+            #{vir_acct_type},#{vir_acct_sort},
+            #{vir_acct_name},#{currency},
+            #{acct_status},#{rel_bank_acct},
+            #{is_in},#{is_out},#{is_total_limit},
+            #{total_limit},#{is_balance_limit},
+            #{balance_type},#{balance_value},
+            #{open_date},#{open_user},
+            #{cancel_date},#{update_date},
+            #{source_user},#{effect_date},#{merch_name}
         )
     </insert>
 
+    <!--注册会员信息-->
     <insert id="insertVaCustInfo" parameterType="hashMap" >
         insert into va_cust_info
         (
-        cust_id,cust_name,plat_id,user_id,
-        status,
-        global_type,global_id,tel_no,
-        email,adress,create_date,
-        create_user,update_date,update_user,
-        cancel_date,cancel_user,effect_date,
-        source_type,remark,cust_type,
-        cust_level,allow_user,allow_date,allow_status
+            cust_id,cust_name,plat_id,user_id,
+            global_type,global_id,tel_no,
+            email,adress,create_date,status,
+            create_user,update_date,update_user,
+            cancel_date,cancel_user,effect_date,
+            source_type,remark,cust_type,
+            cust_level,allow_user,allow_date,allow_status
         )
         values
         (
-        #{cust_id},#{cust_name},#{plat_id},#{user_id},
-        #{status},
-        #{global_type},#{global_id},#{tel_no},
-        #{email},#{adress},
-        #{create_date},#{create_user},
-        #{update_date},#{update_user},
-        #{cancel_date},#{cancel_user},
-        #{effect_date},#{source_type},
-        #{remark},#{cust_type},
-        #{cust_level},#{allow_user},
-        #{allow_date},#{allow_status}
+            #{cust_id},#{cust_name},#{plat_id},#{user_id},
+            #{global_type},#{global_id},#{tel_no},
+            #{email},#{adress}, #{create_date}, #{status},
+            #{create_user}, #{update_date},#{update_user},
+            #{cancel_date},#{cancel_user}, #{effect_date},
+            #{source_type}, #{remark},#{cust_type},
+             #{cust_level},#{allow_user},#{allow_date},#{allow_status}
         )
     </insert>
 
+    <!--给会员绑定银行账户信息-->
     <insert id="insertVaCustAccInfo" parameterType="hashMap">
         insert into va_cust_acct_info
         (
-        acct_id,cust_id,acct_type,
-        acct_no,acct_name,is_this_bank,
-        acct_br_no,acct_br_name,currency,
-        update_date,update_user,acct_status,acct_category
+            acct_id,cust_id,acct_type,
+            acct_no,acct_name,is_this_bank,
+            acct_br_no,acct_br_name,currency,
+            update_date,update_user,acct_status,acct_category
         )
         values
         (
-        #{acct_id},#{cust_id},#{acct_type},
-        #{acct_no},#{acct_name},#{is_this_bank},
-        #{acct_br_no},#{acct_br_name},#{currency},
-        #{update_date},#{update_user},#{acct_status},#{acct_category}
+            #{acct_id},#{cust_id},#{acct_type},
+            #{acct_no},#{acct_name},#{is_this_bank},
+            #{acct_br_no},#{acct_br_name},#{currency},
+            #{update_date},#{update_user},#{acct_status},#{acct_category}
         )
     </insert>
 
-    <insert id="insertVaCustVirtualAcctBal" parameterType="hashMap">
-        insert into va_cust_virtual_acct_bal
-        (
-        vir_acct_id,
-        vir_acct_type,
-        cust_id,
-        actural_bal,
-        usable_bal,
-        freeze_bal,
-        recharge_bal
-        )
-        values
-        (
-        #{vir_acct_id},
-        #{vir_acct_type},
-        #{cust_id},
-        #{actural_bal},
-        #{usable_bal},
-        #{freeze_bal},
-        #{recharge_bal}
-        )
-    </insert>
-
-    <insert id="updateVaCustVirtualAcctBalAdd" parameterType="hashMap">
-        update va_cust_virtual_acct_bal SET
-            actural_bal = actural_bal + #{tran_amt},
-            usable_bal = usable_bal + #{usable_bal},
-            recharge_bal = recharge_bal + #{recharge_bal}
-        <trim prefix="where" prefixOverrides="and">
-            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
-            <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
-            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
-        </trim>
-    </insert>
-
-    <insert id="updateVaCustVirtualAcctBalSub" parameterType="hashMap">
-        update va_cust_virtual_acct_bal SET
-            actural_bal = actural_bal - #{tran_amt},
-            usable_bal = usable_bal - #{usable_bal},
-            recharge_bal = recharge_bal - #{recharge_bal}
-        <trim prefix="where" prefixOverrides="and">
-            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
-            <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
-            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
-        </trim>
-    </insert>
-
+    <!--注册会员虚拟账户-->
     <insert id="insertVaCustVirtualAcct" parameterType="hashMap">
         insert into va_cust_virtual_acct
         (
@@ -366,35 +295,92 @@
         )
     </insert>
 
-    <insert id="insertCmTranSeq" parameterType="hashMap">
-        insert into cm_tran_seq
-        (
-        tran_seq,tran_date,tran_time,
-        sys_date,channel_code,
-        source_type,tran_type,business_code,
-        user_id,plat_id,
-        merch_id,cust_id,acct_no,
-        currency,tran_amt,
-        branch_id,msg_type,
-        msg_code,tran_status,
-        ret_code,resp_code,
-        fail_reason
-        )
+    <!--注册会员虚拟账户余额信息-->
+    <insert id="insertVaCustVirtualAcctBal" parameterType="hashMap">
+        insert into va_cust_virtual_acct_bal
+          ( vir_acct_id,vir_acct_type,cust_id,actural_bal,usable_bal,freeze_bal,recharge_bal)
         values
+          ( #{vir_acct_id}, #{vir_acct_type},#{cust_id},#{actural_bal}, #{usable_bal}, #{freeze_bal},#{recharge_bal})
+    </insert>
+
+    <!--增加会员虚拟账户余额-->
+    <insert id="updateVaCustVirtualAcctBalAdd" parameterType="hashMap">
+        update va_cust_virtual_acct_bal SET
+            actural_bal = actural_bal + #{tran_amt},
+            usable_bal = usable_bal + #{usable_bal},
+            recharge_bal = recharge_bal + #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
+            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+        </trim>
+    </insert>
+
+    <!--扣减会员虚拟账户余额-->
+    <update id="updateVaCustVirtualAcctBalSub" parameterType="hashMap">
+        update va_cust_virtual_acct_bal SET
+            actural_bal = actural_bal - #{tran_amt},
+            usable_bal = usable_bal - #{usable_bal},
+            recharge_bal = recharge_bal - #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
+            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+        </trim>
+    </update>
+
+    <!--插入会员充值明细-->
+    <insert id="insertVaCustRechargeDetail" parameterType="hashMap">
+        insert into va_cust_recharge_detail
         (
-        #{tran_seq},#{tran_date},#{tran_time},
-        #{sys_date},#{channel_code},
-        #{source_type},#{tran_type},#{business_code},
-        #{user_id},#{plat_id},
-        #{merch_id},#{cust_id},#{acct_no},
-        #{currency},#{tran_amt},
-        #{branch_id},#{msg_type},
-        #{msg_code},#{tran_status},
-        #{ret_code},#{resp_code},
-        #{fail_reason}
+            order_no,order_no_old,cust_id,plat_id,
+            vir_acct_id,tran_type,tran_amt,tran_status,tran_date
+        ) values (
+            #{order_no},#{order_no_old},#{cust_id},#{plat_id},
+            #{vir_acct_id},#{tran_type},#{tran_amt},#{tran_status},#{tran_date}
         )
     </insert>
 
+    <!--插入交易公共流水-->
+    <insert id="insertCmTranSeq" parameterType="hashMap">
+        insert into cm_tran_seq
+        (
+            tran_seq,tran_date,tran_time,
+            sys_date,channel_code,
+            source_type,tran_type,business_code,
+            user_id,plat_id,
+            merch_id,cust_id,acct_no,
+            currency,tran_amt,
+            branch_id,msg_type,
+            msg_code,tran_status,
+            ret_code,resp_code,
+            fail_reason
+        )
+        values
+        (
+            #{tran_seq},#{tran_date},#{tran_time},
+            #{sys_date},#{channel_code},
+            #{source_type},#{tran_type},#{business_code},
+            #{user_id},#{plat_id},
+            #{merch_id},#{cust_id},#{acct_no},
+            #{currency},#{tran_amt},
+            #{branch_id},#{msg_type},
+            #{msg_code},#{tran_status},
+            #{ret_code},#{resp_code},
+            #{fail_reason}
+        )
+    </insert>
+
+    <!--更新交易公共流水-->
+    <update id="updateCmTranSeq" parameterType="hashMap">
+        update into cm_tran_seq SET
+            msg_code=#{msg_code},tran_status=#{tran_status},
+            ret_code=#{ret_code},resp_code=#{resp_code},
+            fail_reason=#{fail_reason}
+        where tran_seq=#{tran_seq}
+    </update>
+
+    <!--插入银行账务流水-->
     <insert id="insertCmAcctTranSeq" parameterType="hashMap">
         insert into cm_acct_tran_seq (
             tran_seq_no,tran_date,tran_time,curreny,tran_amt,tran_type,business_code,
@@ -416,6 +402,7 @@
             #{reversed},#{oper_time},#{user_id},#{contrast},#{refund_status})
     </insert>
 
+    <!--更新银行账务流水-->
     <update id="updateCmAcctTranSeq" parameterType="hashMap">
         update cm_acct_tran_seq set
             tran_status= #{tran_status},ret_code=#{ret_code},
@@ -430,8 +417,9 @@
         </trim>
     </update>
 
+    <!--插入虚拟账务流水-->
     <insert id="insertVaVirAcctSeq" parameterType="hashMap">
-        insert into va_order_acct_seq (
+        insert into va_vir_acct_seq (
             order_acct_seq_no,order_no,order_no_old,
             cm_seq_no, plat_id,buyer_id,buyer_virid,
             buyer_sort, seller_id, seller_virid,seller_sort,
@@ -446,8 +434,9 @@
             )
     </insert>
 
+    <!--更新虚拟账务流水-->
     <update id="updateVaVirAcctSeq" parameterType="hashMap">
-        update va_order_acct_seq set tran_status=#{tran_status}
+        update va_vir_acct_seq set tran_status=#{tran_status}
         <trim prefix="where" prefixOverrides="and">
             <if test="tran_type !=null and tran_type!='' ">and tran_type=#{tran_type}</if>
             <if test="tran_status !=null and tran_status!='' ">and tran_status=#{tran_status}</if>

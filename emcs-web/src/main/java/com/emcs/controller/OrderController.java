@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2018/2/4.8*/
- @RequestMapping("/purchase")
+ * 订单
+ * Created by Administrator on 2018/2/4.8
+ * */
+ @RequestMapping("/order")
  @RestController
-public class PurchaseController {
+public class OrderController {
 
     @Autowired
     PlatformRegister plat;
@@ -24,18 +26,18 @@ public class PurchaseController {
     @Autowired
     CustRegister cust;
 
-    @RequestMapping("/plat")
-    public CommonResult platRegister(@RequestParam Map<String,Object> param) {
-        return  plat.doService(param);
-    }
-
-    @RequestMapping("/merch")
-    public CommonResult merchRegister(@RequestParam Map<String,Object> param) {
+    @RequestMapping("/apply")
+    public CommonResult purchaseApply(@RequestParam Map<String,Object> param) {
         return  merch.doService(param);
     }
 
-    @RequestMapping("/cust")
-    public CommonResult custRegister(@RequestParam Map<String,Object> param) {
+    @RequestMapping("/revoke")
+    public CommonResult purchaseRevoke(@RequestParam Map<String,Object> param) {
+        return  cust.doService(param);
+    }
+
+    @RequestMapping("/confirm")
+    public CommonResult purchaseConfirm(@RequestParam Map<String,Object> param) {
         return  cust.doService(param);
     }
 }

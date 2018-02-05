@@ -1,4 +1,4 @@
-package com.emcs.serviceImpl.busniess.recharge;
+package com.emcs.serviceImpl.busniess.withDraw;
 
 import com.emcs.Super.ServiceTransactionalY;
 import com.emcs.exception.BusiException;
@@ -7,17 +7,15 @@ import com.emcs.serviceImpl.busniess.common.SendCorePay;
 import com.emcs.serviceImpl.busniess.common.SendNetPay;
 import com.emcs.serviceImpl.busniess.common.UpdateCmAcctTranSeq;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2018/2/4.
+ * Created by Administrator on 2018/2/5.
  */
-@Service
-public class MerchRecharge extends ServiceTransactionalY{
+public class MerchWithdraw extends ServiceTransactionalY {
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired

@@ -15,7 +15,11 @@ public interface OneTableSelectMapper{
     int selectIsExistVaCustInfo(Map<String, Object> param);
 
     List<Map<String,Object>> selectPlatInfo(Map<String, Object> param);
+
     List<Map<String,Object>> selectMerchInfo(Map<String, Object> param);
+    List<Map<String,Object>> selectVaMerchVirtualAcctInfo(Map<String, Object> param);
+    List<Map<String,Object>> selectVaMerchRechargeAmtDay(Map<String, Object> param);
+
 
     List<Map<String,Object>> selectVaCustVirtualAcctInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustRechargeDetail(Map<String, Object> param);

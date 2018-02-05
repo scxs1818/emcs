@@ -10,6 +10,11 @@ package com.emcs.controller;
         import org.springframework.web.bind.annotation.RestController;
 
         import java.util.Map;
+
+/**
+ * 注册
+ * Created by Administrator on 2018/2/5.
+ */
 @RequestMapping("/register")
 @RestController
 public class RegisterController {

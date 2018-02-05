@@ -13,6 +13,6 @@ import java.util.Map;
 public class SendNetPay extends ServiceTransactionalN{
     @Override
     public void process(Map<String, Object> param) {
-
+        //待补充
     }
 }

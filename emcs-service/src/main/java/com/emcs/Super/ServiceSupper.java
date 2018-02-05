@@ -9,15 +9,17 @@ import com.emcs.mapper.OneTableSelectMapper;
 import com.emcs.pub.runtime.core.Logger;
 import com.emcs.pub.runtime.core.LoggerFactory;
 import com.emcs.util.CommonResult;
+import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2018/2/4.
  */
+@Service
 abstract class ServiceSupper {
     protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
-
     @Resource
     protected OneTableSelectMapper oneSelect;
     @Resource
