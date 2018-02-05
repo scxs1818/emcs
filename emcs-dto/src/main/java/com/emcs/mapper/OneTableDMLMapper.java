@@ -32,4 +32,11 @@ public interface OneTableDMLMapper{
 
     int insertCmTranSeq(Map<String,Object> params);
     int updateCmTranSeq(Map<String,Object> params);
+
+    int insertVaOrderInfo(Map<String,Object> params);
+    int updateVaOrderInfo(Map<String,Object> params);
+
+    int insertVaVirAcctSeq(Map<String,Object> params);
+    int updateVaVirAcctSeq(Map<String,Object> params);
+
 }
