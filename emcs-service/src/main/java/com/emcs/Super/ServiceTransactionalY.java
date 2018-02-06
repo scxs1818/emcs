@@ -7,6 +7,7 @@ import com.emcs.mapper.OneTableDMLMapper;
 import com.emcs.mapper.OneTableSelectMapper;
 import com.emcs.pub.runtime.core.Logger;
 import com.emcs.pub.runtime.core.LoggerFactory;
+import com.emcs.tool.DataBaseOperate;
 import com.emcs.tool.ServiceUtil;
 import com.emcs.util.CommonResult;
 import org.apache.commons.logging.Log;
