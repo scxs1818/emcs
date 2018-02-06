@@ -4,8 +4,6 @@ package com.emcs;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
 
 /**
  * Created by edianzu on 2018/1/22.
@@ -24,6 +22,8 @@ public class TestValidation {
 
     public static void main(String[] args) {
         Map<String,Object> rule = new HashMap<String,Object>();
+
+
 
     }
 
