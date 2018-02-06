@@ -11,15 +11,8 @@ import java.io.RandomAccessFile;
 public class MakeCreateTable {
     public static void main(String[] args) {
         File file =new File(Class.class.getClass().getResource("/").getPath());
-        System.out.print(file);
-        String dir =  file.getParent();
-        File file1 = new File(dir);
-        String dir2 = file1.getParent();
-        File file2 = new File(dir2+"/dbScript/tables");
-        System.out.print(file2);
-//        F:\gitw\emcs\emcs-web\dbScript\tables
-
-
+        String dir = new File(file.getParent()).getParent()+"/dbScript";
+        File file2 = new File(dir+"/tables");
         File[] files = file2.listFiles();
         RandomAccessFile raf = null;
         StringBuilder sb = new StringBuilder();
@@ -45,9 +38,9 @@ public class MakeCreateTable {
         }
 
         try {
-            File targe = new File(dir2+"/dbScript/total.sql");
+            File targe = new File(dir+"/total.sql");
             if(!targe.exists())targe.createNewFile();
-            raf = new RandomAccessFile(new File(dir2+"/dbScript/total.sql"),"rw");
+            raf = new RandomAccessFile(new File(dir+"/total.sql"),"rw");
             raf.writeBytes(sb.toString());
         }catch (Exception e){
             e.printStackTrace();

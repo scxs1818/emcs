@@ -1,24 +1,20 @@
-package com.emcs.serviceImpl.busniess.withDraw;
+package com.emcs.serviceImpl.busniess.order;
+
 import com.emcs.Constant.BusiConstant;
 import com.emcs.Super.ServiceTransactionalY;
 import com.emcs.exception.BusiException;
-import com.emcs.serviceImpl.busniess.recharge.CustRecharge;
-import com.emcs.serviceImpl.busniess.recharge.MerchRecharge;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 /**
- * Created by Administrator on 2018/2/5.
+ * Created by Administrator on 2018/2/6.
  */
-@Service
-public class MerberWithdraw extends ServiceTransactionalY{
-
+public class PurchaseRevoke extends ServiceTransactionalY{
     @Autowired
-    CustWithdraw custRecharge;
+    CustPurchaseRevoke custRevoke;
     @Autowired
-    MerchWithdraw merchRecharge;
+    MerchPurchaseRevoke merchRevoke;
     @Override
     protected void process(Map<String, Object> param) {
         //2.数据库级校验
@@ -28,10 +24,10 @@ public class MerberWithdraw extends ServiceTransactionalY{
 
         if(BusiConstant.ROLE_CUST.equals(param.get("role_type"))){
             param.put("cust_id",param.get("merber_id"));
-            custRecharge.process(param);
+            custRevoke.process(param);
         }else if(BusiConstant.ROLE_MERCH.equals(param.get("role_type"))){
             param.put("merch_id",param.get("merber_id"));
-            merchRecharge.process(param);
+            merchRevoke.process(param);
         }else{
             throw new BusiException("角色类型错误","600009");
         }

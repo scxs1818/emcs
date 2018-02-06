@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Administrator on 2018/2/4.
  */
 
-@RequestMapping("/bindCard")
+@RequestMapping("/card")
 @RestController
-public class BindCardController {
+public class CardController {
+
 
 
 

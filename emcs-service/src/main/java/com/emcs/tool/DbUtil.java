@@ -34,6 +34,10 @@ public class DbUtil {
         return dbUtil;
     }
 
+
+
+
+
     public Map<String,Object> selectVaCustVirtualAcctInfo(Map<String,Object> param){
         List<Map<String,Object>> virAccInfoList = oneSelect.selectVaCustVirtualAcctInfo(param);
         if(virAccInfoList!=null&&virAccInfoList.size()==0){

@@ -9,7 +9,7 @@ public interface FileConstant {
     /**
      *对账提示码
      */
-    public enum  ReconciliationEnumConstant implements EnumProperty{
+    enum  ReconciliationEnumConstant implements EnumProperty{
         RGB0F0R000("RGB0F0R000","RGB0F0R000","对账完成"),
         RGB0F0R001("RGB0F0R001","RGB0F0R001","对账开始"),
         RGB0F0R002("RGB0F0R002","RGB0F0R002","对账中"),
@@ -41,7 +41,7 @@ public interface FileConstant {
     /**
      * 清算提示码
      */
-    public enum RegisterEnumConstant implements EnumProperty {
+    enum RegisterEnumConstant implements EnumProperty {
 
         RGB0F0S000("RGB0F0S000","RGB0F0S000","清算完成"),
         RGB0F0S001("RGB0F0S001","RGB0F0S001","清算开始"),
@@ -63,12 +63,15 @@ public interface FileConstant {
         public String value(){
             return value;
         }
+
         public String code(){
             return code;
         }
+
         public String desc(){
             return desc;
         }
+
 
     }
 

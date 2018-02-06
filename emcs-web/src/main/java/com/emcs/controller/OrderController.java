@@ -1,5 +1,8 @@
 package com.emcs.controller;
 
+import com.emcs.serviceImpl.busniess.order.PurchaseApply;
+import com.emcs.serviceImpl.busniess.order.PurchaseConfirm;
+import com.emcs.serviceImpl.busniess.order.PurchaseRevoke;
 import com.emcs.serviceImpl.busniess.register.CustRegister;
 import com.emcs.serviceImpl.busniess.register.MerchRegister;
 import com.emcs.serviceImpl.busniess.register.PlatformRegister;
@@ -20,24 +23,24 @@ import java.util.Map;
 public class OrderController {
 
     @Autowired
-    PlatformRegister plat;
+    PurchaseApply apply;
     @Autowired
-    MerchRegister merch;
+    PurchaseRevoke revoke;
     @Autowired
-    CustRegister cust;
+    PurchaseConfirm confirm;
 
     @RequestMapping("/apply")
     public CommonResult purchaseApply(@RequestParam Map<String,Object> param) {
-        return  merch.doService(param);
+        return  apply.doService(param);
     }
 
     @RequestMapping("/revoke")
     public CommonResult purchaseRevoke(@RequestParam Map<String,Object> param) {
-        return  cust.doService(param);
+        return  revoke.doService(param);
     }
 
     @RequestMapping("/confirm")
     public CommonResult purchaseConfirm(@RequestParam Map<String,Object> param) {
-        return  cust.doService(param);
+        return  confirm.doService(param);
     }
 }
