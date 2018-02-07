@@ -1,7 +1,7 @@
 package com.emcs.serviceImpl.busniess.register;
 
 import com.emcs.Super.ServiceTransactionalY;
-import com.emcs.Constant.BusiConstant;
+import com.emcs.Constant.BusiConstant.*;
 import com.emcs.exception.BusiException;
 import com.emcs.tool.DataBaseOperate;
 import com.emcs.tool.ServiceUtil;
@@ -24,18 +24,18 @@ public class MerchRegister extends ServiceTransactionalY{
         if(oneSelect.selectIsExistVaPlatInfo(param)==0)throw new BusiException("交易平台不存在或者处于异常状态","600003");
         if(oneSelect.selectIsExistVaMerchInfo(param)>0)throw new BusiException("该商户已经注册","600004");
         //3.生成商户编号
-        String merchSeq = ServiceUtil.getSeqNo(oneSelect, BusiConstant.SEQ_NAME_MERCH, BusiConstant.SEQ_NO_MERCH_LENGTH);
+        String merchSeq = ServiceUtil.getSeqNo(oneSelect, Quence.MERCH.gname(),Quence.MERCH.length());
         String palt_id =  param.get("plat_id")+"";
         palt_id = palt_id.substring(1);//去掉首位,因为首位为标志位,剩下的才是序号
-        String merch_id = BusiConstant.ROLE_MERCH+palt_id+merchSeq;
+        String merch_id = Role.MERCH.vaue()+palt_id+merchSeq;
         param.put("merch_id",merch_id);
 
         //4.注册商户信息
         oneDML.insertVaMerchInfo(param);
 
         //5.生成商户银行账户编号
-        String acctSeq = ServiceUtil.getSeqNo(oneSelect, BusiConstant.SEQ_NAME_MERCH_BAN_ACC, BusiConstant.SEQ_NO_MERCH_BAN_LENGTH);
-        param.put("acct_id", BusiConstant.ACCT_BAN+merch_id);
+        String acctSeq = ServiceUtil.getSeqNo(oneSelect, Quence.MERCH_BANK.gname(),Quence.MERCH_BANK.length());
+        param.put("acct_id", AcctProperty.ACCT_BAN.value()+merch_id);
 
         //6.保存商户银行账户信息
         oneDML.insertVaMerchAccInfo(param);
@@ -45,8 +45,8 @@ public class MerchRegister extends ServiceTransactionalY{
         param.putAll(virAcctTypeList.get(0));
 
         //7.生产商户虚拟账户编号
-        String virSeq = ServiceUtil.getSeqNo(oneSelect, BusiConstant.SEQ_NAME_MERCH_VIR_ACC, BusiConstant.SEQ_NO_MERCH_VIR_LENGTH);
-        param.put("vir_acct_id", BusiConstant.ACCT_VIR+merch_id);
+        String virSeq = ServiceUtil.getSeqNo(oneSelect, Quence.MERCH_VIRT.gname(),Quence.MERCH_VIRT.length());
+        param.put("vir_acct_id", AcctProperty.ACCT_VIR.value()+merch_id);
 
         //8.注册虚拟账户信息
         oneDML.insertVaMerchVirtualAcct(param);

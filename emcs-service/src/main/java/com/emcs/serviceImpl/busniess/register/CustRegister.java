@@ -1,7 +1,7 @@
 package com.emcs.serviceImpl.busniess.register;
 
 import com.emcs.Super.ServiceTransactionalY;
-import com.emcs.Constant.BusiConstant;
+import com.emcs.Constant.BusiConstant.*;
 import com.emcs.exception.BusiException;
 import com.emcs.tool.ServiceUtil;
 import org.springframework.stereotype.Service;
@@ -20,13 +20,13 @@ public class CustRegister extends ServiceTransactionalY {
         if(oneSelect.selectIsExistVaCustInfo(param)>0)throw new BusiException("该会员信息已经存在","600004");
 
         //3.生成会员编号
-        String cust_id = BusiConstant.ROLE_CUST+ ServiceUtil.getSeqNo(oneSelect, BusiConstant.SEQ_NAME_CUST, BusiConstant.SEQ_NO_CUST_LENGTH);
+        String cust_id = Role.CUST+ ServiceUtil.getSeqNo(oneSelect, Quence.CUST.gname(), Quence.CUST.length());
         param.put("cust_id",cust_id);
 
         //4.注册会员信息
         oneDML.insertVaCustInfo(param);
 
-        String vir_acct_id = BusiConstant.ACCT_VIR+ BusiConstant.ROLE_CUST+ ServiceUtil.getSeqNo(oneSelect, BusiConstant.SEQ_CUST_MERCH_VIR_ACC, BusiConstant.SEQ_NO_CUST_VIR_LENGTH);
+        String vir_acct_id = AcctProperty.ACCT_VIR.value()+ Role.CUST.vaue()+ ServiceUtil.getSeqNo(oneSelect, Quence.CUST.gname(), Quence.CUST.length());
         param.put("vir_acct_id",vir_acct_id);
 
         param.put("vir_acct_type","301");
@@ -43,7 +43,7 @@ public class CustRegister extends ServiceTransactionalY {
         param.put("recharge_bal",0);
         oneDML.insertVaCustVirtualAcctBal(param);
 
-        String acct_id = BusiConstant.ACCT_BAN+ BusiConstant.ROLE_CUST+ ServiceUtil.getSeqNo(oneSelect, BusiConstant.SEQ_CUST_MERCH_BAN_ACC, BusiConstant.SEQ_NO_CUST_BAN_LENGTH);
+        String acct_id = AcctProperty.ACCT_BAN.value()+Role.PLAT.vaue()+ ServiceUtil.getSeqNo(oneSelect, Quence.PLAT_BANK.gname(), Quence.PLAT_BANK.length());
         param.put("acct_id",acct_id);
         //7.保存会员银行账户信息
         oneDML.insertVaCustAccInfo(param);

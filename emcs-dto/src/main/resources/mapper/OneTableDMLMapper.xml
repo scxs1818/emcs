@@ -421,14 +421,14 @@
     <insert id="insertVaVirAcctSeq" parameterType="hashMap">
         insert into va_vir_acct_seq (
             order_acct_seq_no,order_no,order_no_old,
-            cm_seq_no, plat_id,buyer_id,buyer_virid,
-            buyer_sort, seller_id, seller_virid,seller_sort,
+            tran_seq, plat_id,payer_id,payer_virid,
+            payer_sort, payee_id, payee_virid,payee_sort,
             pay_type,tran_amt,usable_bal,recharge_bal,
             tran_type,tran_status,tran_date,tran_time
             ) values (
             #{order_acct_seq_no}, #{order_no},#{order_no_old},
-            #{cm_seq_no},#{plat_id},#{buyer_id}, #{buyer_virid},
-            #{buyer_sort},#{seller_id},#{seller_virid}, #{seller_sort},
+            #{tran_seq},#{plat_id},#{payer_id}, #{payer_virid},
+            #{payer_sort},#{payee_id},#{payee_virid}, #{payee_sort},
             #{pay_type}, #{tran_amt}, #{usable_bal}, #{recharge_bal},
             #{tran_type}, #{tran_status}, #{tran_date},#{tran_time}
             )
@@ -441,15 +441,15 @@
             <if test="tran_type !=null and tran_type!='' ">and tran_type=#{tran_type}</if>
             <if test="tran_status !=null and tran_status!='' ">and tran_status=#{tran_status}</if>
             <if test="plat_id !=null and plat_id!='' ">and plat_id=#{plat_id}</if>
-            <if test="buyer_id !=null and buyer_id!='' ">and buyer_id=#{buyer_id}</if>
-            <if test="seller_virid !=null and seller_virid!='' ">and seller_virid=#{seller_virid}</if>
+            <if test="payer_id !=null and payer_id!='' ">and payer_id=#{payer_id}</if>
+            <if test="payee_virid !=null and payee_virid!='' ">and payee_virid=#{payee_virid}</if>
             <if test="tran_date !=null and tran_date!='' ">and tran_date=#{tran_date}</if>
-            <if test="cm_seq_no !=null and cm_seq_no!='' ">and cm_seq_no=#{cm_seq_no}</if>
+            <if test="tran_seq !=null and tran_seq!='' ">and cm_seq_no=#{tran_seq}</if>
             <if test="order_no_old !=null and order_no_old!='' "> and order_no_old=#{order_no_old}</if>
             <if test="order_no !=null and order_no!='' "> and order_no=#{order_no}</if>
             <if test="order_acct_seq_no !=null and order_acct_seq_no!='' ">and order_acct_seq_no=#{order_acct_seq_no}</if>
         </trim>
     </update>
-
+    
 
 </mapper>
