@@ -7,6 +7,7 @@ import com.emcs.serviceImpl.busniess.common.SendCorePay;
 import com.emcs.serviceImpl.busniess.common.SendNetPay;
 import com.emcs.serviceImpl.busniess.common.UpdateCmAcctTranSeq;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;

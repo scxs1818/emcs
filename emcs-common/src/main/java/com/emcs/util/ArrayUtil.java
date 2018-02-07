@@ -90,7 +90,6 @@ public final class ArrayUtil {
                     }
                 }
             }
-
             return false;
         }
     }

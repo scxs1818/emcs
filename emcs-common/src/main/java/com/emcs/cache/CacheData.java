@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import com.emcs.Constant.BusiConstant;
+import com.emcs.Constant.BusiConstant.*;
 import com.emcs.exception.BusiException;
 import com.emcs.mapper.OneTableSelectMapper;
 import org.apache.commons.logging.Log;
@@ -84,7 +84,6 @@ public class CacheData {
 
     /**从数据加载缓存*/
     private Map<String, Map<String, Object>> loadCache(OneTableSelectMapper oneSelect,String tableName,String sqlId) {
-        log.info("-----------dads----------tableName="+tableName);
         List<Map<String, Object>> list = loadtable(oneSelect,tableName);
         log.info("!!!!!!!!!!!!!list="+list);
         if(list==null||list.size()==0)return null;
@@ -108,14 +107,11 @@ public class CacheData {
 
     private List<Map<String,Object>> loadtable(OneTableSelectMapper oneSelect,String tableName) {
         List<Map<String,Object>> list = null;
-        if(BusiConstant.CACHE_VA_VIRTUAL_ACCT_TYPE.equals(tableName)){
-            log.info("122-----------------");
+        if(Cache.VA_VIRTUAL_ACCT_TYPE.vaue().equals(tableName)){
             list = oneSelect.selectVaVirtualAcctType(null);
-        }else if(BusiConstant.CACHE_CM_BUSINESS_PARA.equals(tableName)){
-            log.info("123-----------------");
+        }else if(Cache.CM_BUSINESS_PARA.vaue().equals(tableName)){
             list = oneSelect.selectCmBusinessParaForCache(null);
-        }else if(BusiConstant.CACHE_CM_SYSTEM.equals(tableName)){
-            log.info("124-----------------");
+        }else if(Cache.CM_SYSTEM.vaue().equals(tableName)){
             list = oneSelect.selectCmSystemForCache(null);
         }
         return list;
