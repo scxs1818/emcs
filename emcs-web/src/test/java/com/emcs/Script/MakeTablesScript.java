@@ -6,10 +6,9 @@ import java.io.RandomAccessFile;
 
 public class MakeTablesScript {
     public static void main(String[] args) {
-        File file =new File(Class.class.getClass().getResource("/").getPath());
-        String dir = new File(file.getParent()).getParent()+"/dbScript";
-        File file2 = new File(dir+"/tables");
-        File[] files = file2.listFiles();
+        String dir = SqlUtil.getDbScriptDir();
+        File file = new File(dir+"/tables");
+        File[] files = file.listFiles();
         RandomAccessFile raf = null,raf2 = null;
         StringBuilder sb = new StringBuilder();
         try {
@@ -38,4 +37,6 @@ public class MakeTablesScript {
             e.printStackTrace();
         }
     }
+
+
 }
