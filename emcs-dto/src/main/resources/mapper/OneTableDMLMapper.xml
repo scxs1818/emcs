@@ -345,28 +345,28 @@
     <insert id="insertCmTranSeq" parameterType="hashMap">
         insert into cm_tran_seq
         (
-            tran_seq,tran_date,tran_time,
-            sys_date,channel_code,
+            tran_seq,order_no,tran_date,tran_time,
+            channel_date,channel_seq_no,channel_code,
             source_type,tran_type,business_code,
             user_id,plat_id,
             merch_id,cust_id,acct_no,
             currency,tran_amt,
             branch_id,msg_type,
             msg_code,tran_status,
-            ret_code,resp_code,
+            ret_code,
             fail_reason
         )
         values
         (
             #{tran_seq},#{tran_date},#{tran_time},
-            #{sys_date},#{channel_code},
+            #{channel_date},#{channel_seq_no},#{channel_code},
             #{source_type},#{tran_type},#{business_code},
             #{user_id},#{plat_id},
             #{merch_id},#{cust_id},#{acct_no},
             #{currency},#{tran_amt},
             #{branch_id},#{msg_type},
             #{msg_code},#{tran_status},
-            #{ret_code},#{resp_code},
+            #{ret_code},
             #{fail_reason}
         )
     </insert>
