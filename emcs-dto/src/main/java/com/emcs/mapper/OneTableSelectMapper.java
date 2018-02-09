@@ -29,6 +29,7 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectCmSystemForCache(Map<String, Object> param);
 
     List<Map<String,Object>> selectVaVirAcctSeq(Map<String, Object> param);
-
+    List<Map<String,Object>> selectDbTableColumns(Object param);
+    List<Object> selectDbTables(Object param);
     int getNextVal(String sqeName);
 }

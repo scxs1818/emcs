@@ -51,7 +51,7 @@
             merch_id,merch_name,plat_id,
             legal_person,status,payment_type,
             global_type,global_id,tel_no,
-            email,adress,url,create_date,
+            email,address,url,create_date,
             create_user,update_date,update_user,
             cancel_date,cancel_user,effect_date,
             source_type,remark,merch_type,
@@ -70,7 +70,7 @@
             plat_id,pay_merch_id,plat_name,
             legal_person,status,payment_type,
             global_type,global_id,tel_no,
-            email,adress,url,create_date,
+            email,address,url,create_date,
             create_user,update_date,update_user,
             cancel_date,cancel_user,effect_date,
             source_type,remark,plat_type,
@@ -200,6 +200,20 @@
             <if test="order_no !=null and order_no!='' "> and order_no=#{order_no}</if>
             <if test="order_acct_seq_no !=null and order_acct_seq_no!='' ">and order_acct_seq_no=#{order_acct_seq_no}</if>
         </trim>
+    </select>
+
+    <!--查询数据库表的字段和字段类型-->
+    <select id="selectDbTableColumns" parameterType="string"  resultType="hashMap" >
+        select column_name,data_type
+          from information_schema.columns
+        where table_schema = 'vas' and table_name = #{table_name}
+    </select>
+
+    <!--查询数据库表的名字-->
+    <select id="selectDbTables" parameterType="hashMap"  resultType="string" >
+        select table_name from information_schema.tables where table_name like 'va_%'
+          union all
+        select table_name from information_schema.tables where table_name like 'cm_%'
     </select>
 
 </mapper>
