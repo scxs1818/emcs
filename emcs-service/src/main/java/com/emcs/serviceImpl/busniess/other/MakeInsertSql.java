@@ -1,5 +1,6 @@
 package com.emcs.serviceImpl.busniess.other;
 
+import com.emcs.Super.PubService;
 import com.emcs.Super.ServiceTransactionalN;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +10,10 @@ import java.util.*;
  * Created by Administrator on 2018/2/9.
  */
 @Service
-public class MakeInsertSql extends ServiceTransactionalN{
+public class MakeInsertSql extends PubService{
     private  Map<String,Map<String,Object> > cacheObject = null;
     @Override
-    protected void process(Map<String, Object> param) {
+    public void process(Map<String, Object> param) {
 
         AAA();
         BBB();
@@ -39,7 +40,8 @@ public class MakeInsertSql extends ServiceTransactionalN{
         String str1=sb1.toString(),str2=sb2.toString();
         str1=str1.substring(0,str1.length()-1)+") values (";
         str2=str2.substring(0,str2.length()-1)+")";
-        log.info(tableName+"="+str1+str2);
+        System.out.print(str1+str2);
+
     }
 
     private void BBB() {
@@ -80,7 +82,7 @@ public class MakeInsertSql extends ServiceTransactionalN{
             String str1=sb1.toString(),str2=sb2.toString();
             str1=str1.substring(0,str1.length()-1)+") values (";
             str2=str2.substring(0,str2.length()-1)+")";
-            log.info(tableName+"="+str1+str2);
+            System.out.print(tableName+"="+str1+str2);
         }
     }
 }

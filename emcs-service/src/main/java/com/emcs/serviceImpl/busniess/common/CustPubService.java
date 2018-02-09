@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class CustPubService extends PubService{
     @Override
-    protected void process(Map<String, Object> param) {
+    public void process(Map<String, Object> param) {
 
     }
 }
