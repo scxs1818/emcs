@@ -20,7 +20,7 @@ public class MakeInsertSqlFromDb {
 @Test
 public void testMakeSql(){
     System.out.print("################################");
-    mis.doService(null);
+    mis.process(null);
 
 }
 

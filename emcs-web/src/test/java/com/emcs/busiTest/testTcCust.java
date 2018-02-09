@@ -25,7 +25,7 @@ public class testTcCust {
     @Test
     public void testTcPlat(){
         System.out.printf("commom#############=");
-        mis.doService(null);
+        mis.process(null);
 //
 //        Map<String,Object> map = new HashMap<String,Object>();
 //        map.put("pay_merch_id","129");
