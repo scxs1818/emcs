@@ -1,4 +1,4 @@
-package com.emcs;
+package com.emcs.busiTest;
 
 
 import com.emcs.serviceImpl.busniess.register.PlatformRegister;

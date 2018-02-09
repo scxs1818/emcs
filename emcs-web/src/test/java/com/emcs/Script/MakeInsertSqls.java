@@ -1,7 +1,10 @@
 package com.emcs.Script;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.RandomAccessFile;
-public class MakeInsertSql {
+@Service
+public class MakeInsertSqls {
     public static void main(String[] args) {
         String dir = SqlUtil.getDbScriptDir()+"/tables/CM_SYSTEM.sql";
         RandomAccessFile raf = null,raf2 = null;
