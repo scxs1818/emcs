@@ -64,17 +64,19 @@ public interface BusiConstant {
         MERCH_WITHDRAW ("3","商户提现"),
         CUST_WITHDRAW("4","个人提现"),
 
-        MERCH_TRANSFER_ACCOUNTS ("5","商户转账"),
-        CUST_TRANSFER_ACCOUNTS("6","个人转账"),
+        TRANSFER_MERCH_TO_MERCH ("5","商户->商户转账"),
+        TRANSFER_MERCH_TO_CUST("6","商户->个人转账"),
+        TRANSFER_CUST_TO_MERCH ("7","个人->商户转账"),
+        TRANSFER_CUST_TO_CUST("8","个人->个人转账"),
 
-        MERCH_PURCHASE_APPLY("7","商户采购"),
-        CUST_PURCHASE_APPLY("8","个人采购"),
+        MERCH_PURCHASE_APPLY("9","商户采购"),
+        CUST_PURCHASE_APPLY("10","个人采购"),
 
-        MERCH_PURCHASE_REVOKE("9","商户采购撤销"),
-        CUST_PURCHASE_REVOKE("10","个人采购撤销"),
+        MERCH_PURCHASE_REVOKE("11","商户采购撤销"),
+        CUST_PURCHASE_REVOKE("12","个人采购撤销"),
 
-        MERCH_PURCHASE_CONFIRM("11","商户采购确认"),
-        CUST_PURCHASE_CONFIRM("12","个人采购确认"),
+        MERCH_PURCHASE_CONFIRM("13","商户采购确认"),
+        CUST_PURCHASE_CONFIRM("14","个人采购确认"),
         ;
         private String value;
         private String desc;
