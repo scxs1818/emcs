@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/2/5.
  */
+@Service
 public class CustWithdraw extends ServiceTransactionalY {
 
     @Autowired

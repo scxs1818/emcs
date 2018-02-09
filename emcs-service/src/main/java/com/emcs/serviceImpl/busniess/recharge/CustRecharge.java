@@ -1,5 +1,6 @@
 package com.emcs.serviceImpl.busniess.recharge;
 
+import com.emcs.Constant.BusiConstant;
 import com.emcs.Super.ServiceTransactionalY;
 import com.emcs.exception.BusiException;
 import com.emcs.serviceImpl.busniess.common.*;
@@ -53,6 +54,7 @@ public class CustRecharge extends ServiceTransactionalY{
 
         boolean flag = false;
         try{
+            param.put("tran_type", BusiConstant.TranType.CUST_RECHARGE.vaue());
             //2.记账无流水
             insertCmAcctTranSeq.process(param);
             flag = true;

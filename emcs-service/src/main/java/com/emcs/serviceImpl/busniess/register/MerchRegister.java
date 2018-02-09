@@ -3,7 +3,6 @@ package com.emcs.serviceImpl.busniess.register;
 import com.emcs.Super.ServiceTransactionalY;
 import com.emcs.Constant.BusiConstant.*;
 import com.emcs.exception.BusiException;
-import com.emcs.tool.DataBaseOperate;
 import com.emcs.tool.ServiceUtil;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +22,7 @@ public class MerchRegister extends ServiceTransactionalY{
         param.put("status","N");
         if(oneSelect.selectIsExistVaPlatInfo(param)==0)throw new BusiException("交易平台不存在或者处于异常状态","600003");
         if(oneSelect.selectIsExistVaMerchInfo(param)>0)throw new BusiException("该商户已经注册","600004");
+
         //3.生成商户编号
         String merchSeq = ServiceUtil.getSeqNo(oneSelect, Quence.MERCH.gname(),Quence.MERCH.length());
         String palt_id =  param.get("plat_id")+"";

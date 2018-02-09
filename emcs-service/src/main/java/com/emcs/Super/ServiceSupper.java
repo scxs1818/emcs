@@ -8,7 +8,6 @@ import com.emcs.mapper.OneTableDMLMapper;
 import com.emcs.mapper.OneTableSelectMapper;
 import com.emcs.pub.runtime.core.Logger;
 import com.emcs.pub.runtime.core.LoggerFactory;
-import com.emcs.tool.DataBaseOperate;
 import com.emcs.util.CommonResult;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/2/4.
  */
-@Service
 abstract class ServiceSupper {
     protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
     @Resource
@@ -29,12 +27,8 @@ abstract class ServiceSupper {
     protected ManyTableSelectMapper manySelect;
     @Resource
     protected ManyTableDMLMapper manyDML;
-
-    protected DataBaseOperate dbo = null;
-
     protected CommonResult result = new CommonResult();
     public CommonResult doService(Map<String, Object> param){
-        dbo = DataBaseOperate.getDbo();
         try{
             before(param);
             process(param);

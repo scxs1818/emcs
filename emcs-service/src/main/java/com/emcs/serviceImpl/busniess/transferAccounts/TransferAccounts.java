@@ -8,12 +8,14 @@ import com.emcs.serviceImpl.busniess.common.UpdateCmAcctTranSeq;
 import com.emcs.serviceImpl.busniess.recharge.CustRecharge;
 import com.emcs.serviceImpl.busniess.recharge.MerchRecharge;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 /**
  * Created by Administrator on 2018/2/5.
  */
+@Service
 public class TransferAccounts extends ServiceTransactionalY{
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;

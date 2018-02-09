@@ -4,12 +4,14 @@ import com.emcs.Constant.BusiConstant;
 import com.emcs.Super.ServiceTransactionalY;
 import com.emcs.exception.BusiException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 /**
  * Created by Administrator on 2018/2/6.
  */
+@Service
 public class PurchaseApply extends ServiceTransactionalY{
     @Autowired
     CustPurchaseApply custPurchase;

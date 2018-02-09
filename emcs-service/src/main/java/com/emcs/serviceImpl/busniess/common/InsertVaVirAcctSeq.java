@@ -10,6 +10,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/5.
  */
 @Transactional
+@Service
 public class InsertVaVirAcctSeq extends PubService {
     @Override
     protected void process(Map<String, Object> param) {
