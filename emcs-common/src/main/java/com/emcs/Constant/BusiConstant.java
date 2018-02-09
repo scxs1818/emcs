@@ -151,7 +151,14 @@ public interface BusiConstant {
     String SEQ_CUST_MERCH_BAN_ACC = "CUST_BAN_ACC_SEQ_NO";
     String SEQ_CUST_MERCH_VIR_ACC = "CUST_VIR_ACC_SEQ_NO";
 
-
+    /**平台资金存管专户 */
+    String ACCT_TYPE_PLAT_DEPOSIT = "0";
+    /**平台资金结算账户*/
+    String ACCT_TYPE_PLAT_SETTLE = "1";
+    /** 商户结算账户 */
+    String ACCT_TYPE_MERCH_SETTLE = "2";
+    /**内部户*/
+    String ACCT_TYPE_INNER = "3";
     /**平台*/
     String ROLE_PLAT = "1";
     /**商户*/
