@@ -168,7 +168,7 @@
     </insert>
 
     <!---扣减商户虚拟账户余额-->
-    <update id="insertVaMerchVirtualAcctBalSub" parameterType="hashMap">
+    <update id="updateVaMerchVirtualAcctBalSub" parameterType="hashMap">
         update va_merch_virtual_acct_bal set
             actural_bal = actural_bal - #{tran_amt},
             usable_bal = usable_bal - #{usable_bal},
@@ -181,7 +181,7 @@
     </update>
 
     <!---增加商户虚拟账户余额-->
-    <update id="insertVaMerchVirtualAcctBalAdd" parameterType="hashMap">
+    <update id="updateVaMerchVirtualAcctBalAdd" parameterType="hashMap">
         update va_merch_virtual_acct_bal set
             actural_bal = actural_bal + #{tran_amt},
             usable_bal = usable_bal + #{usable_bal},

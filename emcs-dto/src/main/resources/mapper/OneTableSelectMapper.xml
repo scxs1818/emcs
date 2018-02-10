@@ -101,8 +101,19 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
             <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-            <if test="merch_id !=null and cust_id!='' "> and merch_id = #{merch_id} </if>
+            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
         </trim>
+    </select>
+
+    <!--对商户虚拟账户余额信息上锁-->
+    <select id="selectVaMerchVirtualAcctBalLock" parameterType="hashMap"  resultType="hashMap" >
+        select actural_bal,usable_bal,recharge_bal from va_merch_virtual_acct_bal
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
+            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+            <if test="merch_virid !=null and merch_virid!='' "> and merch_virid = #{merch_virid} </if>
+        </trim>
+        for update
     </select>
 
     <!--查询会员虚拟账户信息-->
@@ -124,6 +135,17 @@
             <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
             <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
         </trim>
+    </select>
+
+    <!--对会员虚拟账户余额信息上锁-->
+    <select id="selectVaCustVirtualAcctBalLock" parameterType="hashMap"  resultType="hashMap" >
+        select actural_bal,usable_bal,recharge_bal from va_cust_virtual_acct_bal
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
+            <if test="cust_id !=null and cust_id!='' "> and merch_id = #{cust_id} </if>
+            <if test="cust_virid !=null and cust_virid!='' "> and cust_virid = #{cust_virid} </if>
+        </trim>
+        for update
     </select>
 
     <!--查询会员充值明细信息-->

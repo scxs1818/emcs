@@ -11,6 +11,8 @@ public interface ErrorCodeConstant {
         VAZ004("VAZ004","手机号码不合法"),
         VAZ005("VAZ005","必输字段为空"),
         VAZ006("VAZ006","执行数据操作失败"),
+        VAZ007("VAZ007","角色类型错误"),
+
         ;
         public String code() {
             return code;
