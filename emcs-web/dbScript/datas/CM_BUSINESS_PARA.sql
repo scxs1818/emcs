@@ -1,0 +1,1 @@
+INSERT INTO CM_BUSINESS_PARA VALUES('withdraw_cnt','3','日最大提现次数','1',(select CURDATE() from dual),'admin');

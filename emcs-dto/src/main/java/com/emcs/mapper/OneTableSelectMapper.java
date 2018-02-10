@@ -19,17 +19,20 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectMerchInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchVirtualAcctInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchRechargeAmtDay(Map<String, Object> param);
+    List<Map<String,Object>> selectVaMerchVirtualAcctBalLock(Map<String, Object> param);
+
 
 
     List<Map<String,Object>> selectVaCustVirtualAcctInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustRechargeDetail(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustRechargeAmtDay(Map<String, Object> param);
+    List<Map<String,Object>> selectCustVirtualAcctBalLock(Map<String, Object> param);
 
     List<Map<String,Object>> selectCmBusinessParaForCache(Map<String, Object> param);
     List<Map<String,Object>> selectCmSystemForCache(Map<String, Object> param);
 
     List<Map<String,Object>> selectVaVirAcctSeq(Map<String, Object> param);
     List<Map<String,Object>> selectDbTableColumns(Object param);
-    List<Object> selectDbTables(Object param);
-    int getNextVal(String sqeName);
+    List<Object> selectDbTables(Map<String,Object> param);
+    String getNextVal(Map<String,Object> param);
 }

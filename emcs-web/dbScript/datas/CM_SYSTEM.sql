@@ -1,0 +1,1 @@
+insert into `CM_SYSTEM` values ((select CURDATE() from dual),(select CURDATE()-1 from dual),null,'Y');
