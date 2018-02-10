@@ -126,16 +126,12 @@ public class BusiException extends RuntimeException {
         return "";
     }
 
+    @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("moudle:[");
-        sb.append(getMoudle());
-        sb.append("]\tErrorCode:[");
-        sb.append(getErrCode());
-        sb.append("]\tMessage:[");
-        sb.append(getMessage());
-        sb.append("]");
-        return sb.toString();
+        return "BusiException{" +
+                "errCode='" + errCode + '\'' +
+                ", moudle='" + moudle + '\'' +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
     }
-
 }

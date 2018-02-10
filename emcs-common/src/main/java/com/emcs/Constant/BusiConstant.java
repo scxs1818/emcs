@@ -13,7 +13,7 @@ public interface BusiConstant {
         MERCH_VIRT("MERCH_VIR_ACC_SEQ_NO",8,"商户虚拟账户序列"),
         MERCH_BANK("MERCH_BAN_ACC_SEQ_NO",8,"商户银行账户序列"),
 
-        CUST("CUTS_SEQ_NO",12,"个人序列"),
+        CUST("CUST_SEQ_NO",12,"个人序列"),
         CUST_VIRT("CUST_VIR_ACC_SEQ_NO",12,"个人虚拟账户序列"),
         CUST_BANK("SEQ_CUST_MERCH_BAN_ACC",12,"个人银行账户序列"),
         ;

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.emcs.mapper.OneTableSelectMapper" >
     <!--根据序列名称获取序列下一个值-->
-    <select id="getNextVal" parameterType="string"  resultType="int" >
-        select GETNEXTVAL(#{sqeName}) from dual
+    <select id="getNextVal" parameterType="hashMap"  resultType="string" >
+        select lpad(getnextval(#{seqname}),#{length},0) from dual
     </select>
 
     <!--查询虚拟账户类型信息-->
@@ -20,6 +20,7 @@
         select count(1) from va_merch_info 
         <trim prefix="where" prefixOverrides="and">
             <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="tel_no !=null and tel_no!='' "> and merch_id = #{tel_no} </if>
             <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
         </trim>
     </select>

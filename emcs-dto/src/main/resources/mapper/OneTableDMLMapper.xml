@@ -33,9 +33,9 @@
     <!---注册平台虚拟账户-->
     <insert id="insertVaPlatVirtualAcctBal" parameterType="hashMap">
         insert into va_plat_virtual_acct_bal
-          ( vir_acct_id, vir_acct_type,plat_id, actural_bal,usable_bal,freeze_bal, recharge_bal)
+          ( plat_virid, vir_acct_type,plat_id, actural_bal,usable_bal,freeze_bal, recharge_bal)
         values
-          (#{vir_acct_id}, #{vir_acct_type}, #{plat_id}, #{actural_bal},#{usable_bal},#{freeze_bal}, #{recharge_bal})
+          (#{plat_virid}, #{vir_acct_type}, #{plat_id}, #{actural_bal},#{usable_bal},#{freeze_bal}, #{recharge_bal})
     </insert>
 
     <!---扣减平台虚拟账户余额-->
@@ -47,7 +47,7 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
             <if test="plat_id!=null and plat_id!=''">and plat_id=#{plat_id}</if>
-            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+            <if test="plat_virid!=null and plat_virid!=''">and plat_virid=#{plat_virid}</if>
         </trim>
     </update>
 
@@ -60,7 +60,7 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
             <if test="plat_id!=null and plat_id!=''">and plat_id=#{plat_id}</if>
-            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+            <if test="plat_virid!=null and plat_virid!=''">and plat_virid=#{plat_virid}</if>
         </trim>
     </update>
 
@@ -68,7 +68,7 @@
     <insert id="insertVaPlatVirtualAcct" parameterType="hashMap">
         insert into va_plat_virtual_acct
         (
-            vir_acct_id,plat_id,
+            plat_virid,plat_id,
             vir_acct_type,vir_acct_sort,
             vir_acct_name,currency,
             acct_status,rel_bank_acct,
@@ -81,7 +81,7 @@
         )
         values
         (
-            #{vir_acct_id},#{plat_id},
+            #{plat_virid},#{plat_id},
             #{vir_acct_type},#{vir_acct_sort},
             #{vir_acct_name},#{currency},
             #{acct_status},#{rel_bank_acct},
@@ -162,9 +162,9 @@
     <!---注册商户虚拟账户余额信息-->
     <insert id="insertVaMerchVirtualAcctBal" parameterType="hashMap">
         insert into va_merch_virtual_acct_bal
-          ( vir_acct_id, vir_acct_type,merch_id,actural_bal,usable_bal,freeze_bal,recharge_bal )
+          ( merch_virid, vir_acct_type,merch_id,actural_bal,usable_bal,freeze_bal,recharge_bal )
         values
-          ( #{vir_acct_id},#{vir_acct_type}, #{merch_id},#{actural_bal},#{usable_bal}, #{freeze_bal},#{recharge_bal})
+          ( #{merch_virid},#{vir_acct_type}, #{merch_id},#{actural_bal},#{usable_bal}, #{freeze_bal},#{recharge_bal})
     </insert>
 
     <!---扣减商户虚拟账户余额-->
@@ -176,7 +176,7 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
             <if test="merch_id!=null and merch_id!=''">and merch_id=#{merch_id}</if>
-            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+            <if test="merch_virid!=null and merch_virid!=''">and merch_virid=#{merch_virid}</if>
         </trim>
     </update>
 
@@ -189,7 +189,7 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
             <if test="merch_id!=null and merch_id!=''">and merch_id=#{merch_id}</if>
-            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+            <if test="merch_virid!=null and merch_virid!=''">and merch_virid=#{merch_virid}</if>
         </trim>
     </update>
 
@@ -197,7 +197,7 @@
     <insert id="insertVaMerchVirtualAcct" parameterType="hashMap">
         insert into va_merch_virtual_acct
         (
-            vir_acct_id,merch_id,plat_id,
+            merch_virid,merch_id,plat_id,
             vir_acct_type,vir_acct_sort,
             vir_acct_name,currency,
             acct_status,rel_bank_acct,
@@ -210,7 +210,7 @@
         )
         values
         (
-            #{vir_acct_id},#{merch_id},#{plat_id},
+            #{merch_virid},#{merch_id},#{plat_id},
             #{vir_acct_type},#{vir_acct_sort},
             #{vir_acct_name},#{currency},
             #{acct_status},#{rel_bank_acct},
@@ -269,7 +269,7 @@
     <insert id="insertVaCustVirtualAcct" parameterType="hashMap">
         insert into va_cust_virtual_acct
         (
-        vir_acct_id,cust_id,plat_id,
+        cust_virid,cust_id,plat_id,
         vir_acct_type,vir_acct_sort,
         vir_acct_name,user_id,currency,
         acct_status,rel_bank_acct,
@@ -282,7 +282,7 @@
         )
         values
         (
-        #{vir_acct_id},#{cust_id},#{plat_id},
+        #{cust_virid},#{cust_id},#{plat_id},
         #{vir_acct_type},#{vir_acct_sort},
         #{vir_acct_name},#{user_id},#{currency},
         #{acct_status},#{rel_bank_acct},
@@ -298,9 +298,9 @@
     <!--注册会员虚拟账户余额信息-->
     <insert id="insertVaCustVirtualAcctBal" parameterType="hashMap">
         insert into va_cust_virtual_acct_bal
-          ( vir_acct_id,vir_acct_type,cust_id,actural_bal,usable_bal,freeze_bal,recharge_bal)
+          ( cust_virid,vir_acct_type,cust_id,actural_bal,usable_bal,freeze_bal,recharge_bal)
         values
-          ( #{vir_acct_id}, #{vir_acct_type},#{cust_id},#{actural_bal}, #{usable_bal}, #{freeze_bal},#{recharge_bal})
+          ( #{cust_virid}, #{vir_acct_type},#{cust_id},#{actural_bal}, #{usable_bal}, #{freeze_bal},#{recharge_bal})
     </insert>
 
     <!--增加会员虚拟账户余额-->
@@ -312,7 +312,7 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
             <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
-            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+            <if test="cust_virid!=null and cust_virid!=''">and cust_virid=#{cust_virid}</if>
         </trim>
     </insert>
 
@@ -325,7 +325,7 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
             <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
-            <if test="vir_acct_id!=null and vir_acct_id!=''">and vir_acct_id=#{vir_acct_id}</if>
+            <if test="cust_virid!=null and cust_virid!=''">and cust_virid=#{cust_virid}</if>
         </trim>
     </update>
 
@@ -334,10 +334,10 @@
         insert into va_cust_recharge_detail
         (
             order_no,order_no_old,cust_id,plat_id,
-            vir_acct_id,tran_type,tran_amt,tran_status,tran_date
+            cust_virid,tran_type,tran_amt,tran_status,tran_date
         ) values (
             #{order_no},#{order_no_old},#{cust_id},#{plat_id},
-            #{vir_acct_id},#{tran_type},#{tran_amt},#{tran_status},#{tran_date}
+            #{cust_virid},#{tran_type},#{tran_amt},#{tran_status},#{tran_date}
         )
     </insert>
 

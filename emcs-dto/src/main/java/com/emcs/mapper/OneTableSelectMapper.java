@@ -30,6 +30,6 @@ public interface OneTableSelectMapper{
 
     List<Map<String,Object>> selectVaVirAcctSeq(Map<String, Object> param);
     List<Map<String,Object>> selectDbTableColumns(Object param);
-    List<Object> selectDbTables(Object param);
-    int getNextVal(String sqeName);
+    List<Object> selectDbTables(Map<String,Object> param);
+    String getNextVal(Map<String,Object> param);
 }

@@ -1,6 +1,6 @@
 package com.emcs.serviceImpl.busniess.register;
 import com.emcs.Constant.BusiConstant;
-import com.emcs.Constant.RealTimeInterfaceConstant.*;
+import com.emcs.Constant.ErrorCodeConstant.*;
 import com.emcs.Super.ServiceTransactionalY;
 import com.emcs.Constant.BusiConstant.*;
 import com.emcs.exception.BusiException;
@@ -14,11 +14,16 @@ import java.util.Map;
 public class PlatformRegister extends ServiceTransactionalY {
 
     public void process(Map<String, Object> param){
+
         // 1.校验支付商户编码是否存在
-        if(oneSelect.selectIsExistVaPlatInfo(param)>0) throw new BusiException("该平台已经注册","600003");
+        if(oneSelect.selectIsExistVaPlatInfo(param)>0) throw new BusiException(PlatErrorCode.VAP001.code(),PlatErrorCode.VAP001.val());
 
         // 2.生成平台编码
-        String platId = Role.PLAT.vaue()+ ServiceUtil.getSeqNo(oneSelect,Quence.PLAT.gname(),Quence.PLAT.length());
+        param.put("length",Quence.PLAT.length());
+        param.put("seqname",Quence.PLAT.gname());
+        log.info("#############=length"+Quence.PLAT.length()+",="+Quence.PLAT.gname());
+        String platId = Role.PLAT.vaue()+ oneSelect.getNextVal(param);
+        log.info("8888888888888888888888="+platId);
         param.put("plat_id",platId);
         param.put("status","N");//首次注册为正常
         param.put("payment_type",0);//手动结算
@@ -31,8 +36,10 @@ public class PlatformRegister extends ServiceTransactionalY {
         String acctId;
         //4.1绑定平台结算账户
         Object acct_no=param.get("settle_acct");
+        param.put("length",Quence.PLAT_BANK.length());
+        param.put("seqname",Quence.PLAT_BANK.gname());
         if(acct_no!=null&&!"".equals(acct_no.toString().trim())){
-            acctId = AcctProperty.ACCT_BAN.value()+ Role.PLAT.vaue()+ ServiceUtil.getSeqNo(oneSelect,Quence.PLAT_BANK.gname(),Quence.PLAT_BANK.length());
+            acctId = AcctProperty.ACCT_BAN.value()+ Role.PLAT.vaue()+ oneSelect.getNextVal(param);
             param.put("acct_id",acctId);
             param.put("acct_type", BusiConstant.ACCT_TYPE_PLAT_SETTLE);
             param.put("acct_no",acct_no);
@@ -40,7 +47,8 @@ public class PlatformRegister extends ServiceTransactionalY {
             oneDML.insertVaPlatAccInfo(param);
         }
         //4.2绑定平台资金清算专户
-        acctId = AcctProperty.ACCT_BAN.value()+ Role.PLAT.vaue()+ ServiceUtil.getSeqNo(oneSelect,Quence.PLAT_BANK.gname(),Quence.PLAT_BANK.length());
+        acctId = AcctProperty.ACCT_BAN.value()+ Role.PLAT.vaue()+ oneSelect.getNextVal(param);
+        log.info("***************="+acctId);
         param.put("acct_id",acctId);
         param.put("acct_type", BusiConstant.ACCT_TYPE_PLAT_DEPOSIT);
         param.put("acct_no",param.get("deposit_acct"));
@@ -51,16 +59,13 @@ public class PlatformRegister extends ServiceTransactionalY {
         param.put("acct_br_name","支付机构名称");
         oneDML.insertVaPlatAccInfo(param);
 
-
-
-
         //5.查询虚拟账户类型
         param.put("vir_acct_type","101");
         List<Map<String,Object>> virAcctTypeList = oneSelect.selectVaVirtualAcctType(param);
         param.putAll(virAcctTypeList.get(0));
 
         //5.注册虚拟账户信息
-        param.put("vir_acct_id", AcctProperty.ACCT_VIR.value()+platId);
+        param.put("plat_virid", AcctProperty.ACCT_VIR.value()+platId);
         oneDML.insertVaPlatVirtualAcct(param);
 
         //6.注册虚拟账户余额信息
