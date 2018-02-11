@@ -1,1 +1,2 @@
-insert into `CM_SYSTEM` values ((select CURDATE() from dual),(select CURDATE()-1 from dual),null,'Y');
+TRUNCATE TABLE CM_SYSTEM;
+INSERT INTO `CM_SYSTEM` VALUES ((SELECT CURDATE() FROM DUAL),(SELECT CURDATE()-1 FROM DUAL),NULL,'Y');

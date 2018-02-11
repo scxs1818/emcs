@@ -1,5 +1,7 @@
 package com.emcs;
 import com.emcs.mapper.OneTableSelectMapper;
+import com.emcs.pub.runtime.core.Logger;
+import com.emcs.pub.runtime.core.LoggerFactory;
 import com.github.pagehelper.PageHelper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -17,17 +20,15 @@ import java.util.Properties;
 @EnableTransactionManagement
 @SpringBootApplication
 public class Application {
+    protected Logger log = LoggerFactory.getLogger(Application.class);
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-
-
     }
-    @Autowired
+    @Resource
     OneTableSelectMapper oneSelect;
-    public List<Map<String, Object>> loadConfig() {
-        oneSelect.selectVaVirtualAcctType(null);
-
-
+    public List<Map<String, Object>> loadCache() {
+        List<Map<String,Object>> list = oneSelect.selectVaVirtualAcctType(null);
+        log.info("list="+list);
         return null;
     }
 

@@ -1,242 +1,245 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.emcs.mapper.OneTableSelectMapper" >
-    <!--根据序列名称获取序列下一个值-->
-    <select id="getNextVal" parameterType="hashMap"  resultType="string" >
-        select lpad(getnextval(#{seqname}),#{length},0) from dual
-    </select>
+<!--根据序列名称获取序列下一个值-->
+<select id="getNextVal" parameterType="hashMap"  resultType="string" >
+    select lpad(getnextval(#{seqname}),#{length},0) from dual
+</select>
 
-    <!--查询虚拟账户类型信息-->
-    <select id="selectVaVirtualAcctType" parameterType="hashMap"  resultType="hashMap" >
-        select vir_acct_type,vir_acct_desc,vir_acct_sort,is_in,is_out,is_total_limit,total_limit,is_balance_limit,
-         balance_type,balance_value from va_virtual_acct_type
-        <trim prefix="where" prefixOverrides="and">
-            <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
-        </trim>
-    </select>
+<!--查询虚拟账户类型信息-->
+<select id="selectVaVirtualAcctType" parameterType="hashMap"  resultType="hashMap" >
+    select vir_acct_type,vir_acct_desc,vir_acct_sort,is_in,is_out,is_total_limit,total_limit,is_balance_limit,
+    balance_type,balance_value from va_virtual_acct_type
+    <trim prefix="where" prefixOverrides="and">
+        <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
+    </trim>
+</select>
 
-    <!--判断商户信息是否'存在且为正常'-->
-    <select id="selectIsExistVaMerchInfo" parameterType="hashMap"  resultType="int" >
-        select count(1) from va_merch_info 
-        <trim prefix="where" prefixOverrides="and">
-            <if test="status !=null and status!='' "> and status = #{status} </if>
-            <if test="tel_no !=null and tel_no!='' "> and merch_id = #{tel_no} </if>
-            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
-        </trim>
-    </select>
+<!--判断商户信息是否'存在且为正常'-->
+<select id="selectIsExistVaMerchInfo" parameterType="hashMap"  resultType="int" >
+    select count(1) from va_merch_info
+    <trim prefix="where" prefixOverrides="and">
+        <if test="status !=null and status!='' "> and status = #{status} </if>
+        <if test="tel_no !=null and tel_no!='' "> and merch_id = #{tel_no} </if>
+        <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+    </trim>
+</select>
 
-    <!--判断平台信息是否'存在且为正常'-->
-    <select id="selectIsExistVaPlatInfo" parameterType="hashMap"  resultType="int" >
-         select count(1) from va_plat_info
-        <trim prefix="where" prefixOverrides="and">
-            <if test="status !=null and status!='' "> and status = #{status}</if>
-            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-            <if test="pay_merch_id !=null and pay_merch_id!='' "> and pay_merch_id = #{pay_merch_id}</if>
-        </trim>
-    </select>
+<!--判断平台信息是否'存在且为正常'-->
+<select id="selectIsExistVaPlatInfo" parameterType="hashMap"  resultType="int" >
+    select count(1) from va_plat_info
+    <trim prefix="where" prefixOverrides="and">
+        <if test="status !=null and status!='' "> and status = #{status}</if>
+        <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+        <if test="pay_merch_id !=null and pay_merch_id!='' "> and pay_merch_id = #{pay_merch_id}</if>
+    </trim>
+</select>
 
-    <!--判断会员信息是否'存在且为正常'-->
-    <select id="selectIsExistVaCustInfo" parameterType="hashMap"  resultType="int" >
-         select count(1) from va_cust_info 
-        <trim prefix="where" prefixOverrides="and">
-            <if test="status !=null and status!='' "> and status = #{status} </if>
-            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
-            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
-        </trim>
-    </select>
+<!--判断会员信息是否'存在且为正常'-->
+<select id="selectIsExistVaCustInfo" parameterType="hashMap"  resultType="int" >
+    select count(1) from va_cust_info
+    <trim prefix="where" prefixOverrides="and">
+        <if test="status !=null and status!='' "> and status = #{status} </if>
+        <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+        <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+        <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+    </trim>
+</select>
 
-    <!--查询商户信息-->
-    <select id="selectMerchInfo" parameterType="hashMap"  resultType="hashMap" >
-        select
-            merch_id,merch_name,plat_id,
-            legal_person,status,payment_type,
-            global_type,global_id,tel_no,
-            email,address,url,create_date,
-            create_user,update_date,update_user,
-            cancel_date,cancel_user,effect_date,
-            source_type,remark,merch_type,
-            merch_level,allow_user,allow_date,allow_status
-        from va_merch_info 
-        <trim prefix="where" prefixOverrides="and">
-            <if test="status !=null and status!='' "> and status = #{status} </if>
-            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
-            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no} </if>
-        </trim>
-    </select>
+<!--查询商户信息-->
+<select id="selectMerchInfo" parameterType="hashMap"  resultType="hashMap" >
+    select
+    merch_id,merch_name,plat_id,
+    legal_person,status,payment_type,
+    global_type,global_id,tel_no,
+    email,address,url,create_date,
+    create_user,update_date,update_user,
+    cancel_date,cancel_user,effect_date,
+    source_type,remark,merch_type,
+    merch_level,allow_user,allow_date,allow_status
+    from va_merch_info
+    <trim prefix="where" prefixOverrides="and">
+        <if test="status !=null and status!='' "> and status = #{status} </if>
+        <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+        <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no} </if>
+    </trim>
+</select>
 
-    <!--查询平台信息-->
-    <select id="selectPlatInfo" parameterType="hashMap"  resultType="hashMap" >
-        select
-            plat_id,pay_merch_id,plat_name,
-            legal_person,status,payment_type,
-            global_type,global_id,tel_no,
-            email,address,url,create_date,
-            create_user,update_date,update_user,
-            cancel_date,cancel_user,effect_date,
-            source_type,remark,plat_type,
-            plat_level,allow_user,allow_date,allow_status
-        from va_plat_info 
-        <trim prefix="where" prefixOverrides="and">
-            <if test="status !=null and status!='' "> and status = #{status} </if>
-            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-            <if test="pay_merch_id !=null and pay_merch_id!='' "> and pay_merch_id = #{pay_merch_id} </if>
-        </trim>
-    </select>
+<!--查询平台信息-->
+<select id="selectPlatInfo" parameterType="hashMap"  resultType="hashMap" >
+    select
+    plat_id,pay_merch_id,plat_name,
+    legal_person,status,payment_type,
+    global_type,global_id,tel_no,
+    email,address,url,create_date,
+    create_user,update_date,update_user,
+    cancel_date,cancel_user,effect_date,
+    source_type,remark,plat_type,
+    plat_level,allow_user,allow_date,allow_status
+    from va_plat_info
+    <trim prefix="where" prefixOverrides="and">
+        <if test="status !=null and status!='' "> and status = #{status} </if>
+        <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+        <if test="pay_merch_id !=null and pay_merch_id!='' "> and pay_merch_id = #{pay_merch_id} </if>
+    </trim>
+</select>
 
-    <!--查询商户虚拟账户信息-->
-    <select id="selectVaMerchVirtualAcctInfo" parameterType="hashMap"  resultType="hashMap" >
-        select
-            vir_acct_id,merch_id,plat_id,
-            vir_acct_type,vir_acct_sort,
-            vir_acct_name,currency,
-            acct_status,rel_bank_acct,
-            is_in,is_out,is_total_limit,
-            total_limit,is_balance_limit,
-            balance_type,balance_value,
-            open_date,open_user,
-            cancel_date,update_date,
-            source_user,effect_date,merch_name
-        from va_merch_virtual_acct
-        <trim prefix="where" prefixOverrides="and">
-            <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
-            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
-        </trim>
-    </select>
+<!--查询商户虚拟账户信息-->
+<select id="selectVaMerchVirtualAcctInfo" parameterType="hashMap"  resultType="hashMap" >
+    select
+    vir_acct_id,merch_id,plat_id,
+    vir_acct_type,vir_acct_sort,
+    vir_acct_name,currency,
+    acct_status,rel_bank_acct,
+    is_in,is_out,is_total_limit,
+    total_limit,is_balance_limit,
+    balance_type,balance_value,
+    open_date,open_user,
+    cancel_date,update_date,
+    source_user,effect_date,merch_name
+    from va_merch_virtual_acct
+    <trim prefix="where" prefixOverrides="and">
+        <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
+        <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+        <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+    </trim>
+</select>
 
-    <!--对商户虚拟账户余额信息上锁-->
-    <select id="selectVaMerchVirtualAcctBalLock" parameterType="hashMap"  resultType="hashMap" >
-        select actural_bal,usable_bal,recharge_bal from va_merch_virtual_acct_bal
-        <trim prefix="where" prefixOverrides="and">
-            <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
-            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
-            <if test="merch_virid !=null and merch_virid!='' "> and merch_virid = #{merch_virid} </if>
-        </trim>
-        for update
-    </select>
+<!--对商户虚拟账户余额信息上锁-->
+<select id="selectVaMerchVirtualAcctBalLock" parameterType="hashMap"  resultType="hashMap" >
+    select actural_bal,usable_bal,recharge_bal from va_merch_virtual_acct_bal
+    <trim prefix="where" prefixOverrides="and">
+        <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
+        <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+        <if test="merch_virid !=null and merch_virid!='' "> and merch_virid = #{merch_virid} </if>
+    </trim>
+    for update
+</select>
 
-    <!--查询会员虚拟账户信息-->
-    <select id="selectVaCustVirtualAcctInfo" parameterType="hashMap"  resultType="hashMap" >
-        select
-            vir_acct_id,cust_id,plat_id,
-            vir_acct_type,vir_acct_sort,
-            vir_acct_name,user_id,currency,
-            acct_status,rel_bank_acct,
-            is_in,is_out,is_total_limit,
-            total_limit,is_balance_limit,
-            balance_type,balance_value,
-            open_date,open_user,
-            cancel_date,update_date,
-            source_user,effect_date,cust_name
-        from va_cust_virtual_acct
-        <trim prefix="where" prefixOverrides="and">
-            <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
-            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
-        </trim>
-    </select>
+<!--查询会员虚拟账户信息-->
+<select id="selectVaCustVirtualAcctInfo" parameterType="hashMap"  resultType="hashMap" >
+    select
+    vir_acct_id,cust_id,plat_id,
+    vir_acct_type,vir_acct_sort,
+    vir_acct_name,user_id,currency,
+    acct_status,rel_bank_acct,
+    is_in,is_out,is_total_limit,
+    total_limit,is_balance_limit,
+    balance_type,balance_value,
+    open_date,open_user,
+    cancel_date,update_date,
+    source_user,effect_date,cust_name
+    from va_cust_virtual_acct
+    <trim prefix="where" prefixOverrides="and">
+        <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
+        <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+        <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+    </trim>
+</select>
 
-    <!--对会员虚拟账户余额信息上锁-->
-    <select id="selectVaCustVirtualAcctBalLock" parameterType="hashMap"  resultType="hashMap" >
-        select actural_bal,usable_bal,recharge_bal from va_cust_virtual_acct_bal
-        <trim prefix="where" prefixOverrides="and">
-            <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
-            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
-            <if test="cust_virid !=null and cust_virid!='' "> and cust_virid = #{cust_virid} </if>
-        </trim>
-        for update
-    </select>
+<!--对会员虚拟账户余额信息上锁-->
+<select id="selectVaCustVirtualAcctBalLock" parameterType="hashMap"  resultType="hashMap" >
+    select actural_bal,usable_bal,recharge_bal from va_cust_virtual_acct_bal
+    <trim prefix="where" prefixOverrides="and">
+        <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
+        <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+        <if test="cust_virid !=null and cust_virid!='' "> and cust_virid = #{cust_virid} </if>
+    </trim>
+    for update
+</select>
 
-    <!--查询会员充值明细信息-->
-    <select id="selectVaCustRechargeDetail" parameterType="hashMap"  resultType="hashMap" >
-        select
-            cust_recharge_seq,order_no,order_no_old,
-            plat_id,cust_id,
-            vir_acct_id,tran_type,tran_amt,
-            tran_status,tran_date
-        from va_cust_recharge_detail
-        <trim prefix="where" prefixOverrides="and">
-            <if test="plat_id !=null and plat_id!='' "> and vir_acct_id = #{plat_id} </if>
-            <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
-            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
-            <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
-            <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
-        </trim>
-    </select>
+<!--查询会员充值明细信息-->
+<select id="selectVaCustRechargeDetail" parameterType="hashMap"  resultType="hashMap" >
+    select
+    cust_recharge_seq,order_no,order_no_old,
+    plat_id,cust_id,
+    vir_acct_id,tran_type,tran_amt,
+    tran_status,tran_date
+    from va_cust_recharge_detail
+    <trim prefix="where" prefixOverrides="and">
+        <if test="plat_id !=null and plat_id!='' "> and vir_acct_id = #{plat_id} </if>
+        <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
+        <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+        <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
+        <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+    </trim>
+</select>
 
-    <!--查询当日会员充值汇总信息-->
-    <select id="selectVaCustRechargeAmtDay" parameterType="hashMap"  resultType="hashMap" >
-        select
-          coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
-        from va_cust_recharge_detail
-        <trim prefix="where" prefixOverrides="and">
-            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-            <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
-            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
-            <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
-            <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
-        </trim>
-    </select>
+<!--查询当日会员充值汇总信息-->
+<select id="selectVaCustRechargeAmtDay" parameterType="hashMap"  resultType="hashMap" >
+    select
+    coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
+    from va_cust_recharge_detail
+    <trim prefix="where" prefixOverrides="and">
+        <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+        <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
+        <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+        <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
+        <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+    </trim>
+</select>
 
-    <!--查询当日商户充值汇总信息-->
-    <select id="selectVaMerchRechargeAmtDay" parameterType="hashMap"  resultType="hashMap" >
-        select
-        coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
-        from va_merch_recharge_detail
-        <trim prefix="where" prefixOverrides="and">
-            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-            <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
-            <if test="merch_id !=null and cust_id!='' "> and merch_id = #{merch_id} </if>
-            <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
-            <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
-        </trim>
-    </select>
+<!--查询当日商户充值汇总信息-->
+<select id="selectVaMerchRechargeAmtDay" parameterType="hashMap"  resultType="hashMap" >
+    select
+    coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
+    from va_merch_recharge_detail
+    <trim prefix="where" prefixOverrides="and">
+        <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+        <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
+        <if test="merch_id !=null and cust_id!='' "> and merch_id = #{merch_id} </if>
+        <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
+        <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+    </trim>
+</select>
 
-    <!--查询业务参数信息用于缓存-->
-    <select id="selectCmBusinessParaForCache" parameterType="hashMap"  resultType="hashMap" >
-        select para_key cache_key1,para_value from cm_business_para where para_status='1'
-    </select>
 
-    <!--查询系统信息用于缓存-->
-    <select id="selectCmSystemForCache" parameterType="hashMap"  resultType="hashMap" >
-        select run_date,prev_run_date,core_run_date,ser_status_flag from cm_system
-    </select>
 
-    <!--查询虚拟账务流水-->
-    <select id="selectVaVirAcctSeq" parameterType="hashMap"  resultType="hashMap" >
-        select order_acct_seq_no,order_no,order_no_old,
-            cm_seq_no, plat_id,buyer_id,buyer_virid,
-            buyer_sort, seller_id, seller_virid,seller_sort,
-            pay_type,tran_amt,usable_bal,recharge_bal,
-            tran_type,tran_status,tran_date,tran_time
-        from va_vir_acct_seq
-        <trim prefix="where" prefixOverrides="and">
-            <if test="tran_type !=null and tran_type!='' ">and tran_type=#{tran_type}</if>
-            <if test="tran_status !=null and tran_status!='' ">and tran_status=#{tran_status}</if>
-            <if test="plat_id !=null and plat_id!='' ">and plat_id=#{plat_id}</if>
-            <if test="buyer_id !=null and buyer_id!='' ">and buyer_id=#{buyer_id}</if>
-            <if test="seller_virid !=null and seller_virid!='' ">and seller_virid=#{seller_virid}</if>
-            <if test="tran_date !=null and tran_date!='' ">and tran_date=#{tran_date}</if>
-            <if test="cm_seq_no !=null and cm_seq_no!='' ">and cm_seq_no=#{cm_seq_no}</if>
-            <if test="order_no_old !=null and order_no_old!='' "> and order_no_old=#{order_no_old}</if>
-            <if test="order_no !=null and order_no!='' "> and order_no=#{order_no}</if>
-            <if test="order_acct_seq_no !=null and order_acct_seq_no!='' ">and order_acct_seq_no=#{order_acct_seq_no}</if>
-        </trim>
-    </select>
+<!--查询系统信息用于缓存-->
+<select id="selectCmSystemForCache" parameterType="hashMap"  resultType="hashMap" >
+    select run_date,prev_run_date,core_run_date,ser_status_flag from cm_system
+</select>
 
-    <!--查询数据库表的字段和字段类型-->
-    <select id="selectDbTableColumns" parameterType="string"  resultType="hashMap" >
-        select column_name,data_type
-          from information_schema.columns
-        where table_schema = 'vas' and table_name = #{table_name}
-    </select>
+<!--查询虚拟账务流水-->
+<select id="selectVaVirAcctSeq" parameterType="hashMap"  resultType="hashMap" >
+    select order_acct_seq_no,order_no,order_no_old,
+    cm_seq_no, plat_id,buyer_id,buyer_virid,
+    buyer_sort, seller_id, seller_virid,seller_sort,
+    pay_type,tran_amt,usable_bal,recharge_bal,
+    tran_type,tran_status,tran_date,tran_time
+    from va_vir_acct_seq
+    <trim prefix="where" prefixOverrides="and">
+        <if test="tran_type !=null and tran_type!='' ">and tran_type=#{tran_type}</if>
+        <if test="tran_status !=null and tran_status!='' ">and tran_status=#{tran_status}</if>
+        <if test="plat_id !=null and plat_id!='' ">and plat_id=#{plat_id}</if>
+        <if test="buyer_id !=null and buyer_id!='' ">and buyer_id=#{buyer_id}</if>
+        <if test="seller_virid !=null and seller_virid!='' ">and seller_virid=#{seller_virid}</if>
+        <if test="tran_date !=null and tran_date!='' ">and tran_date=#{tran_date}</if>
+        <if test="cm_seq_no !=null and cm_seq_no!='' ">and cm_seq_no=#{cm_seq_no}</if>
+        <if test="order_no_old !=null and order_no_old!='' "> and order_no_old=#{order_no_old}</if>
+        <if test="order_no !=null and order_no!='' "> and order_no=#{order_no}</if>
+        <if test="order_acct_seq_no !=null and order_acct_seq_no!='' ">and order_acct_seq_no=#{order_acct_seq_no}</if>
+    </trim>
+</select>
 
-    <!--查询数据库表的名字-->
-    <select id="selectDbTables" parameterType="hashMap"  resultType="string" >
-        select table_name from information_schema.tables where table_name like 'va_%'
-          union all
-        select table_name from information_schema.tables where table_name like 'cm_%'
-    </select>
+<!--查询数据库表的字段和字段类型-->
+<select id="selectDbTableColumns" parameterType="string"  resultType="hashMap" >
+    select column_name,data_type
+    from information_schema.columns
+    where table_schema = 'vas' and table_name = #{table_name}
+</select>
+
+<!--查询数据库表的名字-->
+<select id="selectDbTables" parameterType="hashMap"  resultType="string" >
+    select table_name from information_schema.tables where table_name like 'va_%'
+    union all
+    select table_name from information_schema.tables where table_name like 'cm_%'
+</select>
+
+<!--查询业务参数信息用于缓存-->
+<select id="selectCmBusinessParaForCache" parameterType="hashMap"  resultType="hashMap" >
+    select tran_type cache_key1,para_key cache_key2,para_value from cm_business_para where para_status='1'
+</select>
+
 
 </mapper>

@@ -1,6 +1,6 @@
 package com.emcs.controller;
 
-import com.emcs.serviceImpl.busniess.transferAccounts.TransferAccounts;
+import com.emcs.busniess.transferAccounts.TransferAccounts;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

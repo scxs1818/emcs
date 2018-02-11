@@ -1,11 +1,8 @@
 package com.emcs.controller;
 
-import com.emcs.serviceImpl.busniess.order.PurchaseApply;
-import com.emcs.serviceImpl.busniess.order.PurchaseConfirm;
-import com.emcs.serviceImpl.busniess.order.PurchaseRevoke;
-import com.emcs.serviceImpl.busniess.register.CustRegister;
-import com.emcs.serviceImpl.busniess.register.MerchRegister;
-import com.emcs.serviceImpl.busniess.register.PlatformRegister;
+import com.emcs.busniess.order.PurchaseApply;
+import com.emcs.busniess.order.PurchaseConfirm;
+import com.emcs.busniess.order.PurchaseRevoke;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

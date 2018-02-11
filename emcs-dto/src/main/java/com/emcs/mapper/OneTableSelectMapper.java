@@ -35,4 +35,6 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectDbTableColumns(Object param);
     List<Object> selectDbTables(Map<String,Object> param);
     String getNextVal(Map<String,Object> param);
+
+
 }

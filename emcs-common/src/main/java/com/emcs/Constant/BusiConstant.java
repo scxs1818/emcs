@@ -93,9 +93,9 @@ public interface BusiConstant {
     }
 
     public enum Cache{
-        CM_SYSTEM("CM_SYSTEM","系统表"),
-        CM_BUSINESS_PARA("CM_BUSINESS_PARA","业务参数表"),
-        VA_VIRTUAL_ACCT_TYPE("VA_VIRTUAL_ACCT_TYPE","虚拟账户类型"),
+        CM_SYSTEM("cm_system","系统表"),
+        CM_BUSINESS_PARA("cm_business_para","业务参数表"),
+        VA_VIRTUAL_ACCT_TYPE("va_virtual_acct_type","虚拟账户类型"),
         ;
         Cache(String value,String desc){
             this.value=value;
@@ -150,6 +150,10 @@ public interface BusiConstant {
     String SEQ_NAME_MERCH_VIR_ACC = "MERCH_VIR_ACC_SEQ_NO";
     String SEQ_CUST_MERCH_BAN_ACC = "CUST_BAN_ACC_SEQ_NO";
     String SEQ_CUST_MERCH_VIR_ACC = "CUST_VIR_ACC_SEQ_NO";
+
+    String LIMIT_AMT = "LIMIT_AMT";
+    String LIMIT_CNT = "LIMIT_CNT";
+    String PIPE = "|";
 
     /**平台资金存管专户 */
     String ACCT_TYPE_PLAT_DEPOSIT = "0";
