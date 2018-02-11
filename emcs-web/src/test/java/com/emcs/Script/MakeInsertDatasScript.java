@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class MakeTablesScript {
+public class MakeInsertDatasScript {
     public static void main(String[] args) {
         String dir = SqlUtil.getDbScriptDir();
-        File file = new File(dir+"/tables");
+        File file = new File(dir+"/datas");
         File[] files = file.listFiles();
         RandomAccessFile raf1 = null,raf2 = null;
         StringBuilder sb = new StringBuilder();
@@ -20,10 +20,11 @@ public class MakeTablesScript {
                 }
                 sb.append("\n");
             }
-            File targe = new File(dir+"/total_create_table.sql");
+            File targe = new File(dir+"/total_datas.sql");
             targe.delete();
             targe.createNewFile();
             raf2 = new RandomAccessFile(targe,"rw");
+            sb.append("COMMIT;");
             raf2.writeBytes(sb.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,6 +39,4 @@ public class MakeTablesScript {
             }
         }
     }
-
-
 }
