@@ -43,6 +43,7 @@ public class TransferAccounts extends ServiceTransactionalY{
             //扣减付款方余额
             oneDML.updateVaCustVirtualAcctBalAdd(param);
             if(BusiConstant.ROLE_CUST.equals(param.get("payee_type"))){
+                param.put("tran_type",BusiConstant.TranType.TRANSFER_CUST_TO_CUST);
                 param.put("cust_virid",param.get("payee_id"));
                 //对收款方上锁
                 oneSelect.selectVaCustVirtualAcctBalLock(param);
@@ -50,6 +51,7 @@ public class TransferAccounts extends ServiceTransactionalY{
                 oneDML.updateVaCustVirtualAcctBalSub(param);
 
             }else if(BusiConstant.ROLE_MERCH.equals(param.get("payee_type"))){
+                param.put("tran_type",BusiConstant.TranType.TRANSFER_CUST_TO_MERCH);
                 param.put("vir_acct_type","201");
                 param.put("merch_virid",param.get("payee_id"));
                 //对收款方上锁
@@ -66,12 +68,14 @@ public class TransferAccounts extends ServiceTransactionalY{
             oneSelect.selectVaMerchVirtualAcctBalLock(param);
             oneDML.updateVaMerchVirtualAcctBalSub(param);
             if(BusiConstant.ROLE_CUST.equals(param.get("payee_type"))){
+                param.put("tran_type",BusiConstant.TranType.TRANSFER_MERCH_TO_CUST);
                 param.put("vir_acct_type","301");
                 param.put("cust_virid",param.get("payee_id"));
                 oneSelect.selectVaCustVirtualAcctBalLock(param);
                 oneDML.updateVaCustVirtualAcctBalAdd(param);
 
             }else if(BusiConstant.ROLE_MERCH.equals(param.get("payee_type"))){
+                param.put("tran_type",BusiConstant.TranType.TRANSFER_MERCH_TO_MERCH);
                 param.put("merch_virid",param.get("payee_id"));
                 oneSelect.selectVaMerchVirtualAcctBalLock(param);
                 oneDML.updateVaMerchVirtualAcctBalAdd(param);
