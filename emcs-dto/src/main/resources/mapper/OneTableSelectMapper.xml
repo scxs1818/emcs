@@ -142,7 +142,7 @@
         select actural_bal,usable_bal,recharge_bal from va_cust_virtual_acct_bal
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type !=null and vir_acct_type!='' "> and vir_acct_type = #{vir_acct_type} </if>
-            <if test="cust_id !=null and cust_id!='' "> and merch_id = #{cust_id} </if>
+            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
             <if test="cust_virid !=null and cust_virid!='' "> and cust_virid = #{cust_virid} </if>
         </trim>
         for update

@@ -12,6 +12,9 @@ public interface ErrorCodeConstant {
         VAZ005("VAZ005","必输字段为空"),
         VAZ006("VAZ006","执行数据操作失败"),
         VAZ007("VAZ007","角色类型错误"),
+        VAZ008("VAZ008","已经超出日限额"),
+        VAZ009("VAZ009","已经超出日交易次数"),
+
 
         ;
         public String code() {
@@ -56,6 +59,8 @@ public interface ErrorCodeConstant {
         VAB003("VAB003","商户处于异常状态"),
         VAB004("VAB004","商户信息已存在"),
         VAB005("VAB005","商户注册失败"),
+        VAB006("VAB006","该商户虚拟账户不允许转出"),
+
         ;
         private String code;
         private String val;
@@ -82,6 +87,7 @@ public interface ErrorCodeConstant {
         VAC003("VAC003","会员处于异常状态"),
         VAC004("VAC004","会员信息已存在"),
         VAC005("VAC005","会员注册失败"),
+        VAC006("VAC006","该会员虚拟账户不允许转出"),
         ;
 
         private String code;
