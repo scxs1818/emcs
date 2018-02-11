@@ -1,7 +1,7 @@
 package com.emcs.busiTest;
 
 
-import com.emcs.serviceImpl.busniess.register.MerchRegister;
+import com.emcs.busniess.register.MerchRegister;
 import com.emcs.util.CommonResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;

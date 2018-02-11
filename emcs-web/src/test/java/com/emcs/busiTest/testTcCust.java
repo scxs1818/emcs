@@ -1,18 +1,13 @@
 package com.emcs.busiTest;
 
 
-import com.emcs.serviceImpl.busniess.other.MakeInsertSql;
-import com.emcs.serviceImpl.busniess.register.CustRegister;
-import com.emcs.util.CommonResult;
+import com.emcs.busniess.other.MakeInsertSql;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
