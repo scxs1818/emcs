@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.emcs.mapper.ManyTableSelectMapper" >
 
-
-
+    <!--对会员虚拟账户余额信息上锁-->
+    <select id="manyVaCustVirtualAcctBalLock" parameterType="hashMap"  resultType="hashMap" >
+        select b.actural_bal,b.usable_bal,b.recharge_bal,t.acct_status,t.is_in,t.is_out,t.is_total_limit,t.is_balance_limit,t.balance_type,t.balance_value
+        from va_cust_virtual_acct_bal b,va_cust_virtual_acct t
+        where b.cust_virid=t.cust_virid
+        <if test="acct_status !=null and acct_status!='' "> and t.acct_status = #{acct_status} </if>
+        <if test="vir_acct_type !=null and vir_acct_type!='' "> and b.vir_acct_type = #{vir_acct_type} </if>
+        <if test="cust_id !=null and cust_id!='' "> and b.cust_id = #{cust_id} </if>
+        <if test="cust_virid !=null and cust_virid!='' "> and b.cust_virid = #{cust_virid} </if>
+        for update of b.cust_virid
+    </select>
 </mapper>

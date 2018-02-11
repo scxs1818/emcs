@@ -26,7 +26,7 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectVaCustVirtualAcctInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustRechargeDetail(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustRechargeAmtDay(Map<String, Object> param);
-    List<Map<String,Object>> selectCustVirtualAcctBalLock(Map<String, Object> param);
+    List<Map<String,Object>> selectVaCustVirtualAcctBalLock(Map<String, Object> param);
 
     List<Map<String,Object>> selectCmBusinessParaForCache(Map<String, Object> param);
     List<Map<String,Object>> selectCmSystemForCache(Map<String, Object> param);
