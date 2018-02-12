@@ -24,16 +24,16 @@ import java.util.Map;
 @Transactional
 public abstract class ServiceTransactionalY {
     @Autowired
-    InsertCmTranSeq icats;
+    InsertCmTranSeq icts;
     @Autowired
-    UpdateCmTranSeq ucats;
+    UpdateCmTranSeq ucts;
     protected CommonResult before(Map<String, Object> param) {
-        icats.process(param);//插入交易流水
+        icts.process(param);//插入交易流水
         return null;
     }
 
     protected CommonResult after(Map<String, Object> param) {
-        ucats.process(param);//更新交易流水
+        ucts.process(param);//更新交易流水
         return null;
     }
 

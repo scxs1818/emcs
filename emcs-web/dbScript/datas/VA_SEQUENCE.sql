@@ -9,4 +9,6 @@ insert into va_sequence values('cust_seq_no',0,1,12,'会员编号');
 insert into va_sequence values('cust_vir_acc_seq_no',0,1,12,'会员虚拟账户编号');
 insert into va_sequence values('cust_ban_acc_seq_no',0,1,12,'会员银行账户编号');
 insert into va_sequence values('transfer_seq_no',0,1,16,'转账流水号');
+insert into va_sequence values('cm_seq_no',0,1,16,'公共流水号');
+
 
