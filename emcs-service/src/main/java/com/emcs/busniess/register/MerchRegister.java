@@ -1,11 +1,10 @@
 package com.emcs.busniess.register;
 
 import com.emcs.Constant.BusiConstant;
-import com.emcs.Super.ServiceTransactionalY;
+import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.Constant.BusiConstant.*;
 import com.emcs.Constant.ErrorCodeConstant.*;
 import com.emcs.exception.BusiException;
-import com.emcs.tool.ServiceUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -31,9 +30,7 @@ public class MerchRegister extends ServiceTransactionalY{
 
         //3.生成商户编号
         param.put("status","N");
-        param.put("length",Quence.MERCH.length());
-        param.put("seqname",Quence.MERCH.gname());
-        String merchSeq = oneSelect.getNextVal(param);
+        String merchSeq = oneSelect.getNextVal(Quence.MERCH.gname());
         String palt_id =  param.get("plat_id")+"";
         String merch_id = Role.MERCH.vaue()+palt_id+merchSeq;
         param.put("merch_id",merch_id);
@@ -43,9 +40,7 @@ public class MerchRegister extends ServiceTransactionalY{
 
         //5.生成商户银行账户编号
         Object acct_no = param.get("settle_acct");
-        param.put("length",Quence.MERCH_BANK.length());
-        param.put("seqname",Quence.MERCH_BANK.gname());
-        String acctSeq = oneSelect.getNextVal(param);
+        String acctSeq = oneSelect.getNextVal(Quence.MERCH_BANK.gname());
         param.put("acct_id", AcctProperty.ACCT_BAN.value()+Role.MERCH.vaue()+acctSeq);
         param.put("acct_no",acct_no);
         param.put("acct_type", BusiConstant.ACCT_TYPE_MERCH_SETTLE);
@@ -59,9 +54,7 @@ public class MerchRegister extends ServiceTransactionalY{
         param.putAll(virAcctTypeList.get(0));
 
         //7.生产商户虚拟账户编号
-        param.put("length",Quence.MERCH_VIRT.length());
-        param.put("seqname",Quence.MERCH_VIRT.gname());
-        String virSeq = oneSelect.getNextVal(param);
+        String virSeq = oneSelect.getNextVal(Quence.MERCH_VIRT.gname());
         param.put("merch_virid", AcctProperty.ACCT_VIR.value()+merch_id);
         param.put("rel_bank_acct",acct_no);
         //8.注册虚拟账户信息

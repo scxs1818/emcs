@@ -1,10 +1,12 @@
-TRUNCATE TABLE VA_SEQUENCE;
-INSERT INTO VA_SEQUENCE VALUES('PLAT_SEQ_NO',0,1,'平台编号');
-INSERT INTO VA_SEQUENCE VALUES('PLAT_VIR_ACC_SEQ_NO',0,1,'平台虚拟账户编号');
-INSERT INTO VA_SEQUENCE VALUES('PLAT_BAN_ACC_SEQ_NO',0,1,'平台银行账户编号');
-INSERT INTO VA_SEQUENCE VALUES('MERCH_SEQ_NO',0,1,'商户编号');
-INSERT INTO VA_SEQUENCE VALUES('MERCH_VIR_ACC_SEQ_NO',0,1,'商户虚拟账户编号');
-INSERT INTO VA_SEQUENCE VALUES('MERCH_BAN_ACC_SEQ_NO',0,1,'商户银行账户编号');
-INSERT INTO VA_SEQUENCE VALUES('CUST_SEQ_NO',0,1,'会员编号');
-INSERT INTO VA_SEQUENCE VALUES('CUST_VIR_ACC_SEQ_NO',0,1,'会员虚拟账户编号');
-INSERT INTO VA_SEQUENCE VALUES('CUST_BAN_ACC_SEQ_NO',0,1,'会员银行账户编号');
+truncate table va_sequence;
+insert into va_sequence values('plat_seq_no',0,1,4,'平台编号');
+insert into va_sequence values('plat_vir_acc_seq_no',0,1,4,'平台虚拟账户编号');
+insert into va_sequence values('plat_ban_acc_seq_no',0,1,6,'平台银行账户编号');
+insert into va_sequence values('merch_seq_no',0,1,8,'商户编号');
+insert into va_sequence values('merch_vir_acc_seq_no',0,1,8,'商户虚拟账户编号');
+insert into va_sequence values('merch_ban_acc_seq_no',0,1,8,'商户银行账户编号');
+insert into va_sequence values('cust_seq_no',0,1,12,'会员编号');
+insert into va_sequence values('cust_vir_acc_seq_no',0,1,12,'会员虚拟账户编号');
+insert into va_sequence values('cust_ban_acc_seq_no',0,1,12,'会员银行账户编号');
+insert into va_sequence values('transfer_seq_no',0,1,16,'转账流水号');
+

@@ -329,15 +329,15 @@
         </trim>
     </update>
 
-    <!--插入会员充值明细-->
-    <insert id="insertVaCustRechargeDetail" parameterType="hashMap">
-        insert into va_cust_recharge_detail
+    <!--插入会员充值流水-->
+    <insert id="insertVaCustRechargeSeq" parameterType="hashMap">
+        insert into va_cust_recharge_seq
         (
-            order_no,order_no_old,cust_id,plat_id,
-            cust_virid,tran_type,tran_amt,tran_status,tran_date
+            cust_recharge_seq,order_no,pub_seq_no,payee_id,plat_id,
+            payee_virid,tran_type,tran_amt,tran_date
         ) values (
-            #{order_no},#{order_no_old},#{cust_id},#{plat_id},
-            #{cust_virid},#{tran_type},#{tran_amt},#{tran_status},#{tran_date}
+            #{cust_recharge_seq},#{order_no},#{pub_seq_no},#{payee_id},#{plat_id},
+            #{payee_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
         )
     </insert>
 
@@ -417,6 +417,26 @@
         </trim>
     </update>
 
+    <!--插入交易公共流水-->
+    <insert id="insertCmTranSeq" parameterType="hashMap">
+      insert into cm_tran_seq(
+          pub_seq_no,order_no,tran_date,tran_time,channel_seq_no,channel_date,channel_code,
+          source_type,tran_type,business_code,user_id,plat_id,merch_id,cust_id,acct_no,currency,
+          tran_amt,branch_id,msg_type,msg_code,tran_status,ret_code,fail_reason,pub_seq_no
+          ) values (
+          #{pub_seq_no},#{order_no},#{tran_date},#{tran_time},#{channel_seq_no},#{channel_date},#{channel_code},
+          #{source_type},#{tran_type},#{business_code},#{user_id},#{plat_id},#{merch_id},#{cust_id},#{acct_no},#{currency},
+          #{tran_amt},#{branch_id},#{msg_type},#{msg_code},#{tran_status},#{ret_code},#{fail_reason},#{pub_seq_no})
+    </insert>
+
+    <!--更新公共交流水-->
+    <update id="updateCmTranSeq" parameterType="hashMap">
+        update cm_tran_seq set
+          tran_status=#{tran_status},msg_code=#{msg_code},
+          ret_code=#{ret_code},fail_reason=#{fail_reason}
+        where pub_seq_no=#{pub_seq_no}
+    </update>
+
     <!--插入虚拟账务流水-->
     <insert id="insertVaVirAcctSeq" parameterType="hashMap">
         insert into va_vir_acct_seq (
@@ -450,6 +470,13 @@
             <if test="order_acct_seq_no !=null and order_acct_seq_no!='' ">and order_acct_seq_no=#{order_acct_seq_no}</if>
         </trim>
     </update>
-    
+    <insert id="insertVaTransferSeq" parameterType="hashMap">
+        insert into va_transfer_seq(
+          transfer_seq_no,pub_seq_no,order_no,plat_id,payer_id,payer_virid,payee_id,payee_virid,
+          pay_type,tran_amt,tran_type,create_date,transfer_seq_no
+          ) values (
+          #{transfer_seq_no},#{pub_seq_no},#{order_no},#{plat_id},#{payer_id},#{payer_virid},#{payee_id},#{payee_virid},
+          #{pay_type},#{tran_amt},#{tran_type},#{create_date},#{transfer_seq_no})
+    </insert>
 
 </mapper>

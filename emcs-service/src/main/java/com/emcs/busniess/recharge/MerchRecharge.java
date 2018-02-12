@@ -1,6 +1,6 @@
 package com.emcs.busniess.recharge;
 
-import com.emcs.Super.ServiceTransactionalY;
+import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.busniess.common.SendCorePay;
 import com.emcs.busniess.common.UpdateCmAcctTranSeq;
@@ -26,14 +26,14 @@ public class MerchRecharge extends ServiceTransactionalY{
     SendNetPay sendNetPay;
     @Override
     protected void process(Map<String, Object> param) {
-//        1.1判断商户信息是否存在
-        if(oneSelect.selectIsExistVaMerchInfo(param)==0)throw new BusiException("商户信息不存在或者处于异常状态","600007");
+        Map<String,Object> payeeMap = (Map<String,Object>)param.get("payeeInfo");
+
         boolean flag = false;
         try{
             //2.记账无流水
             insertCmAcctTranSeq.process(param);
             flag = true;
-            //3.发核心支付(下面两种方式,根据实际实现2选1)
+            //3.发支付(下面两种方式,根据实际实现2选1)
             sendCorePay.process(param);//核心支付
             sendNetPay.process(param);//互联网支付
 
@@ -41,10 +41,11 @@ public class MerchRecharge extends ServiceTransactionalY{
             //4.1增加会员虚拟账户余额
             param.put("usable_bal",0);//可用金额不变
             param.put("recharge_bal",param.get("tran_amt"));//充值金额增加
-            oneDML.updateVaCustVirtualAcctBalAdd(param);
+            oneDML.updateVaMerchVirtualAcctBalAdd(param);
 
             //4.2记录充值明细
-            oneDML.insertVaCustRechargeDetail(param);
+            oneDML.insertVaMerchRechargeDetail(param);
+
             //5.更新账务流水(依据支付状态)
             updateCmAcctTranSeq.process(param);
         }catch(Exception e){

@@ -17,6 +17,8 @@ public interface OneTableDMLMapper{
     int insertVaMerchInfo(Map<String,Object> map);
     int insertVaMerchVirtualAcctBal(Map<String, Object> params);
     int updateVaMerchVirtualAcctBalAdd(Map<String, Object> params);
+    int insertVaMerchRechargeDetail(Map<String, Object> params);
+
     int updateVaMerchVirtualAcctBalSub(Map<String, Object> params);
     int insertVaMerchVirtualAcct(Map<String,Object> params);
 
@@ -40,6 +42,9 @@ public interface OneTableDMLMapper{
 
     int insertVaVirAcctSeq(Map<String,Object> params);
     int updateVaVirAcctSeq(Map<String,Object> params);
+
+
+    int insertVaTransferSeq(Map<String,Object> params);
 
     int insertTestUser(Map<String,Object> params);
 
