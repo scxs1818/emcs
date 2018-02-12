@@ -450,6 +450,13 @@
             <if test="order_acct_seq_no !=null and order_acct_seq_no!='' ">and order_acct_seq_no=#{order_acct_seq_no}</if>
         </trim>
     </update>
-    
+    <insert id="insertVaTransferSeq" parameterType="hashMap">
+        insert into va_transfer_seq(
+          transfer_seq_no,pub_seq_no,order_no,plat_id,payer_id,payer_virid,payee_id,payee_virid,
+          pay_type,tran_amt,tran_type,create_date,transfer_seq_no
+          ) values (
+          #{transfer_seq_no},#{pub_seq_no},#{order_no},#{plat_id},#{payer_id},#{payer_virid},#{payee_id},#{payee_virid},
+          #{pay_type},#{tran_amt},#{tran_type},#{create_date},#{transfer_seq_no})
+    </insert>
 
 </mapper>

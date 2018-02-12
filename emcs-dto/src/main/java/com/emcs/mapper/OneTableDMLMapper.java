@@ -41,6 +41,9 @@ public interface OneTableDMLMapper{
     int insertVaVirAcctSeq(Map<String,Object> params);
     int updateVaVirAcctSeq(Map<String,Object> params);
 
+
+    int insertVaTransferSeq(Map<String,Object> params);
+
     int insertTestUser(Map<String,Object> params);
 
 }

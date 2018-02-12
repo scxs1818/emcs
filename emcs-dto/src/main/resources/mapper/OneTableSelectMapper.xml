@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.emcs.mapper.OneTableSelectMapper" >
 <!--根据序列名称获取序列下一个值-->
-<select id="getNextVal" parameterType="hashMap"  resultType="string" >
-    select lpad(getnextval(#{seqname}),#{length},0) from dual
+<select id="getNextVal" parameterType="string"  resultType="string" >
+    select lpad(getnextval(#{seqname}),(select _length from va_quence where seq_name#{seqname}),0) from dual
 </select>
 
 <!--查询虚拟账户类型信息-->
