@@ -1,6 +1,6 @@
 package com.emcs.busniess.card;
 
-import com.emcs.Super.ServiceTransactionalY;
+import com.emcs.supers.ServiceTransactionalY;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

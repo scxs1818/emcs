@@ -1,6 +1,5 @@
-package com.emcs.Super;
+package com.emcs.supers;
 
-import com.emcs.exception.BusiException;
 import com.emcs.exception.DoException;
 import com.emcs.mapper.ManyTableDMLMapper;
 import com.emcs.mapper.ManyTableSelectMapper;

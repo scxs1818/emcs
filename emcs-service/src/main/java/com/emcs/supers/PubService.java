@@ -1,11 +1,10 @@
-package com.emcs.Super;
+package com.emcs.supers;
 
 import com.emcs.mapper.ManyTableSelectMapper;
 import com.emcs.mapper.OneTableDMLMapper;
 import com.emcs.mapper.OneTableSelectMapper;
 import com.emcs.pub.runtime.core.Logger;
 import com.emcs.pub.runtime.core.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Map;

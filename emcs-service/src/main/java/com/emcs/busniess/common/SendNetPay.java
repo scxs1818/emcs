@@ -1,8 +1,6 @@
 package com.emcs.busniess.common;
 
-import com.emcs.Super.PubService;
-import com.emcs.Super.ServiceTransactionalN;
-import com.emcs.util.CommonResult;
+import com.emcs.supers.PubService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

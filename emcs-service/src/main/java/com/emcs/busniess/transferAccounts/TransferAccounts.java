@@ -2,7 +2,7 @@ package com.emcs.busniess.transferAccounts;
 
 import com.emcs.Constant.BusiConstant;
 import com.emcs.Constant.ErrorCodeConstant.*;
-import com.emcs.Super.ServiceTransactionalY;
+import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.busniess.common.LimitValidate;
 import com.emcs.busniess.common.UpdateCmAcctTranSeq;
@@ -12,7 +12,6 @@ import com.emcs.exception.BusiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 /**
