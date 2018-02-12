@@ -6,11 +6,12 @@ import com.emcs.cache.CacheUtil;
 import com.emcs.exception.BusiException;
 import com.emcs.supers.PubService;
 import com.emcs.util.CheckEmpty;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class LimitValidate extends PubService {
     @Override
     public void process(Map<String, Object> param) {

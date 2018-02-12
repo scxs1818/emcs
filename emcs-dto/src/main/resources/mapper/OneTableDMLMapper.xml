@@ -341,45 +341,6 @@
         )
     </insert>
 
-    <!--插入交易公共流水-->
-    <insert id="insertCmTranSeq" parameterType="hashMap">
-        insert into cm_tran_seq
-        (
-            tran_seq,order_no,tran_date,tran_time,
-            channel_date,channel_seq_no,channel_code,
-            source_type,tran_type,business_code,
-            user_id,plat_id,
-            merch_id,cust_id,acct_no,
-            currency,tran_amt,
-            branch_id,msg_type,
-            msg_code,tran_status,
-            ret_code,
-            fail_reason
-        )
-        values
-        (
-            #{tran_seq},#{tran_date},#{tran_time},
-            #{channel_date},#{channel_seq_no},#{channel_code},
-            #{source_type},#{tran_type},#{business_code},
-            #{user_id},#{plat_id},
-            #{merch_id},#{cust_id},#{acct_no},
-            #{currency},#{tran_amt},
-            #{branch_id},#{msg_type},
-            #{msg_code},#{tran_status},
-            #{ret_code},
-            #{fail_reason}
-        )
-    </insert>
-
-    <!--更新交易公共流水-->
-    <update id="updateCmTranSeq" parameterType="hashMap">
-        update into cm_tran_seq SET
-            msg_code=#{msg_code},tran_status=#{tran_status},
-            ret_code=#{ret_code},resp_code=#{resp_code},
-            fail_reason=#{fail_reason}
-        where tran_seq=#{tran_seq}
-    </update>
-
     <!--插入银行账务流水-->
     <insert id="insertCmAcctTranSeq" parameterType="hashMap">
         insert into cm_acct_tran_seq (
