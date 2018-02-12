@@ -1,6 +1,6 @@
 package com.emcs.busniess.withDraw;
 
-import com.emcs.Super.ServiceTransactionalY;
+import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.busniess.common.SendCorePay;
 import com.emcs.busniess.common.UpdateCmAcctTranSeq;

@@ -1,7 +1,7 @@
 package com.emcs.busniess.order;
 
 import com.emcs.Constant.BusiConstant;
-import com.emcs.Super.ServiceTransactionalY;
+import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.exception.BusiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

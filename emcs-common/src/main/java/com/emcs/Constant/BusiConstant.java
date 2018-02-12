@@ -5,31 +5,28 @@ package com.emcs.Constant;
  */
 public interface BusiConstant {
     public enum Quence{
-        PLAT("PLAT_SEQ_NO",4,"平台序列"),
-        PLAT_VIRT("PLAT_VIR_ACC_SEQ_NO",4,"平台虚拟账户序列"),
-        PLAT_BANK("PLAT_BAN_ACC_SEQ_NO",6,"平台银行账户序列"),
+        PLAT("plat_seq_no","平台序列"),
+        PLAT_VIRT("plat_vir_acc_seq_no","平台虚拟账户序列"),
+        PLAT_BANK("plat_ban_acc_seq_no","平台银行账户序列"),
 
-        MERCH("MERCH_SEQ_NO",8,"商户序列"),
-        MERCH_VIRT("MERCH_VIR_ACC_SEQ_NO",8,"商户虚拟账户序列"),
-        MERCH_BANK("MERCH_BAN_ACC_SEQ_NO",8,"商户银行账户序列"),
+        MERCH("merch_seq_no","商户序列"),
+        MERCH_VIRT("merch_vir_acc_seq_no","商户虚拟账户序列"),
+        MERCH_BANK("merch_ban_acc_seq_no","商户银行账户序列"),
 
-        CUST("CUST_SEQ_NO",12,"个人序列"),
-        CUST_VIRT("CUST_VIR_ACC_SEQ_NO",12,"个人虚拟账户序列"),
-        CUST_BANK("SEQ_CUST_MERCH_BAN_ACC",12,"个人银行账户序列"),
+        CUST("cust_seq_no","个人序列"),
+        CUST_VIRT("cust_vir_acc_seq_no","个人虚拟账户序列"),
+        CUST_BANK("seq_cust_merch_ban_acc","个人银行账户序列"),
+
+        TRANSFER("transfer_seq_no","转账流水号"),
+        CM_TRAN_SEQ("cm_tran_seq","交易公共流水号"),
+
         ;
-        private int length;
         private String name;
         private String desc;
-        Quence(String name, int length,String desc) {
-            this.length = length;
+        Quence(String name,String desc) {
             this.name = name;
             this.desc=desc;
         }
-
-        public int length() {
-            return length;
-        }
-
         public String gname() {
             return name;
         }
@@ -92,6 +89,14 @@ public interface BusiConstant {
         }
     }
 
+    String BUIS_TYPE_TRANSFER_ACCOUNT = "T";
+    String BUIS_TYPE_RECHARGE_CUST = "CR";
+    String BUIS_TYPE_RECHARGE_MERCH = "MR";
+    String BUIS_TYPE_WITHDRAW_CUST = "CW";
+    String BUIS_TYPE_WITHDRAW_MERCH = "MW";
+    String BUIS_TYPE_PURCHASE = "P";
+
+
     public enum Cache{
         CM_SYSTEM("cm_system","系统表"),
         CM_BUSINESS_PARA("cm_business_para","业务参数表"),
@@ -142,17 +147,17 @@ public interface BusiConstant {
     String CACHE_CM_SYSTEM = "cm_system ";
     String CACHE_CM_BUSINESS_PARA = "cm_business_para";
 
-    String SEQ_NAME_MERCH = "MERCH_SEQ_NO";
-    String SEQ_NAME_PLAT = "PLAT_SEQ_NO";
-    String SEQ_NAME_CUST = "CUST_SEQ_NO";
-    String SEQ_NAME_PLAT_BAN_ACC = "PLAT_BAN_ACC_SEQ_NO";
-    String SEQ_NAME_MERCH_BAN_ACC = "MERCH_BAN_ACC_SEQ_NO";
-    String SEQ_NAME_MERCH_VIR_ACC = "MERCH_VIR_ACC_SEQ_NO";
-    String SEQ_CUST_MERCH_BAN_ACC = "CUST_BAN_ACC_SEQ_NO";
-    String SEQ_CUST_MERCH_VIR_ACC = "CUST_VIR_ACC_SEQ_NO";
+    String SEQ_NAME_MERCH = "merch_seq_no";
+    String SEQ_NAME_PLAT = "plat_seq_no";
+    String SEQ_NAME_CUST = "cust_seq_no";
+    String SEQ_NAME_PLAT_BAN_ACC = "plat_ban_acc_seq_no";
+    String SEQ_NAME_MERCH_BAN_ACC = "merch_ban_acc_seq_no";
+    String SEQ_NAME_MERCH_VIR_ACC = "merch_vir_acc_seq_no";
+    String SEQ_CUST_MERCH_BAN_ACC = "cust_ban_acc_seq_no";
+    String SEQ_CUST_MERCH_VIR_ACC = "cust_vir_acc_seq_no";
 
-    String LIMIT_AMT = "LIMIT_AMT";
-    String LIMIT_CNT = "LIMIT_CNT";
+    String LIMIT_AMT = "limit_amt";
+    String LIMIT_CNT = "limit_cnt";
     String PIPE = "|";
 
     /**平台资金存管专户 */
