@@ -18,6 +18,9 @@ public class LimitValidate extends PubService {
     }
 
     private void limitValidate(Map<String, Object> param) {
+        if(oneSelect.selectIsExistVaPlatInfo(param)==0)
+            throw new BusiException(PlatErrorCode.VAP001.code(), PlatErrorCode.VAP001.val());
+
         validatePayer(param);
         validatePayee(param);
     }
@@ -26,11 +29,13 @@ public class LimitValidate extends PubService {
         Object payeeType=param.get("payee_type");
         List<Map<String,Object>> virAcctBalList;
         if(BusiConstant.Role.CUST.equals(payeeType)){
+            if(oneSelect.selectIsExistVaCustInfo(param)==0)throw new BusiException(PubErrorCode.VAZ019.code(), PubErrorCode.VAZ019.val());
             virAcctBalList = manySelect.manyVaCustVirtualAcctBalLock(param);
         }if(BusiConstant.Role.MERCH.equals(payeeType)){
+            if(oneSelect.selectIsExistVaMerchInfo(param)==0)throw new BusiException(PubErrorCode.VAZ019.code(), PubErrorCode.VAZ019.val());
             virAcctBalList = manySelect.manyVaMerchVirtualAcctBalLock(param);
         }else{
-            throw new BusiException(PubErrorCode.VAZ007.code(), PubErrorCode.VAZ007.val());
+            throw new BusiException(PubErrorCode.VAZ017.code(), PubErrorCode.VAZ017.val());
         }
 
         //2.判断付款方虚拟账户是否正常
@@ -52,10 +57,14 @@ public class LimitValidate extends PubService {
     }
 
     public void validatePayer(Map<String, Object> param) {
+        if(oneSelect.selectIsExistVaPlatInfo(param)==0)
+            throw new BusiException(PlatErrorCode.VAP001.code(), PlatErrorCode.VAP001.val());
+
         Object payerType=param.get("payer_type");
         Object tranType=param.get("tran_type");
         List<Map<String,Object>> virAcctBalList;
         if(BusiConstant.Role.CUST.equals(payerType)){
+            if(oneSelect.selectIsExistVaCustInfo(param)==0)throw new BusiException(PubErrorCode.VAZ018.code(), PubErrorCode.VAZ018.val());
             virAcctBalList = manySelect.manyVaCustVirtualAcctBalLock(param);
         }if(BusiConstant.Role.MERCH.equals(payerType)){
             virAcctBalList = manySelect.manyVaMerchVirtualAcctBalLock(param);

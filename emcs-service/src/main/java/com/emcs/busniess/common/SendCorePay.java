@@ -12,6 +12,7 @@ import java.util.Map;
 public class SendCorePay extends PubService {
     @Override
     public void process(Map<String, Object> param) {
+        log.info("调核心支付成功");
     //待补充
     }
 }

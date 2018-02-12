@@ -329,15 +329,15 @@
         </trim>
     </update>
 
-    <!--插入会员充值明细-->
-    <insert id="insertVaCustRechargeDetail" parameterType="hashMap">
-        insert into va_cust_recharge_detail
+    <!--插入会员充值流水-->
+    <insert id="insertVaCustRechargeSeq" parameterType="hashMap">
+        insert into va_cust_recharge_seq
         (
-            order_no,order_no_old,cust_id,plat_id,
-            cust_virid,tran_type,tran_amt,tran_status,tran_date
+            cust_recharge_seq,order_no,pub_seq_no,payee_id,plat_id,
+            payee_virid,tran_type,tran_amt,tran_date
         ) values (
-            #{order_no},#{order_no_old},#{cust_id},#{plat_id},
-            #{cust_virid},#{tran_type},#{tran_amt},#{tran_status},#{tran_date}
+            #{cust_recharge_seq},#{order_no},#{pub_seq_no},#{payee_id},#{plat_id},
+            #{payee_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
         )
     </insert>
 

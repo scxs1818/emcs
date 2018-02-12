@@ -6,7 +6,7 @@ import java.io.RandomAccessFile;
 @Service
 public class MakeInsertSqls {
     public static void main(String[] args) {
-        String dir = SqlUtil.getDbScriptDir()+"/tables/CM_TRAN_SEQ_交易记录表.sql";
+        String dir = SqlUtil.getDbScriptDir()+"/tables/VA_CUST_RECHARGE_SEQ_会员充值流水表.sql";
         RandomAccessFile raf = null,raf2 = null;
         StringBuilder sb1 = new StringBuilder(),sb2 = new StringBuilder();
         try {
@@ -17,6 +17,7 @@ public class MakeInsertSqls {
                         if(str.startsWith("DROP"))
                             sb1.append("insert into "+str.split("`")[1]+"(");
                     }else{
+                        if(str.contains("PRIMARY"))break;
                         String arr = str.split("`")[1];
                         sb1.append(arr+",");
                         sb2.append("#{"+arr+"},");

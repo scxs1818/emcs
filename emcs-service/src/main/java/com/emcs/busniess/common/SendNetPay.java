@@ -13,5 +13,6 @@ public class SendNetPay extends PubService {
     @Override
     public void process(Map<String, Object> param) {
         //待补充
+        log.info("调核心互联网成功");
     }
 }
