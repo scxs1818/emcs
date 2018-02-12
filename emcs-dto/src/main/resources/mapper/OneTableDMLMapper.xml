@@ -417,6 +417,26 @@
         </trim>
     </update>
 
+    <!--插入交易公共流水-->
+    <insert id="insertCmTranSeq" parameterType="hashMap">
+      insert into cm_tran_seq(
+          pub_seq_no,order_no,tran_date,tran_time,channel_seq_no,channel_date,channel_code,
+          source_type,tran_type,business_code,user_id,plat_id,merch_id,cust_id,acct_no,currency,
+          tran_amt,branch_id,msg_type,msg_code,tran_status,ret_code,fail_reason,pub_seq_no
+          ) values (
+          #{pub_seq_no},#{order_no},#{tran_date},#{tran_time},#{channel_seq_no},#{channel_date},#{channel_code},
+          #{source_type},#{tran_type},#{business_code},#{user_id},#{plat_id},#{merch_id},#{cust_id},#{acct_no},#{currency},
+          #{tran_amt},#{branch_id},#{msg_type},#{msg_code},#{tran_status},#{ret_code},#{fail_reason},#{pub_seq_no})
+    </insert>
+
+    <!--更新公共交流水-->
+    <update id="updateCmTranSeq" parameterType="hashMap">
+        update cm_tran_seq set
+          tran_status=#{tran_status},msg_code=#{msg_code},
+          ret_code=#{ret_code},fail_reason=#{fail_reason}
+        where pub_seq_no=#{pub_seq_no}
+    </update>
+
     <!--插入虚拟账务流水-->
     <insert id="insertVaVirAcctSeq" parameterType="hashMap">
         insert into va_vir_acct_seq (

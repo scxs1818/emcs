@@ -6,7 +6,7 @@ import java.io.RandomAccessFile;
 @Service
 public class MakeInsertSqls {
     public static void main(String[] args) {
-        String dir = SqlUtil.getDbScriptDir()+"/tables/VA_TRANSFER_SEQ_转账流水表.sql";
+        String dir = SqlUtil.getDbScriptDir()+"/tables/CM_TRAN_SEQ_交易记录表.sql";
         RandomAccessFile raf = null,raf2 = null;
         StringBuilder sb1 = new StringBuilder(),sb2 = new StringBuilder();
         try {

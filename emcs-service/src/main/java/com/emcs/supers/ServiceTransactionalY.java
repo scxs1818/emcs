@@ -1,7 +1,9 @@
 package com.emcs.supers;
 
 import com.emcs.busniess.common.InsertCmAcctTranSeq;
+import com.emcs.busniess.common.InsertCmTranSeq;
 import com.emcs.busniess.common.UpdateCmAcctTranSeq;
+import com.emcs.busniess.common.UpdateCmTranSeq;
 import com.emcs.exception.DoException;
 import com.emcs.mapper.ManyTableDMLMapper;
 import com.emcs.mapper.ManyTableSelectMapper;
@@ -22,9 +24,9 @@ import java.util.Map;
 @Transactional
 public abstract class ServiceTransactionalY {
     @Autowired
-    InsertCmAcctTranSeq icats;
+    InsertCmTranSeq icats;
     @Autowired
-    UpdateCmAcctTranSeq ucats;
+    UpdateCmTranSeq ucats;
     protected CommonResult before(Map<String, Object> param) {
         icats.process(param);//插入交易流水
         return null;
