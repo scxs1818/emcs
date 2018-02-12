@@ -1,5 +1,6 @@
 package com.emcs.controller;
 
+import com.emcs.busniess.other.MakeInsertSql;
 import com.emcs.busniess.test.TestCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,5 +22,11 @@ public class TestController {
     public void testCache(){
         Map<String,Object> param = new HashMap<>();
         testCache.process(param);
+    }
+    @Autowired
+    MakeInsertSql mis;
+    @RequestMapping("makeInsert")
+    public void testMakeInsertSql(Map<String,Object> param){
+        mis.process(param);
     }
 }

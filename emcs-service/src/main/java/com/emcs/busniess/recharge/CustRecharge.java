@@ -46,7 +46,7 @@ public class CustRecharge extends ServiceTransactionalY{
             oneDML.updateVaCustVirtualAcctBalAdd(param);
 
             //4.2记录充值明细
-            oneDML.insertVaCustRechargeDetail(param);
+            oneDML.insertVaCustRechargeSeq(param);
 
             //5.更新账务流水(依据支付状态)
             updateCmAcctTranSeq.process(param);

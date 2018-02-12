@@ -44,7 +44,7 @@ public class MerchRecharge extends ServiceTransactionalY{
             oneDML.updateVaMerchVirtualAcctBalAdd(param);
 
             //4.2记录充值明细
-            oneDML.insertVaMerchRechargeDetail(param);
+            oneDML.insertVaMerchRechargeSeq(param);
 
             //5.更新账务流水(依据支付状态)
             updateCmAcctTranSeq.process(param);

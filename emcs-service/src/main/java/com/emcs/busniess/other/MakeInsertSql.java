@@ -14,9 +14,9 @@ public class MakeInsertSql extends PubService {
     @Override
     public void process(Map<String, Object> param) {
 
-        AAA();
-        BBB();
-        CCC("");
+//        AAA();
+        BBB(param.get("tableName"));
+//        CCC("");
 
     }
 
@@ -43,10 +43,10 @@ public class MakeInsertSql extends PubService {
 
     }
 
-    private void BBB() {
+    private void BBB(Object obj) {
         List<Object> tableNmaes = oneSelect.selectDbTables(null);
         tableNmaes.clear();
-        tableNmaes.add("va_cust_info");
+        tableNmaes.add(tableNmaes);
         cacheObject = new HashMap<>();
         for (Object tableName:tableNmaes){
             List<Map<String,Object>> rowList = oneSelect.selectDbTableColumns(tableName);
