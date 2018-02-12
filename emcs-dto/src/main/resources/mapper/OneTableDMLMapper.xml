@@ -341,44 +341,17 @@
         )
     </insert>
 
-    <!--插入交易公共流水-->
-    <insert id="insertCmTranSeq" parameterType="hashMap">
-        insert into cm_tran_seq
+    <!--插入会员提现流水-->
+    <insert id="insertVaCustWithdrawSeq" parameterType="hashMap">
+        insert into va_cust_recharge_seq
         (
-            tran_seq,order_no,tran_date,tran_time,
-            channel_date,channel_seq_no,channel_code,
-            source_type,tran_type,business_code,
-            user_id,plat_id,
-            merch_id,cust_id,acct_no,
-            currency,tran_amt,
-            branch_id,msg_type,
-            msg_code,tran_status,
-            ret_code,
-            fail_reason
-        )
-        values
-        (
-            #{tran_seq},#{tran_date},#{tran_time},
-            #{channel_date},#{channel_seq_no},#{channel_code},
-            #{source_type},#{tran_type},#{business_code},
-            #{user_id},#{plat_id},
-            #{merch_id},#{cust_id},#{acct_no},
-            #{currency},#{tran_amt},
-            #{branch_id},#{msg_type},
-            #{msg_code},#{tran_status},
-            #{ret_code},
-            #{fail_reason}
+        cust_withdraw_seq,order_no,pub_seq_no,payer_id,plat_id,
+        payer_virid,tran_type,tran_amt,tran_date
+        ) values (
+        #{cust_withdraw_seq},#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
+        #{payer_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
         )
     </insert>
-
-    <!--更新交易公共流水-->
-    <update id="updateCmTranSeq" parameterType="hashMap">
-        update into cm_tran_seq SET
-            msg_code=#{msg_code},tran_status=#{tran_status},
-            ret_code=#{ret_code},resp_code=#{resp_code},
-            fail_reason=#{fail_reason}
-        where tran_seq=#{tran_seq}
-    </update>
 
     <!--插入银行账务流水-->
     <insert id="insertCmAcctTranSeq" parameterType="hashMap">
@@ -477,6 +450,30 @@
           ) values (
           #{transfer_seq_no},#{pub_seq_no},#{order_no},#{plat_id},#{payer_id},#{payer_virid},#{payee_id},#{payee_virid},
           #{pay_type},#{tran_amt},#{tran_type},#{create_date},#{transfer_seq_no})
+    </insert>
+
+    <!--插入商户充值流水信息-->
+    <insert id="insertVaMerchRechargeSeq" parameterType="hashMap">
+      insert into va_merch_recharge_seq
+        (
+            merch_recharge_seq,order_no,pub_seq_no,payee_id,plat_id,
+            payee_virid,tran_type,tran_amt,tran_date
+        ) values (
+            #{merch_recharge_seq},#{order_no},#{pub_seq_no},#{payee_id},#{plat_id},
+            #{payee_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
+        )
+    </insert>
+
+    <!--插入商户提现流水信息-->
+    <insert id="insertVaMerchWithdrawSeq" parameterType="hashMap">
+        insert into va_merch_Withdraw_seq
+        (
+        merch_withdraw_seq,order_no,pub_seq_no,payer_id,plat_id,
+        payer_virid,tran_type,tran_amt,tran_date
+        ) values (
+        #{merch_withdraw_seq},#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
+        #{payer_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
+        )
     </insert>
 
 </mapper>

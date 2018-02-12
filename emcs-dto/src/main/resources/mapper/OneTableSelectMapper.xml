@@ -35,14 +35,16 @@
     </trim>
 </select>
 
-<!--判断会员信息是否'存在且为正常'-->
-<select id="selectIsExistVaCustInfo" parameterType="hashMap"  resultType="int" >
-    select count(1) from va_cust_info
+<!--查询会员银行账户信息-->
+<select id="selectVaCustAcctInfo" parameterType="hashMap"  resultType="int" >
+    select
+      acct_id,cust_id,acct_type,acct_no,acct_status,acct_category,acct_name,
+      is_this_bank,acct_br_no,acct_br_name,currency,update_date,update_user
+    from va_cust_acct_info
     <trim prefix="where" prefixOverrides="and">
-        <if test="status !=null and status!='' "> and status = #{status} </if>
-        <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+        <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
+        <if test="acct_type !=null and acct_type!='' "> and acct_type = #{acct_type}</if>
         <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
-        <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
     </trim>
 </select>
 
@@ -65,17 +67,30 @@
     </trim>
 </select>
 
+<!--查询商户银行账户信息-->
+<select id="selectVaMerchAcctInfo" parameterType="hashMap"  resultType="int" >
+    select
+        acct_id,merch_id,acct_type,acct_no,acct_status,acct_category,acct_name,
+        is_this_bank,acct_br_no,acct_br_name,currency,update_date,update_user
+    from va_merch_acct_info
+    <trim prefix="where" prefixOverrides="and">
+        <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
+        <if test="acct_type !=null and acct_type!='' "> and acct_type = #{acct_type}</if>
+        <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+    </trim>
+</select>
+
 <!--查询平台信息-->
 <select id="selectPlatInfo" parameterType="hashMap"  resultType="hashMap" >
     select
-    plat_id,pay_merch_id,plat_name,
-    legal_person,status,payment_type,
-    global_type,global_id,tel_no,
-    email,address,url,create_date,
-    create_user,update_date,update_user,
-    cancel_date,cancel_user,effect_date,
-    source_type,remark,plat_type,
-    plat_level,allow_user,allow_date,allow_status
+        plat_id,pay_merch_id,plat_name,
+        legal_person,status,payment_type,
+        global_type,global_id,tel_no,
+        email,address,url,create_date,
+        create_user,update_date,update_user,
+        cancel_date,cancel_user,effect_date,
+        source_type,remark,plat_type,
+        plat_level,allow_user,allow_date,allow_status
     from va_plat_info
     <trim prefix="where" prefixOverrides="and">
         <if test="status !=null and status!='' "> and status = #{status} </if>
@@ -87,16 +102,16 @@
 <!--查询商户虚拟账户信息-->
 <select id="selectVaMerchVirtualAcctInfo" parameterType="hashMap"  resultType="hashMap" >
     select
-    vir_acct_id,merch_id,plat_id,
-    vir_acct_type,vir_acct_sort,
-    vir_acct_name,currency,
-    acct_status,rel_bank_acct,
-    is_in,is_out,is_total_limit,
-    total_limit,is_balance_limit,
-    balance_type,balance_value,
-    open_date,open_user,
-    cancel_date,update_date,
-    source_user,effect_date,merch_name
+        vir_acct_id,merch_id,plat_id,
+        vir_acct_type,vir_acct_sort,
+        vir_acct_name,currency,
+        acct_status,rel_bank_acct,
+        is_in,is_out,is_total_limit,
+        total_limit,is_balance_limit,
+        balance_type,balance_value,
+        open_date,open_user,
+        cancel_date,update_date,
+        source_user,effect_date,merch_name
     from va_merch_virtual_acct
     <trim prefix="where" prefixOverrides="and">
         <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
@@ -149,47 +164,49 @@
 </select>
 
 <!--查询会员充值明细信息-->
-<select id="selectVaCustRechargeDetail" parameterType="hashMap"  resultType="hashMap" >
+<select id="selectVaCustRechargeSeq" parameterType="hashMap"  resultType="hashMap" >
     select
-    cust_recharge_seq,order_no,order_no_old,
-    plat_id,cust_id,
-    vir_acct_id,tran_type,tran_amt,
-    tran_status,tran_date
-    from va_cust_recharge_detail
+        cust_recharge_seq,order_no,pub_seq_no,
+        plat_id,cust_id,
+        vir_acct_id,tran_type,tran_amt,
+        tran_status,tran_date
+    from va_cust_recharge_seq
     <trim prefix="where" prefixOverrides="and">
         <if test="plat_id !=null and plat_id!='' "> and vir_acct_id = #{plat_id} </if>
         <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
         <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
         <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
-        <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+        <if test="tran_date !=null and tran_date!='' "> and tran_date = str_to_date(#{tran_date},'%Y%m%d') </if>
     </trim>
 </select>
 
 <!--查询当日会员充值汇总信息-->
-<select id="selectVaCustRechargeAmtDay" parameterType="hashMap"  resultType="hashMap" >
+<select id="selectVaCustRechargeSeqSum" parameterType="hashMap"  resultType="hashMap" >
     select
-    coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
-    from va_cust_recharge_detail
+      coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
+    from va_cust_recharge_seq
     <trim prefix="where" prefixOverrides="and">
         <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
         <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
         <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
         <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
-        <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+        <if test="tran_date !=null and tran_date!='' "> and tran_date = str_to_date(#{tran_date},'%Y%m%d') </if>
+        <if test="order_no !=null and order_no!='' "> and order_no = #{order_no} </if>
     </trim>
 </select>
 
 <!--查询当日商户充值汇总信息-->
-<select id="selectVaMerchRechargeAmtDay" parameterType="hashMap"  resultType="hashMap" >
+<select id="selectVaMerchRechargeSeqSum" parameterType="hashMap"  resultType="hashMap" >
     select
-    coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
-    from va_merch_recharge_detail
+      coalesce(sum(tran_amt),0) sum_amt,count(1) sum_cnt
+    from va_merch_recharge_seq
     <trim prefix="where" prefixOverrides="and">
         <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
         <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
         <if test="merch_id !=null and cust_id!='' "> and merch_id = #{merch_id} </if>
         <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
         <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+        <if test="order_no !=null and order_no!='' "> and order_no = #{order_no} </if>
     </trim>
 </select>
 

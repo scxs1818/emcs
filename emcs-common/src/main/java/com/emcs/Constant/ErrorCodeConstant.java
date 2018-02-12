@@ -24,6 +24,7 @@ public interface ErrorCodeConstant {
         VAZ017("VAZ0017","收款方角色类型错误"),
         VAZ018("VAZ018","付款方信息不存在或者异常状态"),
         VAZ019("VAZ019","收款方信息不存在或者异常状态"),
+        VAZ020("VAZ020","重复申请"),
         ;
         public String code() {
             return code;
