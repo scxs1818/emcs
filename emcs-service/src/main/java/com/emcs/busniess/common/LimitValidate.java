@@ -117,7 +117,7 @@ public class LimitValidate extends PubService {
         Integer limitCnt = Integer.parseInt(cacheObject.get(tranType+BusiConstant.PIPE+BusiConstant.LIMIT_CNT)+"");
 
         //6.判断交易次数是否超出日交易最大次数
-        List<Map<String,Object>> sumList = oneSelect.selectVaMerchRechargeAmtDay(param);
+        List<Map<String,Object>> sumList = oneSelect.selectVaMerchRechargeSeqSum(param);
         Integer sumCnt =Integer.parseInt( sumList.get(0).get("sum_cnt")+"");
         if(limitCnt>sumCnt)throw new BusiException(PubErrorCode.VAZ009.code(),PubErrorCode.VAZ009.val());
 

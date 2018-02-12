@@ -10,10 +10,11 @@ import java.util.Map;
 public class InsertCmTranSeq extends PubService{
     @Override
     public void process(Map<String, Object> param) {
-        Map sysMap = (Map)param.get("SYS_HEAD");
-        param.put("TRAN_DATE",new Date());
+        param.put("tran_date","20180215");
+        param.put("channel_date","20180215");
+        param.put("tran_status","w");
         String seqNo = oneSelect.getNextVal(BusiConstant.Quence.CM_TRAN_SEQ.gname());
-        param.put("pub_seq_no",seqNo);
+        param.put("pub_seq_no","pub"+seqNo);
         oneDML.insertCmTranSeq(param);
     }
 }

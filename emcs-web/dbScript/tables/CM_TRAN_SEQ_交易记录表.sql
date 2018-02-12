@@ -20,7 +20,7 @@ CREATE TABLE `CM_TRAN_SEQ`(
   `BRANCH_ID`           VARCHAR(16) COMMENT '交易机构',
   `MSG_TYPE`            VARCHAR(10) COMMENT 'MBSD报文类型',
   `MSG_CODE`            VARCHAR(10) COMMENT 'MBSD报文编码',
-  `TRAN_STATUS`         VARCHAR(2)          NOT NULL COMMENT '交易状态代码:01-成功,02-失败',
+  `TRAN_STATUS`         VARCHAR(2)  COMMENT '交易状态代码:01-成功,02-失败',
   `RET_CODE`            VARCHAR(16) COMMENT '响应码',
   `FAIL_REASON`         VARCHAR(512) COMMENT '失败原因',
    PRIMARY KEY(`PUB_SEQ_NO`)
