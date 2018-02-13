@@ -253,10 +253,22 @@
     select table_name from information_schema.tables where table_name like 'cm_%'
 </select>
 
-<!--查询业务参数信息用于缓存-->
-<select id="selectCmBusinessParaForCache" parameterType="hashMap"  resultType="hashMap" >
-    select tran_type cache_key1,para_key cache_key2,para_value from cm_business_para where para_status='1'
-</select>
+    <!--查询业务参数信息用于缓存-->
+    <select id="selectCmBusinessParaForCache" parameterType="hashMap"  resultType="hashMap" >
+        select tran_type cache_key1,para_key cache_key2,para_value from cm_business_para where para_status='1'
+    </select>
 
+    <!--查询判断订单是否重复申请-->
+    <select id="selectVaOrderInfoForRepeat" parameterType="hashMap"  resultType="integer" >
+        select count(1) from va_order_info where order_no = #{order_no}
+    </select>
+
+    <!--查询原订单信息-->
+    <select id="selectVaOrderInfoForOld" parameterType="hashMap"  resultType="hashMap" >
+        select inner_oder_no,order_no,plat_id,plat_virid,payer_id,payer_virid,payee_id,
+          payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status
+        from va_order_info
+        where order_no_old = #{order_no_old}
+    </select>
 
 </mapper>

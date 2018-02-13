@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public class UpdateCmTranSeq extends PubService {
     @Override
-    public void process(Map<String, Object> param) {
-        oneDML.updateCmTranSeq(param);
+    public void process(Map<String, Object> data) {
+        oneDML.updateCmTranSeq(data);
     }
 }

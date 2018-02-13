@@ -13,7 +13,7 @@ public interface ErrorCodeConstant {
         VAZ006("VAZ006","执行数据操作失败"),
         VAZ007("VAZ007","付款方角色类型错误"),
         VAZ008("VAZ008","已经超出单笔限额"),
-        VAZ009("VAZ009","已经超出当日最大交易次数"),
+        VAZ009("VAZ009","已经超出当日允许交易次数"),
         VAZ010("VAZ010","收款方账户已经超出当日总限额"),
         VAZ011("VAZ011","付款方虚拟账户不允许转出"),
         VAZ012("VAZ012","付款方账户实际余额小于备付金"),
@@ -24,7 +24,8 @@ public interface ErrorCodeConstant {
         VAZ017("VAZ0017","收款方角色类型错误"),
         VAZ018("VAZ018","付款方信息不存在或者异常状态"),
         VAZ019("VAZ019","收款方信息不存在或者异常状态"),
-        VAZ020("VAZ020","重复申请"),
+        VAZ020("VAZ020","重复提交"),
+        VAZ021("VAZ021","已经超出当日允许交易金额"),
         ;
         public String code() {
             return code;

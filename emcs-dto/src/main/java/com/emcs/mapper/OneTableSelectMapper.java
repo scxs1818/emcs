@@ -21,14 +21,18 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectVaMerchRechargeSeqSum(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchVirtualAcctBalLock(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchAcctInfo(Map<String, Object> param);
+    List<Map<String,Object>> selectVaMerchWithdrawSeqSum(Map<String, Object> param);
 
 
     List<Map<String,Object>> selectVaCustVirtualAcctInfo(Map<String, Object> param);
-    List<Map<String,Object>> selectVaCustRechargeDetail(Map<String, Object> param);
+    List<Map<String,Object>> selectVaCustWithdrawSeqSum(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustRechargeSeqSum(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustVirtualAcctBalLock(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustAcctInfo(Map<String, Object> param);
 
+    List<Map<String,Object>> selectVaOrderInfoForOld(Map<String, Object> param);
+
+    int selectVaOrderInfoForRepeat(Map<String, Object> param);
 
     List<Map<String,Object>> selectCmBusinessParaForCache(Map<String, Object> param);
     List<Map<String,Object>> selectCmSystemForCache(Map<String, Object> param);

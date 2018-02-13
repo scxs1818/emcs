@@ -1,22 +1,22 @@
-DROP TABLE IF EXISTS VA_ORDER_INFO;
-CREATE TABLE VA_ORDER_INFO(
-	INNER_ODER_NO VARCHAR(32) COMMENT '内部订单流水号',
-	ORDER_NO  VARCHAR(32) NOT NULL COMMENT '订单号',
-	ORDER_NO_OLD  VARCHAR(32) NOT NULL COMMENT '原订单号',
-	PUB_SEQ_NO VARCHAR(32) NOT NULL COMMENT '公共流水号',
-	PLAT_ID VARCHAR(32) NOT NULL COMMENT '平台编号',
-	PLAT_VIRID VARCHAR(6) NOT NULL COMMENT '平台虚拟账户编号',
-	BUYER_ID  VARCHAR(32) NOT NULL COMMENT '买方编号',
-	BUYER_VIRID  VARCHAR(32) NOT NULL COMMENT '买方虚拟账户编号',
-	SELLER_ID VARCHAR(32) NOT NULL COMMENT '卖方编号',
-	SELLER_VIRID  VARCHAR(32) NOT NULL COMMENT '卖方虚拟账户编号',
-	PAY_TYPE VARCHAR(4) NOT NULL COMMENT '支付方式',
-	TRAN_AMT DECIMAL(10,2) COMMENT '交易金额=使用的可用金额+使用的充值金额',
-	USABLE_BAL DECIMAL(10,2) COMMENT '使用的可用金额',
-	RECHARGE_BAL DECIMAL(10,2) COMMENT '使用的充值金额',
-	TRAN_TYPE VARCHAR(4) NOT NULL COMMENT '交易类型',
-	ORDER_STATUS  VARCHAR(4) NOT NULL COMMENT '订单状态',
-	CREATE_DATE DATE  NOT NULL COMMENT '订单创建时间',
-	UPDATE_DATE DATE COMMENT '订单更新时间',
-	PRIMARY KEY(INNER_ODER_NO)
-)COMMENT '订单信息表';
+drop table if exists `va_order_info`;
+create table `va_order_info`(
+	`inner_oder_no` varchar(32) comment '内部订单流水号',
+	`order_no`  varchar(32) not null comment '订单号',
+	`order_no_old`  varchar(32) not null comment '原订单号',
+	`pub_seq_no` varchar(32) not null comment '公共流水号',
+	`plat_id` varchar(32) not null comment '平台编号',
+	`plat_virid` varchar(6) not null comment '平台虚拟账户编号',
+	`payer_id`  varchar(32) not null comment '付款方编号',
+	`payer_virid`  varchar(32) not null comment '付款方虚拟账户编号',
+	`payee_id` varchar(32) not null comment '收款方编号',
+	`payee_virid`  varchar(32) not null comment '收款方虚拟账户编号',
+	`pay_type` varchar(4) not null comment '支付方式',
+	`tran_amt` decimal(10,2) comment '交易金额=使用的可用金额+使用的充值金额',
+	`usable_bal` decimal(10,2) comment '使用的可用金额',
+	`recharge_bal` decimal(10,2) comment '使用的充值金额',
+	`tran_type` varchar(4) not null comment '交易类型',
+	`order_status`  varchar(4) not null comment '订单状态',
+	`create_date` date  not null comment '订单创建时间',
+	`update_date` date comment '订单更新时间',
+	primary key(`inner_oder_no`)
+)comment '订单信息表';

@@ -1,6 +1,8 @@
 package com.emcs.busniess.order;
 
 import com.emcs.Constant.BusiConstant;
+import com.emcs.Constant.ErrorCodeConstant;
+import com.emcs.busniess.common.LimitValidate;
 import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.exception.BusiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +16,50 @@ import java.util.Map;
 @Service
 public class PurchaseApply extends ServiceTransactionalY{
     @Autowired
+    LimitValidate validate;
+    @Autowired
     CustPurchaseApply custPurchase;
     @Autowired
     MerchPurchaseApply merchPurchase;
-    @Override
-    protected void process(Map<String, Object> param) {
-        //2.数据库级校验
-        param.put("status","N");//正常
-        param.put("acct_status","N");
-        if(oneSelect.selectIsExistVaPlatInfo(param)==0)throw new BusiException("交易平台不存在或者处于异常状态","600003");
 
-        if(BusiConstant.ROLE_CUST.equals(param.get("role_type"))){
-            param.put("cust_id",param.get("merber_id"));
-            custPurchase.process(param);
-        }else if(BusiConstant.ROLE_MERCH.equals(param.get("role_type"))){
-            param.put("merch_id",param.get("merber_id"));
-            merchPurchase.process(param);
+    @Override
+    protected void process(Map<String, Object> data) {
+        //初始化会员和会员账户状态
+        data.put("status","N");
+        data.put("acct_status","N");
+
+        //校验平台
+        if(oneSelect.selectIsExistVaPlatInfo(data)==0)
+            throw new BusiException(ErrorCodeConstant.PlatErrorCode.VAP001.code(), ErrorCodeConstant.PlatErrorCode.VAP001.val());
+
+        if(Integer.parseInt(oneSelect.selectVaOrderInfoForRepeat(data)+"")>0)throw new BusiException("重复申请");
+
+        if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
+            data.put("tran_type", BusiConstant.TranType.CUST_PURCHASE_APPLY.vaue());
+
+            data.put("payer_type",BusiConstant.ROLE_CUST);
+            data.put("cust_id",data.get("payer_id"));
+            validate.validatePayer(data);
+
+            data.put("payee_type",BusiConstant.ROLE_CUST);
+            data.put("merch_id",data.get("payee_id"));
+            validate.validatePayee(data);
+
+            custPurchase.process(data);
+        }else if(BusiConstant.ROLE_MERCH.equals(data.get("role_type"))){
+            data.put("tran_type", BusiConstant.TranType.MERCH_PURCHASE_APPLY.vaue());
+
+            data.put("payer_type",BusiConstant.ROLE_MERCH);
+            data.put("merch_id",data.get("payer_id"));
+            validate.validatePayer(data);
+
+            data.put("payee_type",BusiConstant.ROLE_MERCH);
+            data.put("merch_id",data.get("payee_id"));
+            validate.validatePayee(data);
+
+            merchPurchase.process(data);
         }else{
-            throw new BusiException("角色类型错误","600009");
+            throw new BusiException(ErrorCodeConstant.PubErrorCode.VAZ007.code(), ErrorCodeConstant.PubErrorCode.VAZ007.val());
         }
     }
 }

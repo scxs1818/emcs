@@ -39,6 +39,7 @@ public interface OneTableDMLMapper{
 
     int insertVaOrderInfo(Map<String,Object> params);
     int updateVaOrderInfo(Map<String,Object> params);
+    int insertVaOrderSeq(Map<String,Object> params);
 
     int insertVaVirAcctSeq(Map<String,Object> params);
     int updateVaVirAcctSeq(Map<String,Object> params);

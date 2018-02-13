@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 public class PurchaseConfirm extends ServiceTransactionalY {
     @Override
-    protected void process(Map<String, Object> param) {
+    protected void process(Map<String, Object> data) {
 
     }
 }

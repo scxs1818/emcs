@@ -7,7 +7,7 @@ import java.util.Map;
 @Service
 public class MerchPubService extends PubService {
     @Override
-    public void process(Map<String, Object> param) {
+    public void process(Map<String, Object> data) {
 
     }
 }
