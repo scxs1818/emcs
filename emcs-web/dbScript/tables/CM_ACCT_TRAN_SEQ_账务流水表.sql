@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS  `CM_ACCT_TRAN_SEQ`;
 CREATE TABLE `CM_ACCT_TRAN_SEQ` (
-  `TRAN_SEQ_NO`           VARCHAR(32)       NOT NULL COMMENT '流水号',
+  `TRAN_SEQ_NO`           VARCHAR(32)       NOT NULL COMMENT '银行账务流水号',
    `PUB_SEQ_NO` VARCHAR(32) NOT NULL COMMENT '公共流水号',
   `TRAN_DATE`             DATE COMMENT '交易日期',
   `TRAN_TIME`             VARCHAR(10) COMMENT '交易时间',

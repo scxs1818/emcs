@@ -26,11 +26,11 @@ public abstract class ServiceTransactionalN{
     @Resource
     protected ManyTableDMLMapper manyDML;
     protected CommonResult result = new CommonResult();
-    public CommonResult doService(Map<String, Object> param){
+    public CommonResult doService(Map<String, Object> data){
         try{
-            before(param);
-            process(param);
-            after(param);
+            before(data);
+            process(data);
+            after(data);
             result.setMsg("交易成功");
             result.setStatus("S");
         }catch(Exception e){
@@ -41,7 +41,7 @@ public abstract class ServiceTransactionalN{
         }
         return result;
     }
-    protected abstract void process(Map<String, Object> param);
-    protected abstract CommonResult after(Map<String, Object> param);
-    protected abstract CommonResult before(Map<String, Object> param);
+    protected abstract void process(Map<String, Object> data);
+    protected abstract CommonResult after(Map<String, Object> data);
+    protected abstract CommonResult before(Map<String, Object> data);
 }

@@ -21,28 +21,37 @@ public class MerberWithdraw extends ServiceTransactionalY{
     @Autowired
     MerchWithdraw merchWithdraw;
     @Override
-    protected void process(Map<String, Object> param) {
+    protected void process(Map<String, Object> data) {
         //初始化会员和会员账户状态
-        param.put("status","N");
-        param.put("acct_status","N");
+        data.put("status","N");
+        data.put("acct_status","N");
 
         //校验平台
-        if(oneSelect.selectIsExistVaPlatInfo(param)==0)
+        if(oneSelect.selectIsExistVaPlatInfo(data)==0)
             throw new BusiException(ErrorCodeConstant.PlatErrorCode.VAP001.code(), ErrorCodeConstant.PlatErrorCode.VAP001.val());
 
-        if(BusiConstant.ROLE_CUST.equals(param.get("role_type"))){
-            param.put("tran_type", BusiConstant.TranType.CUST_RECHARGE.vaue());
-            param.put("payer_type",BusiConstant.ROLE_CUST);
-            param.put("cust_id",param.get("merber_id"));
-            validate.validatePayee(param);
-            custWithdraw.process(param);
-        }else if(BusiConstant.ROLE_MERCH.equals(param.get("role_type"))){
-            param.put("payer_type",BusiConstant.ROLE_MERCH);
-            param.put("merch_id",param.get("merber_id"));
-            validate.validatePayee(param);
-            merchWithdraw.process(param);
+        if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
+            data.put("tran_type", BusiConstant.TranType.CUST_WITHDRAW.val());
+            data.put("payer_type",BusiConstant.ROLE_CUST);
+            data.put("cust_id",data.get("payer_id"));
+
+            validate.validatePayer(data);
+
+            validate.businessValidate(data);
+
+            custWithdraw.process(data);
+        }else if(BusiConstant.ROLE_MERCH.equals(data.get("role_type"))){
+            data.put("tran_type", BusiConstant.TranType.MERCH_WITHDRAW.val());
+            data.put("payer_type",BusiConstant.ROLE_MERCH);
+            data.put("merch_id",data.get("payer_id"));
+
+            validate.validatePayer(data);
+
+            validate.businessValidate(data);
+
+            merchWithdraw.process(data);
         }else{
-            throw new BusiException("角色类型错误","600009");
+            throw new BusiException(ErrorCodeConstant.PubErrorCode.VAZ007.code(), ErrorCodeConstant.PubErrorCode.VAZ007.val());
         }
     }
 }

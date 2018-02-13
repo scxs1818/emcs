@@ -476,4 +476,24 @@
         )
     </insert>
 
+    <!--插入订单流水表-->
+    <insert id="insertVaOrderSeq" parameterType="hashMap">
+        insert into va_order_seq(
+          oder_seq_no,order_no,order_no_old,pub_seq_no,plat_id,payer_id,payer_virid,
+          payee_id,payee_virid,pay_type,tran_amt,tran_type,create_date
+        ) values (
+          #{oder_seq_no},#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{payer_id},#{payer_virid},
+          #{payee_id},#{payee_virid},#{pay_type},#{tran_amt},#{tran_type},#{create_date})
+    </insert>
+
+    <!--插入订单信息表-->
+    <insert id="insertVaOrderInfo" parameterType="hashMap">
+        insert into va_order_info(
+        inner_oder_no,order_no,order_no_old,pub_seq_no,plat_id,plat_virid,payer_id,payer_virid,payee_id,
+        payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status,create_date,update_date)
+        ) values (
+        #{inner_oder_no},#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{plat_virid},#{payer_id},#{payer_virid},#{payee_id},
+        #{payee_virid},#{pay_type},#{tran_amt},#{usable_bal},#{recharge_bal},#{tran_type},#{order_status},#{create_date},#{update_date})
+    </insert>
+
 </mapper>

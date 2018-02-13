@@ -13,8 +13,8 @@ import java.util.Map;
 @Service
 public class InsertVaVirAcctSeq extends PubService {
     @Override
-    public void process(Map<String, Object> param) {
+    public void process(Map<String, Object> data) {
         //封装带补充
-        oneDML.insertVaVirAcctSeq(param);
+        oneDML.insertVaVirAcctSeq(data);
     }
 }

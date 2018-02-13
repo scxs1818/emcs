@@ -21,14 +21,14 @@ public interface BusiConstant {
         CM_TRAN_SEQ("cm_tran_seq","交易公共流水号"),
 
         ;
-        private String name;
+        private String val;
         private String desc;
         Quence(String name,String desc) {
-            this.name = name;
+            this.val = name;
             this.desc=desc;
         }
-        public String gname() {
-            return name;
+        public String val() {
+            return val;
         }
         public String desc() {
             return desc;
@@ -40,17 +40,17 @@ public interface BusiConstant {
         MERCH("2","商户"),
         CUST("3","个人"),
         ;
-        Role(String value,String desc){
-            this.value=value;
+        Role(String val,String desc){
+            this.val=val;
             this.desc=desc;
         }
-        private String value;
+        private String val;
         private String desc;
         public String desc() {
             return desc;
         }
-        public String vaue(){
-            return value;
+        public String val(){
+            return val;
         }
     }
 
@@ -75,44 +75,36 @@ public interface BusiConstant {
         MERCH_PURCHASE_CONFIRM("13","商户采购确认"),
         CUST_PURCHASE_CONFIRM("14","个人采购确认"),
         ;
-        private String value;
+        private String val;
         private String desc;
-        TranType(String value,String desc){
-            this.value=value;
+        TranType(String val,String desc){
+            this.val=val;
             this.desc=desc;
         }
-        public String vaue(){
-            return value;
+        public String val(){
+            return val;
         }
         public String desc(){
             return desc;
         }
     }
 
-    String BUIS_TYPE_TRANSFER_ACCOUNT = "T";
-    String BUIS_TYPE_RECHARGE_CUST = "CR";
-    String BUIS_TYPE_RECHARGE_MERCH = "MR";
-    String BUIS_TYPE_WITHDRAW_CUST = "CW";
-    String BUIS_TYPE_WITHDRAW_MERCH = "MW";
-    String BUIS_TYPE_PURCHASE = "P";
-
-
     public enum Cache{
         CM_SYSTEM("cm_system","系统表"),
         CM_BUSINESS_PARA("cm_business_para","业务参数表"),
         VA_VIRTUAL_ACCT_TYPE("va_virtual_acct_type","虚拟账户类型"),
         ;
-        Cache(String value,String desc){
-            this.value=value;
+        Cache(String val,String desc){
+            this.val=val;
             this.desc=desc;
         }
-        private String value;
+        private String val;
         private String desc;
         public String desc() {
             return desc;
         }
         public String vaue(){
-            return value;
+            return val;
         }
     }
 
@@ -120,14 +112,14 @@ public interface BusiConstant {
         ACCT_BAN("B","银行账户"),
         ACCT_VIR("V","虚拟账户"),
         ;
-        private String value;
+        private String val;
         private String desc;
-        AcctProperty(String value,String desc){
-            this.value=value;
+        AcctProperty(String val,String desc){
+            this.val=val;
             this.desc=desc;
         }
-        public String value(){
-            return value;
+        public String val(){
+            return val;
         }
         public String desc(){
             return desc;
@@ -156,8 +148,9 @@ public interface BusiConstant {
     String SEQ_CUST_MERCH_BAN_ACC = "cust_ban_acc_seq_no";
     String SEQ_CUST_MERCH_VIR_ACC = "cust_vir_acc_seq_no";
 
-    String LIMIT_AMT = "limit_amt";
+    String SIG_LIMIT_AMT = "sig_limit_amt";
     String LIMIT_CNT = "limit_cnt";
+    String SUM_LIMIT_AMT = "sum_limit_cnt";
     String PIPE = "|";
 
     /**平台资金存管专户 */

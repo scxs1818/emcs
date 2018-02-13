@@ -85,7 +85,7 @@ public class TransferAccounts extends ServiceTransactionalY{
             throw new BusiException(PubErrorCode.VAZ007.code(),PubErrorCode.VAZ007.val());
         }
         param.put("pay_type","1");//???
-        param.put("transfer_seq_no",BusiConstant.BUIS_TYPE_TRANSFER_ACCOUNT+oneSelect.getNextVal(BusiConstant.Quence.TRANSFER.gname()));
+        param.put("transfer_seq_no",oneSelect.getNextVal(BusiConstant.Quence.TRANSFER.val()));
         oneDML.insertVaTransferSeq(param);
     }
 }
