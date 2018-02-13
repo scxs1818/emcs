@@ -334,10 +334,10 @@
         insert into va_cust_recharge_seq
         (
             cust_recharge_seq,order_no,pub_seq_no,payee_id,plat_id,
-            payee_virid,tran_type,tran_amt,tran_date
+            payee_virid,payer_acct_no,tran_type,tran_amt,tran_date
         ) values (
-            #{cust_recharge_seq},#{order_no},#{pub_seq_no},#{payee_id},#{plat_id},
-            #{payee_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
+            getnextval('cust_recharge_seq'),#{order_no},#{pub_seq_no},#{payee_id},#{plat_id},
+            #{payee_virid},#{payer_acct_no},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
         )
     </insert>
 
@@ -355,24 +355,20 @@
 
     <!--插入银行账务流水-->
     <insert id="insertCmAcctTranSeq" parameterType="hashMap">
-        insert into cm_acct_tran_seq (
-            tran_seq_no,tran_date,tran_time,curreny,tran_amt,tran_type,business_code,
-            business_name,order_no,order_no_old,ref_no,merch_id,merch_name,cust_id,
-            cust_name,payer_name,payer_vir_acct_no,payee_name,payee_vir_acct_no,plat_id,
-            plat_name,payer_acct_no,payer_acct_name,payer_acct_sort,payer_is_this_bank,
-            payer_acct_bank_no,payer_acct_bank_name,payee_acct_no,payee_acct_name,
-            payee_acct_sort,payee_is_this_bank,payee_acct_bank_no,payee_acct_bank_name,
-            tran_status,ret_code,ret_msg,host_seq_no,host_tran_status,is_check,is_recover,
-            reversed,oper_time,user_id,contrast,refund_status
-            ) values (
-            #{tran_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},
-            #{business_name},#{order_no},#{order_no_old},#{ref_no},#{merch_id},#{merch_name},#{cust_id},
-            #{cust_name},#{payer_name},#{payer_vir_acct_no},#{payee_name},#{payee_vir_acct_no},#{plat_id},
-            #{plat_name},#{payer_acct_no},#{payer_acct_name},#{payer_acct_sort},#{payer_is_this_bank},
-            #{payer_acct_bank_no},#{payer_acct_bank_name},#{payee_acct_no},#{payee_acct_name},
-            #{payee_acct_sort},#{payee_is_this_bank},#{payee_acct_bank_no},#{payee_acct_bank_name},
-            #{tran_status},#{ret_code},#{ret_msg},#{host_seq_no},#{host_tran_status},#{is_check},#{is_recover},
-            #{reversed},#{oper_time},#{user_id},#{contrast},#{refund_status})
+        insert into cm_acct_tran_seq(
+        tran_seq_no,pub_seq_no,tran_date,tran_time,curreny,tran_amt,tran_type,business_code,business_name,
+        order_no,order_no_old,ref_no,merch_id,merch_name,cust_id,cust_name,payer_name,payer_vir_acct_no,
+        payee_name,payee_vir_acct_no,plat_id,plat_name,payer_acct_no,payer_acct_name,payer_acct_sort,
+        payer_is_this_bank,payer_acct_bank_no,payer_acct_bank_name,payee_acct_no,payee_acct_name,
+        payee_acct_sort,payee_is_this_bank,payee_acct_bank_no,payee_acct_bank_name,tran_status,ret_code,
+        ret_msg,host_seq_no,host_tran_status,is_check,is_recover,reversed,oper_time,user_id,contrast,refund_status
+        ) values (
+        #{tran_seq_no},#{pub_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},#{business_name},
+        #{order_no},#{order_no_old},#{ref_no},#{merch_id},#{merch_name},#{cust_id},#{cust_name},#{payer_name},#{payer_vir_acct_no},
+        #{payee_name},#{payee_vir_acct_no},#{plat_id},#{plat_name},#{payer_acct_no},#{payer_acct_name},#{payer_acct_sort},
+        #{payer_is_this_bank},#{payer_acct_bank_no},#{payer_acct_bank_name},#{payee_acct_no},#{payee_acct_name},
+        #{payee_acct_sort},#{payee_is_this_bank},#{payee_acct_bank_no},#{payee_acct_bank_name},#{tran_status},#{ret_code},
+        #{ret_msg},#{host_seq_no},#{host_tran_status},#{is_check},#{is_recover},#{reversed},#{oper_time},#{user_id},#{contrast},#{refund_status})
     </insert>
 
     <!--更新银行账务流水-->
@@ -457,10 +453,10 @@
       insert into va_merch_recharge_seq
         (
             merch_recharge_seq,order_no,pub_seq_no,payee_id,plat_id,
-            payee_virid,tran_type,tran_amt,tran_date
+            payee_virid,payer_acct_no,tran_type,tran_amt,tran_date
         ) values (
-            #{merch_recharge_seq},#{order_no},#{pub_seq_no},#{payee_id},#{plat_id},
-            #{payee_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
+            getnextval('merch_recharge_seq'),#{order_no},#{pub_seq_no},#{payee_id},#{plat_id},
+            #{payee_virid},#{payer_acct_no},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
         )
     </insert>
 

@@ -4,9 +4,11 @@ import com.emcs.Constant.BusiConstant;
 import com.emcs.busniess.common.*;
 import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.exception.BusiException;
+import com.emcs.supers.SupperService;
 import com.emcs.util.CheckEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,7 +18,8 @@ import java.util.Map;
  * Created by Administrator on 2018/2/4.
  */
 @Service
-public class CustRecharge extends ServiceTransactionalY{
+@Transactional
+public class CustRecharge extends SupperService{
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired
@@ -26,33 +29,34 @@ public class CustRecharge extends ServiceTransactionalY{
     @Autowired
     SendNetPay sendNetPay;
     @Override
-    protected void process(Map<String, Object> param) {
+    protected void process(Map<String, Object> data) {
 
-        Map<String,Object> payeeMap = (Map<String,Object>)param.get("payeeInfo");
+        Map<String,Object> payeeMap = (Map<String,Object>)data.get("payeeInfo");
         boolean flag = false;
         try{
             //2.记账无流水
-            insertCmAcctTranSeq.process(param);
+            data.put("tran_seq_no",oneSelect.getNextVal(BusiConstant.Quence.TRAN_SEQ_NO.val()));
+            insertCmAcctTranSeq.process(data);
             flag = true;
 
             //3.发支付(下面两种方式,根据实际实现2选1)
-            sendCorePay.process(param);//核心支付
-            sendNetPay.process(param);//互联网支付
+            sendCorePay.process(data);//核心支付
+            sendNetPay.process(data);//互联网支付
 
             //4.支付成功
             //4.1增加会员虚拟账户余额
-            param.put("usable_bal",0);//可用金额不变
-            param.put("recharge_bal",param.get("tran_amt"));//充值金额增加
-            oneDML.updateVaCustVirtualAcctBalAdd(param);
+            data.put("usable_bal",0);//可用金额不变
+            data.put("recharge_bal",data.get("tran_amt"));//充值金额增加
+            oneDML.updateVaCustVirtualAcctBalAdd(data);
 
             //4.2记录充值明细
-            oneDML.insertVaCustRechargeSeq(param);
+            oneDML.insertVaCustRechargeSeq(data);
 
             //5.更新账务流水(依据支付状态)
-            updateCmAcctTranSeq.process(param);
+            updateCmAcctTranSeq.process(data);
         }catch(Exception e){
             if(flag)
-                updateCmAcctTranSeq.process(param);
+                updateCmAcctTranSeq.process(data);
             throw e;
         }
     }

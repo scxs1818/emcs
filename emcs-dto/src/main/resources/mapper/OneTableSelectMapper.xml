@@ -47,6 +47,15 @@
         <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
     </trim>
 </select>
+    <!--查询存在会员信息-->
+    <select id="selectIsExistVaCustInfo" parameterType="hashMap"  resultType="int" >
+        select count(1) from va_cust_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+        </trim>
+    </select>
 
 <!--查询商户信息-->
 <select id="selectMerchInfo" parameterType="hashMap"  resultType="hashMap" >
@@ -187,7 +196,6 @@
     from va_cust_recharge_seq
     <trim prefix="where" prefixOverrides="and">
         <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-        <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
         <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
         <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
         <if test="tran_date !=null and tran_date!='' "> and tran_date = str_to_date(#{tran_date},'%Y%m%d') </if>
@@ -202,10 +210,9 @@
     from va_merch_recharge_seq
     <trim prefix="where" prefixOverrides="and">
         <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-        <if test="tran_status !=null and tran_status!='' "> and tran_status = #{tran_status} </if>
         <if test="merch_id !=null and cust_id!='' "> and merch_id = #{merch_id} </if>
         <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
-        <if test="tran_date !=null and tran_date!='' "> and tran_date = to_date(#{tran_date},'yyyymmdd') </if>
+        <if test="tran_date !=null and tran_date!='' "> and tran_date = str_to_date(#{tran_date},'%Y%m%d') </if>
         <if test="order_no !=null and order_no!='' "> and order_no = #{order_no} </if>
     </trim>
 </select>
@@ -231,7 +238,7 @@
         <if test="plat_id !=null and plat_id!='' ">and plat_id=#{plat_id}</if>
         <if test="buyer_id !=null and buyer_id!='' ">and buyer_id=#{buyer_id}</if>
         <if test="seller_virid !=null and seller_virid!='' ">and seller_virid=#{seller_virid}</if>
-        <if test="tran_date !=null and tran_date!='' ">and tran_date=#{tran_date}</if>
+        <if test="tran_date !=null and tran_date!='' ">and tran_date=str_to_date(#{tran_date},'%Y%m%d')</if>
         <if test="cm_seq_no !=null and cm_seq_no!='' ">and cm_seq_no=#{cm_seq_no}</if>
         <if test="order_no_old !=null and order_no_old!='' "> and order_no_old=#{order_no_old}</if>
         <if test="order_no !=null and order_no!='' "> and order_no=#{order_no}</if>

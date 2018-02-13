@@ -31,12 +31,11 @@ public class LimitValidate extends PubService {
     public void validatePayee(Map<String, Object> data) {
         Object payeeType = data.get("payee_type");
         List<Map<String, Object>> virAcctBalList;
-        if (BusiConstant.Role.CUST.equals(payeeType)) {
+        if (BusiConstant.Role.CUST.val().equals(payeeType)) {
             if (oneSelect.selectIsExistVaCustInfo(data) == 0)
                 throw new BusiException(PubErrorCode.VAZ019.code(), PubErrorCode.VAZ019.val());
             virAcctBalList = manySelect.manyVaCustVirtualAcctBalLock(data);
-        }
-        if (BusiConstant.Role.MERCH.equals(payeeType)) {
+        }else if (BusiConstant.Role.MERCH.val().equals(payeeType)) {
             if (oneSelect.selectIsExistVaMerchInfo(data) == 0)
                 throw new BusiException(PubErrorCode.VAZ019.code(), PubErrorCode.VAZ019.val());
             virAcctBalList = manySelect.manyVaMerchVirtualAcctBalLock(data);
