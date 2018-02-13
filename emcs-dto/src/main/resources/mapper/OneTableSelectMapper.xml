@@ -18,9 +18,9 @@
 <!--判断商户信息是否'存在且为正常'-->
 <select id="selectIsExistVaMerchInfo" parameterType="hashMap"  resultType="int" >
     select count(1) from va_merch_info
-    <trim prefix="where" prefixOverrides="and">
-        <if test="status !=null and status!='' "> and status = #{status} </if>
-        <if test="tel_no !=null and tel_no!='' "> and merch_id = #{tel_no} </if>
+    <trim prefix="WHERE" prefixOverrides="AND">
+        <if test="status !=null and status!='' ">  and status = #{status} </if>
+        <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
         <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
     </trim>
 </select>
@@ -105,7 +105,7 @@
         vir_acct_id,merch_id,plat_id,
         vir_acct_type,vir_acct_sort,
         vir_acct_name,currency,
-        acct_status,rel_bank_acct,
+        acct_status,acct_no,
         is_in,is_out,is_total_limit,
         total_limit,is_balance_limit,
         balance_type,balance_value,
@@ -137,7 +137,7 @@
     vir_acct_id,cust_id,plat_id,
     vir_acct_type,vir_acct_sort,
     vir_acct_name,user_id,currency,
-    acct_status,rel_bank_acct,
+    acct_status,acct_no,
     is_in,is_out,is_total_limit,
     total_limit,is_balance_limit,
     balance_type,balance_value,

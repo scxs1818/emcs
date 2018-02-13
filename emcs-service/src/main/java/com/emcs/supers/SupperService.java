@@ -16,9 +16,9 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2018/2/3.
+ * Created by Administrator on 2018/2/13.
  */
-public abstract class ServiceTransactionalN{
+public abstract class SupperService {
     protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
     @Resource
     protected OneTableSelectMapper oneSelect;
@@ -37,11 +37,13 @@ public abstract class ServiceTransactionalN{
             result.setMsg("交易成功");
             result.setStatus("S");
             data.put("tran_status","S");
+            data.put("ret_code","000000");
         }catch(Exception e){
             log.error("交易失败",e);
             result.setMsg(e.getMessage());
             result.setStatus("F");
             data.put("tran_status","F");
+            data.put("ret_code","");
             data.put("fail_reason",e.getMessage());
             DoException.doThrowException(e);
         }finally {

@@ -4,20 +4,21 @@ import com.emcs.Constant.ErrorCodeConstant.*;
 import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.Constant.BusiConstant.*;
 import com.emcs.exception.BusiException;
+import com.emcs.supers.SupperService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 @Service
-public class PlatformRegister extends ServiceTransactionalY {
+public class PlatformRegister extends SupperService {
 
     public void process(Map<String, Object> param){
 
         // 1.校验支付商户编码是否存在
-        if(oneSelect.selectIsExistVaPlatInfo(param)>0) throw new BusiException(PlatErrorCode.VAP001.code(),PlatErrorCode.VAP001.val());
+        if(oneSelect.selectIsExistVaPlatInfo(param)>0) throw new BusiException(PlatErrorCode.VAP004.code(),PlatErrorCode.VAP004.val());
 
         // 2.生成平台编码
-        param.put("plat_id",oneSelect.getNextVal(Quence.PLAT_BANK.val()));
+        param.put("plat_id",oneSelect.getNextVal(Quence.PLAT.val()));
         param.put("status","N");//首次注册为正常
         param.put("payment_type",0);//手动结算
         param.put("currency","CNY");
@@ -29,14 +30,13 @@ public class PlatformRegister extends ServiceTransactionalY {
         //4.1绑定平台结算账户
         Object acct_no=param.get("settle_acct");
         if(acct_no!=null&&!"".equals(acct_no.toString().trim())){
-            param.put("acct_id",oneSelect.getNextVal(Quence.PLAT_BANK.val()));
             param.put("acct_type", BusiConstant.ACCT_TYPE_PLAT_SETTLE);
-            param.put("acct_no",acct_no);
-            param.put("acct_category",param.get("settle_acct_category"));
+            param.put("",acct_no);
+            param.put("acacct_noct_category",param.get("settle_acct_category"));
             oneDML.insertVaPlatAccInfo(param);
         }
+
         //4.2绑定平台资金清算专户
-        param.put("acct_id",oneSelect.getNextVal(Quence.PLAT_BANK.val()));
         param.put("acct_type", BusiConstant.ACCT_TYPE_PLAT_DEPOSIT);
         param.put("acct_no",param.get("deposit_acct"));
         param.put("acct_name","资金清算专户");
@@ -52,7 +52,7 @@ public class PlatformRegister extends ServiceTransactionalY {
         param.putAll(virAcctTypeList.get(0));
 
         //5.注册虚拟账户信息
-        param.put("plat_virid", Quence.PLAT_VIRT.val());
+        param.put("plat_virid", oneSelect.getNextVal(Quence.PLAT_VIRT.val()));
         oneDML.insertVaPlatVirtualAcct(param);
 
         //6.注册虚拟账户余额信息
