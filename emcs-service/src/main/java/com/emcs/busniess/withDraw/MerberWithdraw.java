@@ -31,7 +31,7 @@ public class MerberWithdraw extends ServiceTransactionalY{
             throw new BusiException(ErrorCodeConstant.PlatErrorCode.VAP001.code(), ErrorCodeConstant.PlatErrorCode.VAP001.val());
 
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
-            data.put("tran_type", BusiConstant.TranType.CUST_WITHDRAW.vaue());
+            data.put("tran_type", BusiConstant.TranType.CUST_WITHDRAW.val());
             data.put("payer_type",BusiConstant.ROLE_CUST);
             data.put("cust_id",data.get("payer_id"));
 
@@ -41,7 +41,7 @@ public class MerberWithdraw extends ServiceTransactionalY{
 
             custWithdraw.process(data);
         }else if(BusiConstant.ROLE_MERCH.equals(data.get("role_type"))){
-            data.put("tran_type", BusiConstant.TranType.MERCH_WITHDRAW.vaue());
+            data.put("tran_type", BusiConstant.TranType.MERCH_WITHDRAW.val());
             data.put("payer_type",BusiConstant.ROLE_MERCH);
             data.put("merch_id",data.get("payer_id"));
 

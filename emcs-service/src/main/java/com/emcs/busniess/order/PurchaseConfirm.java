@@ -53,10 +53,10 @@ public class PurchaseConfirm extends ServiceTransactionalY {
             oldOrderMap.put("recharge_bal",0);
         }
 
-        if(BusiConstant.Role.CUST.vaue().equals(data.get("role_type"))){
-            oldOrderMap.put("tran_type",BusiConstant.TranType.CUST_PURCHASE_CONFIRM.vaue());
-        }else if(BusiConstant.Role.MERCH.vaue().equals(data.get("role_type"))){
-            oldOrderMap.put("tran_type",BusiConstant.TranType.MERCH_PURCHASE_CONFIRM.vaue());
+        if(BusiConstant.Role.CUST.val().equals(data.get("role_type"))){
+            oldOrderMap.put("tran_type",BusiConstant.TranType.CUST_PURCHASE_CONFIRM.val());
+        }else if(BusiConstant.Role.MERCH.val().equals(data.get("role_type"))){
+            oldOrderMap.put("tran_type",BusiConstant.TranType.MERCH_PURCHASE_CONFIRM.val());
         }
 
         oldOrderMap.put("merch_id",oldOrderMap.get("payee_id"));

@@ -30,9 +30,9 @@ public class MerchRegister extends ServiceTransactionalY{
 
         //3.生成商户编号
         param.put("status","N");
-        String merchSeq = oneSelect.getNextVal(Quence.MERCH.gname());
+        String merchSeq = oneSelect.getNextVal(Quence.MERCH.val());
         String palt_id =  param.get("plat_id")+"";
-        String merch_id = Role.MERCH.vaue()+palt_id+merchSeq;
+        String merch_id = Role.MERCH.val()+palt_id+merchSeq;
         param.put("merch_id",merch_id);
 
         //4.注册商户信息
@@ -40,8 +40,8 @@ public class MerchRegister extends ServiceTransactionalY{
 
         //5.生成商户银行账户编号
         Object acct_no = param.get("settle_acct");
-        String acctSeq = oneSelect.getNextVal(Quence.MERCH_BANK.gname());
-        param.put("acct_id", AcctProperty.ACCT_BAN.value()+Role.MERCH.vaue()+acctSeq);
+        String acctSeq = oneSelect.getNextVal(Quence.MERCH_BANK.val());
+        param.put("acct_id", AcctProperty.ACCT_BAN.val()+Role.MERCH.val()+acctSeq);
         param.put("acct_no",acct_no);
         param.put("acct_type", BusiConstant.ACCT_TYPE_MERCH_SETTLE);
         param.put("acct_category",param.get("settle_acct_category"));
@@ -54,8 +54,8 @@ public class MerchRegister extends ServiceTransactionalY{
         param.putAll(virAcctTypeList.get(0));
 
         //7.生产商户虚拟账户编号
-        String virSeq = oneSelect.getNextVal(Quence.MERCH_VIRT.gname());
-        param.put("merch_virid", AcctProperty.ACCT_VIR.value()+merch_id);
+        String virSeq = oneSelect.getNextVal(Quence.MERCH_VIRT.val());
+        param.put("merch_virid", AcctProperty.ACCT_VIR.val()+merch_id);
         param.put("rel_bank_acct",acct_no);
         //8.注册虚拟账户信息
         oneDML.insertVaMerchVirtualAcct(param);

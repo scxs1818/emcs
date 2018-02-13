@@ -55,12 +55,12 @@ public class PurchaseRevoke extends ServiceTransactionalY{
         }
 
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
-            oldOrderMap.put("tran_type", BusiConstant.TranType.CUST_PURCHASE_REVOKE.vaue());
+            oldOrderMap.put("tran_type", BusiConstant.TranType.CUST_PURCHASE_REVOKE.val());
             oldOrderMap.put("cust_id",oldOrderMap.get("payer_id"));
             oldOrderMap.put("cust_virid",oldOrderMap.get("payer_virid"));
             oneDML.updateVaCustVirtualAcctBalAdd(oldOrderMap);
         }else if(BusiConstant.ROLE_MERCH.equals(data.get("role_type"))){
-            oldOrderMap.put("tran_type", BusiConstant.TranType.MERCH_PURCHASE_REVOKE.vaue());
+            oldOrderMap.put("tran_type", BusiConstant.TranType.MERCH_PURCHASE_REVOKE.val());
             oldOrderMap.put("merch_id",oldOrderMap.get("payer_id"));
             oldOrderMap.put("merch_virid",oldOrderMap.get("payer_virid"));
             oneDML.updateVaMerchVirtualAcctBalAdd(oldOrderMap);

@@ -35,7 +35,7 @@ public class PurchaseApply extends ServiceTransactionalY{
         if(Integer.parseInt(oneSelect.selectVaOrderInfoForRepeat(data)+"")>0)throw new BusiException("重复申请");
 
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
-            data.put("tran_type", BusiConstant.TranType.CUST_PURCHASE_APPLY.vaue());
+            data.put("tran_type", BusiConstant.TranType.CUST_PURCHASE_APPLY.val());
 
             data.put("payer_type",BusiConstant.ROLE_CUST);
             data.put("cust_id",data.get("payer_id"));
@@ -47,7 +47,7 @@ public class PurchaseApply extends ServiceTransactionalY{
 
             custPurchase.process(data);
         }else if(BusiConstant.ROLE_MERCH.equals(data.get("role_type"))){
-            data.put("tran_type", BusiConstant.TranType.MERCH_PURCHASE_APPLY.vaue());
+            data.put("tran_type", BusiConstant.TranType.MERCH_PURCHASE_APPLY.val());
 
             data.put("payer_type",BusiConstant.ROLE_MERCH);
             data.put("merch_id",data.get("payer_id"));

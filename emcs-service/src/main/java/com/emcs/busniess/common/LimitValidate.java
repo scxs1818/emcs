@@ -127,16 +127,16 @@ public class LimitValidate extends PubService {
         BigDecimal tran_amt = new BigDecimal(data.get("tran_amt") + "");
 
         //4.校验余额
-        if (BusiConstant.TranType.CUST_PURCHASE_APPLY.vaue().equals(tranType) ||
-                BusiConstant.TranType.TRANSFER_MERCH_TO_MERCH.vaue().equals(tranType) ||
-                BusiConstant.TranType.TRANSFER_MERCH_TO_CUST.vaue().equals(tranType) ||
-                BusiConstant.TranType.TRANSFER_CUST_TO_MERCH.vaue().equals(tranType) ||
-                BusiConstant.TranType.TRANSFER_CUST_TO_CUST.vaue().equals(tranType)) {
+        if (BusiConstant.TranType.CUST_PURCHASE_APPLY.val().equals(tranType) ||
+                BusiConstant.TranType.TRANSFER_MERCH_TO_MERCH.val().equals(tranType) ||
+                BusiConstant.TranType.TRANSFER_MERCH_TO_CUST.val().equals(tranType) ||
+                BusiConstant.TranType.TRANSFER_CUST_TO_MERCH.val().equals(tranType) ||
+                BusiConstant.TranType.TRANSFER_CUST_TO_CUST.val().equals(tranType)) {
             if (usable_bal.add(recharge_bal).compareTo(tran_amt) == -1)
                 throw new BusiException(PubErrorCode.VAZ011.code(), PubErrorCode.VAZ011.val());
 
-        } else if (BusiConstant.TranType.MERCH_WITHDRAW.vaue().equals(tranType) ||
-                BusiConstant.TranType.MERCH_WITHDRAW.vaue().equals(tranType)) {
+        } else if (BusiConstant.TranType.MERCH_WITHDRAW.val().equals(tranType) ||
+                BusiConstant.TranType.MERCH_WITHDRAW.val().equals(tranType)) {
             if (usable_bal.compareTo(tran_amt) == -1)
                 throw new BusiException(PubErrorCode.VAZ011.code(), PubErrorCode.VAZ011.val());
         }

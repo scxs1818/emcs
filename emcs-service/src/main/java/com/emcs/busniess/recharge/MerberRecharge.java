@@ -32,7 +32,7 @@ public class MerberRecharge extends ServiceTransactionalY{
             throw new BusiException(PlatErrorCode.VAP001.code(), PlatErrorCode.VAP001.val());
 
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
-            data.put("tran_type", BusiConstant.TranType.CUST_RECHARGE.vaue());
+            data.put("tran_type", BusiConstant.TranType.CUST_RECHARGE.val());
             data.put("payee_type",BusiConstant.ROLE_CUST);
             data.put("cust_id",data.get("payee_id"));
 

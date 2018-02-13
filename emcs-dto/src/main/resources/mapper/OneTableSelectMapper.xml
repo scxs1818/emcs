@@ -3,7 +3,7 @@
 <mapper namespace="com.emcs.mapper.OneTableSelectMapper" >
 <!--根据序列名称获取序列下一个值-->
 <select id="getNextVal" parameterType="string"  resultType="string" >
-    select lpad(getnextval(#{_parameter}),(select _length from va_sequence_l where seq_name=#{_parameter}),0) from dual
+    select getNextVal(#{_parameter}) from dual
 </select>
 
 <!--查询虚拟账户类型信息-->
