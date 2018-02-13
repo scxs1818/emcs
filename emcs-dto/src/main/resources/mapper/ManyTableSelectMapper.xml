@@ -9,10 +9,10 @@
         from va_cust_virtual_acct_bal b,va_cust_virtual_acct t
         where b.cust_virid=t.cust_virid
         <if test="acct_status !=null and acct_status!='' "> and t.acct_status = #{acct_status} </if>
-        <if test="vir_acct_type !=null and vir_acct_type!='' "> and b.vir_acct_type = #{vir_acct_type} </if>
-        <if test="cust_id !=null and cust_id!='' "> and b.cust_id = #{cust_id} </if>
-        <if test="cust_virid !=null and cust_virid!='' "> and b.cust_virid = #{cust_virid} </if>
-        for update of b.cust_virid
+        <if test="vir_acct_type !=null and vir_acct_type!='' "> and t.vir_acct_type = #{vir_acct_type} </if>
+        <if test="cust_id !=null and cust_id!='' "> and t.cust_id = #{cust_id} </if>
+        <if test="cust_virid !=null and cust_virid!='' "> and t.cust_virid = #{cust_virid} </if>
+        for update
     </select>
 
     <!--对会员虚拟账户余额信息上锁-->
@@ -22,9 +22,9 @@
         from va_merch_virtual_acct_bal b,va_merch_virtual_acct t
         where b.merch_virid=t.merch_virid
         <if test="acct_status !=null and acct_status!='' "> and t.acct_status = #{acct_status} </if>
-        <if test="vir_acct_type !=null and vir_acct_type!='' "> and b.vir_acct_type = #{vir_acct_type} </if>
-        <if test="merch_id !=null and merch_id!='' "> and b.merch_id = #{merch_id} </if>
-        <if test="merch_virid !=null and merch_virid!='' "> and b.merch_virid = #{merch_virid} </if>
-        for update of b.merch_virid
+        <if test="vir_acct_type !=null and vir_acct_type!='' "> and t.vir_acct_type = #{vir_acct_type} </if>
+        <if test="merch_id !=null and merch_id!='' "> and t.merch_id = #{merch_id} </if>
+        <if test="merch_virid !=null and merch_virid!='' "> and t.merch_virid = #{merch_virid} </if>
+        for update
     </select>
 </mapper>

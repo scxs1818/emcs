@@ -3,10 +3,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.RandomAccessFile;
-@Service
+
 public class MakeInsertSqls {
     public static void main(String[] args) {
-        String dir = SqlUtil.getDbScriptDir()+"/tables/VA_ORDER_INFO_订单信息表.sql";
+        String dir = SqlUtil.getDbScriptDir()+"/tables/CM_ACCT_TRAN_SEQ_账务流水表.sql";
         RandomAccessFile raf = null,raf2 = null;
         StringBuilder sb1 = new StringBuilder(),sb2 = new StringBuilder();
         try {

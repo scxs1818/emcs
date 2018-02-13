@@ -19,6 +19,8 @@ public interface BusiConstant {
 
         TRANSFER("transfer_seq_no","转账流水号"),
         CM_TRAN_SEQ("cm_seq_no","交易公共流水号"),
+        TRAN_SEQ_NO("tran_seq_no","交易公共流水号"),
+
 
         ;
         private String val;
