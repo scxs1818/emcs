@@ -3,6 +3,7 @@ package com.emcs.busniess.register;
 import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.Constant.BusiConstant.*;
 import com.emcs.exception.BusiException;
+import com.emcs.supers.SupperService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/3.
  */
 @Service
-public class CustRegister extends ServiceTransactionalY {
+public class CustRegister extends SupperService {
     @Override
     protected void process(Map<String, Object> param) {
         //2.判断是否已经注册
@@ -20,15 +21,13 @@ public class CustRegister extends ServiceTransactionalY {
 
         //3.生成会员编号
         param.put("status","N");
-        String cust_id = Role.CUST.val()+param.get("plat_id")+ oneSelect.getNextVal(Quence.CUST.val());
-        param.put("cust_id",cust_id);
+        param.put("cust_id",param.get("plat_id")+ oneSelect.getNextVal(Quence.CUST.val()));
 
         //4.注册会员信息
         oneDML.insertVaCustInfo(param);
 
         param.put("acct_status","N");
-        String vir_acct_id = AcctProperty.ACCT_VIR.val()+ cust_id;
-        param.put("cust_virid",vir_acct_id);
+        param.put("cust_virid",oneSelect.getNextVal(Quence.CUST_VIRT.val()));
         param.put("vir_acct_type","301");
         List<Map<String,Object>> mapList= oneSelect.selectVaVirtualAcctType(param);
         param.putAll(mapList.get(0));
@@ -43,8 +42,6 @@ public class CustRegister extends ServiceTransactionalY {
         param.put("recharge_bal",0);
         oneDML.insertVaCustVirtualAcctBal(param);
 
-        String acct_id = AcctProperty.ACCT_BAN.val()+Role.PLAT.val()+ oneSelect.getNextVal(Quence.PLAT_BANK.val());
-        param.put("acct_id",acct_id);
         //7.绑定会员与银行账户信息
         oneDML.insertVaCustAccInfo(param);
     }

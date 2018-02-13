@@ -13,6 +13,7 @@ import com.emcs.pub.runtime.core.Logger;
 import com.emcs.pub.runtime.core.LoggerFactory;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/3.
  */
 @Transactional
+@Service
 public abstract class ServiceTransactionalY {
     @Autowired
     InsertCmTranSeq icts;
@@ -29,12 +31,12 @@ public abstract class ServiceTransactionalY {
     UpdateCmTranSeq ucts;
     protected CommonResult before(Map<String, Object> data) {
         icts.process(data);//插入交易流水
-        return null;
+        return result;
     }
 
     protected CommonResult after(Map<String, Object> data) {
         ucts.process(data);//更新交易流水
-        return null;
+        return result;
     }
 
     protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
@@ -60,6 +62,7 @@ public abstract class ServiceTransactionalY {
             result.setMsg(e.getMessage());
             result.setStatus("F");
             data.put("tran_status","F");
+            data.put("fail_reason",e.getMessage());
             DoException.doThrowException(e);
         }finally {
             after(data);

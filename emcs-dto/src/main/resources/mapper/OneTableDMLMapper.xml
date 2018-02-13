@@ -71,7 +71,7 @@
             plat_virid,plat_id,
             vir_acct_type,vir_acct_sort,
             vir_acct_name,currency,
-            acct_status,rel_bank_acct,
+            acct_status,acct_no,
             is_in,is_out,is_total_limit,
             total_limit,is_balance_limit,
             balance_type,balance_value,
@@ -84,7 +84,7 @@
             #{plat_virid},#{plat_id},
             #{vir_acct_type},#{vir_acct_sort},
             #{vir_acct_name},#{currency},
-            #{acct_status},#{rel_bank_acct},
+            #{acct_status},#{acct_no},
             #{is_in},#{is_out},#{is_total_limit},
             #{total_limit},#{is_balance_limit},
             #{balance_type},#{balance_value},
@@ -105,7 +105,7 @@
         )
         values
         (
-            #{acct_id},#{plat_id},#{acct_type},
+            getnextval('plat_ban_acc_seq_no'),#{plat_id},#{acct_type},
             #{acct_no},#{acct_name},#{is_this_bank},
             #{acct_br_no},#{acct_br_name},#{currency},
             #{update_date},#{update_user},#{acct_status},#{acct_category}
@@ -152,7 +152,7 @@
         )
         values
         (
-        #{acct_id},#{merch_id},#{acct_type},
+        getnextval('merch_ban_acc_seq_no'),#{merch_id},#{acct_type},
         #{acct_no},#{acct_name},#{is_this_bank},
         #{acct_br_no},#{acct_br_name},#{currency},
         #{update_date},#{update_user},#{acct_status},#{acct_category}
@@ -200,7 +200,7 @@
             merch_virid,merch_id,plat_id,
             vir_acct_type,vir_acct_sort,
             vir_acct_name,currency,
-            acct_status,rel_bank_acct,
+            acct_status,acct_no,
             is_in,is_out,is_total_limit,
             total_limit,is_balance_limit,
             balance_type,balance_value,
@@ -213,7 +213,7 @@
             #{merch_virid},#{merch_id},#{plat_id},
             #{vir_acct_type},#{vir_acct_sort},
             #{vir_acct_name},#{currency},
-            #{acct_status},#{rel_bank_acct},
+            #{acct_status},#{acct_no},
             #{is_in},#{is_out},#{is_total_limit},
             #{total_limit},#{is_balance_limit},
             #{balance_type},#{balance_value},
@@ -258,7 +258,7 @@
         )
         values
         (
-            #{acct_id},#{cust_id},#{acct_type},
+            getnextval('cust_ban_acc_seq_no'),#{cust_id},#{acct_type},
             #{acct_no},#{acct_name},#{is_this_bank},
             #{acct_br_no},#{acct_br_name},#{currency},
             #{update_date},#{update_user},#{acct_status},#{acct_category}
@@ -272,7 +272,7 @@
         cust_virid,cust_id,plat_id,
         vir_acct_type,vir_acct_sort,
         vir_acct_name,user_id,currency,
-        acct_status,rel_bank_acct,
+        acct_status,acct_no,
         is_in,is_out,is_total_limit,
         total_limit,is_balance_limit,
         balance_type,balance_value,
@@ -285,7 +285,7 @@
         #{cust_virid},#{cust_id},#{plat_id},
         #{vir_acct_type},#{vir_acct_sort},
         #{vir_acct_name},#{user_id},#{currency},
-        #{acct_status},#{rel_bank_acct},
+        #{acct_status},#{acct_no},
         #{is_in},#{is_out},#{is_total_limit},
         #{total_limit},#{is_balance_limit},
         #{balance_type},#{balance_value},
@@ -405,8 +405,8 @@
     <!--更新公共交流水-->
     <update id="updateCmTranSeq" parameterType="hashMap">
         update cm_tran_seq set
-          tran_status=#{tran_status},msg_code=#{msg_code},
-          ret_code=#{ret_code},fail_reason=#{fail_reason}
+          tran_status=#{tran_status},msg_code=#{msg_code},plat_id=#{plat_id},cust_id=#{cust_id},
+          merch_id=#{merch_id},ret_code=#{ret_code},fail_reason=#{fail_reason}
         where pub_seq_no=#{pub_seq_no}
     </update>
 

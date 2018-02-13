@@ -15,10 +15,10 @@ public interface BusiConstant {
 
         CUST("cust_seq_no","个人序列"),
         CUST_VIRT("cust_vir_acc_seq_no","个人虚拟账户序列"),
-        CUST_BANK("seq_cust_merch_ban_acc","个人银行账户序列"),
+        CUST_BANK("cust_ban_acc_seq_no","个人银行账户序列"),
 
         TRANSFER("transfer_seq_no","转账流水号"),
-        CM_TRAN_SEQ("cm_tran_seq","交易公共流水号"),
+        CM_TRAN_SEQ("cm_seq_no","交易公共流水号"),
 
         ;
         private String val;

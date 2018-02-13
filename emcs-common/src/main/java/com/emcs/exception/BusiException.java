@@ -40,7 +40,7 @@ public class BusiException extends RuntimeException {
      * @param errorMsg 错误消息
      */
     public BusiException(String errorCode, String errorMsg) {
-
+        super(errorMsg);
         this.errCode = errorCode;
         this.errorMsg=errorMsg;
         this.moudle = getMoudle();
