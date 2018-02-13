@@ -80,12 +80,8 @@ public class CheckEmpty {
             return isEmpty((Map) b);
         if (b instanceof Object[])
             return isEmpty((Object[]) b);
-//        if (b instanceof Field)
-//            return isEmpty((Field) b);
         if (b instanceof File)
             return isEmpty((File) b);
-//        if (b instanceof Array)
-//            return isEmpty((Array) b);
         if (b instanceof StringBuilder || b instanceof StringBuffer)
             return isEmpty(b.toString());
         if (b instanceof Number)
@@ -111,27 +107,6 @@ public class CheckEmpty {
     public static boolean isEmpty(Object[] o) {
         return o == null || o.length == 0;
     }
-
-//    public static boolean isEmpty(Field f) {
-//        FieldAttr fa = f.getAttr();
-//        if (isEmpty(fa))
-//            return true;
-//        FieldType ft = fa.getType();
-//        Object o = "";
-//        if (FieldType.FIELD_STRING.equals(ft))
-//            o = f.strValue();
-//        if (FieldType.FIELD_DOUBLE.equals(ft))
-//            o = f.doubleValue();
-//        if (FieldType.FIELD_FLOAT.equals(ft))
-//            o = f.floatValue();
-//        if (FieldType.FIELD_INT.equals(ft))
-//            o = f.intValue();
-//        if (FieldType.FIELD_BYTE.equals(ft))
-//            o = f.byteValue();
-//        if (FieldType.FIELD_LONG.equals(ft))
-//            o = f.longValue();
-//        return isEmpty(o);
-//    }
 
     public static boolean isEmpty(Collection<?> c) {
         return c == null || c.isEmpty();

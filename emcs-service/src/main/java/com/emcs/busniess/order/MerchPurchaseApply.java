@@ -15,7 +15,7 @@ import java.util.Map;
 public class MerchPurchaseApply extends PubService {
     @Override
     public void process(Map<String, Object> data) {
-        Map<String,Object>  payerMap = (Map<String,Object>)data.get("pyaerInfo");
+        Map<String,Object>  payerMap = (Map<String,Object>)data.get("payerInfo");
         BigDecimal usable_bal = new BigDecimal(payerMap.get("usable_bal")+"");
         BigDecimal tran_amt = new BigDecimal(data.get("tran_amt")+"");
         if(usable_bal.compareTo(tran_amt)==-1){
@@ -27,12 +27,12 @@ public class MerchPurchaseApply extends PubService {
         }
         oneDML.updateVaMerchVirtualAcctBalSub(data);
 
-        //记订单信息
+        //插入订单信息
         data.put("order_status","01");//订单确认
         data.put("create_date", CacheData.getCacheObj(oneSelect, BusiConstant.CACHE_CM_SYSTEM).get("run_date"));
         oneDML.insertVaOrderInfo(data);
 
-        //记订单流水信息
+        //插入订单流水信息
         oneDML.insertVaOrderSeq(data);
     }
 }

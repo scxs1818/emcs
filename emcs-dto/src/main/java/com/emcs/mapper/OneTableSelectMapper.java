@@ -30,8 +30,9 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectVaCustVirtualAcctBalLock(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustAcctInfo(Map<String, Object> param);
 
-    List<Map<String,Object>> selectVaOrderInfoForOld(Map<String, Object> param);
 
+    int selectVaOrderSeqForRepeat(Map<String, Object> param);
+    List<Map<String,Object>> selectVaOrderInfoForOld(Map<String, Object> param);
     int selectVaOrderInfoForRepeat(Map<String, Object> param);
 
     List<Map<String,Object>> selectCmBusinessParaForCache(Map<String, Object> param);

@@ -1,6 +1,7 @@
 package com.emcs.busniess.common;
 
 import com.emcs.Constant.BusiConstant;
+import com.emcs.Constant.ErrorCodeConstant;
 import com.emcs.Constant.ErrorCodeConstant.*;
 import com.emcs.cache.CacheUtil;
 import com.emcs.exception.BusiException;
@@ -56,11 +57,37 @@ public class LimitValidate extends PubService {
         BigDecimal total_limit = (BigDecimal) virAcctBalMap.get("total_limit");
         BigDecimal actural_bal = (BigDecimal) virAcctBalMap.get("actural_bal");
         BigDecimal balance_value = (BigDecimal) virAcctBalMap.get("balance_value");
-        BigDecimal tran_amt = new BigDecimal(data.get("tran_amt") + "");
+
         if ("Y".equals(virAcctBalMap.get("is_total_limit"))) {
+            BigDecimal tran_amt = new BigDecimal(data.get("tran_amt") + "");
             if (total_limit.compareTo(actural_bal.add(tran_amt)) == -1)
                 throw new BusiException(PubErrorCode.VAZ010.code(), PubErrorCode.VAZ010.val());
         }
+    }
+
+    public void businessValidate(Map<String, Object> data) {
+        BigDecimal tran_amt = new BigDecimal(data.get("tran_amt") + "");
+        String tranType = data.get("tran_type")+"";
+        //6.从缓存里取商户的单笔限额
+        Map<String, Object> cacheObject = CacheUtil.getInstance().getCacheObj(oneSelect, BusiConstant.CACHE_CM_BUSINESS_PARA);
+        tranType = ("5".equals(tranType) || "6".equals(tranType)) ? "56" : ("7".equals(tranType) || "8".equals(tranType)) ? "78" : tranType;
+        String limitCnt = cacheObject.get(tranType + BusiConstant.PIPE + BusiConstant.LIMIT_CNT) + "";
+        String sumLimitAmt = cacheObject.get(tranType + BusiConstant.PIPE + BusiConstant.SUM_LIMIT_AMT) + "";
+        String sigLimitAmt = cacheObject.get(tranType + BusiConstant.PIPE + BusiConstant.SIG_LIMIT_AMT) + "";
+        boolean isLimitCnt = CheckEmpty.isEmpty(limitCnt), isSumLimitAmt = CheckEmpty.isEmpty(sumLimitAmt), isSigLimitAmt = CheckEmpty.isEmpty(sigLimitAmt);
+
+        //7.判断充值金额是否超出单笔限额
+        if (isSigLimitAmt && tran_amt.compareTo(new BigDecimal(sigLimitAmt + "")) == 1)
+            throw new BusiException(PubErrorCode.VAZ008.code(), PubErrorCode.VAZ008.val());
+
+        //8.判断日交易次数是否超出允许日交易总次数
+        List<Map<String, Object>> sumList = oneSelect.selectVaMerchRechargeSeqSum(data);
+        if (isLimitCnt && Integer.parseInt(sumList.get(0).get("sum_cnt") + "") > Integer.parseInt(limitCnt))
+            throw new BusiException(PubErrorCode.VAZ009.code(), PubErrorCode.VAZ009.val());
+
+        //9.判断日交易总额是否超出允许日交易总金额
+        if (isSumLimitAmt && Integer.parseInt(sumList.get(0).get("sum_amt") + "") > Integer.parseInt(sumLimitAmt))
+            throw new BusiException(PubErrorCode.VAZ021.code(), PubErrorCode.VAZ021.val());
     }
 
     public void validatePayer(Map<String, Object> data) {
@@ -124,26 +151,5 @@ public class LimitValidate extends PubService {
                     throw new BusiException(PubErrorCode.VAZ012.code(), PubErrorCode.VAZ012.val());
             }
         }
-
-        //6.从缓存里取商户的单笔限额
-        Map<String, Object> cacheObject = CacheUtil.getInstance().getCacheObj(oneSelect, BusiConstant.CACHE_CM_BUSINESS_PARA);
-        tranType = ("5".equals(tranType) || "6".equals(tranType)) ? "56" : ("7".equals(tranType) || "8".equals(tranType)) ? "78" : tranType;
-        String limitCnt = cacheObject.get(tranType + BusiConstant.PIPE + BusiConstant.LIMIT_CNT) + "";
-        String sumLimitAmt = cacheObject.get(tranType + BusiConstant.PIPE + BusiConstant.SUM_LIMIT_AMT) + "";
-        String sigLimitAmt = cacheObject.get(tranType + BusiConstant.PIPE + BusiConstant.SIG_LIMIT_AMT) + "";
-        boolean isLimitCnt = CheckEmpty.isEmpty(limitCnt), isSumLimitAmt = CheckEmpty.isEmpty(sumLimitAmt), isSigLimitAmt = CheckEmpty.isEmpty(sigLimitAmt);
-
-        //7.判断充值金额是否超出单笔限额
-        if (isSigLimitAmt && tran_amt.compareTo(new BigDecimal(sigLimitAmt + "")) == 1)
-            throw new BusiException(PubErrorCode.VAZ008.code(), PubErrorCode.VAZ008.val());
-
-        //8.判断日交易次数是否超出允许日交易总次数
-        List<Map<String, Object>> sumList = oneSelect.selectVaMerchRechargeSeqSum(data);
-        if (isLimitCnt && Integer.parseInt(sumList.get(0).get("sum_cnt") + "") > Integer.parseInt(limitCnt))
-            throw new BusiException(PubErrorCode.VAZ009.code(), PubErrorCode.VAZ009.val());
-
-        //9.判断日交易总额是否超出允许日交易总金额
-        if (isSumLimitAmt && Integer.parseInt(sumList.get(0).get("sum_amt") + "") > Integer.parseInt(sumLimitAmt))
-            throw new BusiException(PubErrorCode.VAZ021.code(), PubErrorCode.VAZ021.val());
     }
 }

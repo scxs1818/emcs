@@ -22,36 +22,32 @@ public class MerberRecharge extends ServiceTransactionalY{
     @Autowired
     LimitValidate validate;
     @Override
-    protected void process(Map<String, Object> param) {
+    protected void process(Map<String, Object> data) {
         //初始化会员和会员账户状态
-        param.put("status","N");
-        param.put("acct_status","N");
+        data.put("status","N");
+        data.put("acct_status","N");
 
         //校验平台
-        if(oneSelect.selectIsExistVaPlatInfo(param)==0)
+        if(oneSelect.selectIsExistVaPlatInfo(data)==0)
             throw new BusiException(PlatErrorCode.VAP001.code(), PlatErrorCode.VAP001.val());
 
-        if(BusiConstant.ROLE_CUST.equals(param.get("role_type"))){
-            param.put("tran_type", BusiConstant.TranType.CUST_RECHARGE.vaue());
-            param.put("payee_type",BusiConstant.ROLE_CUST);
-            param.put("cust_id",param.get("payer_id"));
+        if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
+            data.put("tran_type", BusiConstant.TranType.CUST_RECHARGE.vaue());
+            data.put("payee_type",BusiConstant.ROLE_CUST);
+            data.put("cust_id",data.get("payee_id"));
 
-            validate.validatePayee(param);
+            validate.validatePayee(data);
 
-            if(Integer.parseInt(oneSelect.selectVaCustRechargeSeqSum(param).get(0).get("sum_cnt")+"")>0)
-                throw new BusiException(PubErrorCode.VAZ020.code(),PubErrorCode.VAZ020.val());
+            validate.businessValidate(data);
+            
+            custRecharge.process(data);
+        }else if(BusiConstant.ROLE_MERCH.equals(data.get("role_type"))){
+            data.put("payee_type",BusiConstant.ROLE_MERCH);
+            data.put("merch_id",data.get("payee_id"));
 
-            custRecharge.process(param);
-        }else if(BusiConstant.ROLE_MERCH.equals(param.get("role_type"))){
-            param.put("payee_type",BusiConstant.ROLE_MERCH);
-            param.put("merch_id",param.get("payer_id"));
+            validate.validatePayee(data);
 
-            validate.validatePayee(param);
-
-            if(Integer.parseInt(oneSelect.selectVaMerchRechargeSeqSum(param).get(0).get("sum_cnt")+"")>0)
-                throw new BusiException(PubErrorCode.VAZ020.code(),PubErrorCode.VAZ020.val());
-
-            merchRecharge.process(param);
+            merchRecharge.process(data);
         }else{
             throw new BusiException(PubErrorCode.VAZ007.code(),PubErrorCode.VAZ007.val());
         }

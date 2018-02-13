@@ -26,29 +26,30 @@ public class CustWithdraw extends ServiceTransactionalY {
     @Autowired
     SendNetPay sendNetPay;
     @Override
-    protected void process(Map<String, Object> param) {
+    protected void process(Map<String, Object> data) {
         boolean flag = false;
         try{
             //2.记账无流水
-            insertCmAcctTranSeq.process(param);
+            insertCmAcctTranSeq.process(data);
             flag = true;
             //3.发核心支付(下面两种方式,根据实际实现2选1)
-            sendCorePay.process(param);//核心支付
-            sendNetPay.process(param);//互联网支付
+            sendCorePay.process(data);//核心支付
+            sendNetPay.process(data);//互联网支付
 
             //4.支付成功
-            //4.1增加会员虚拟账户余额
-            param.put("usable_bal",0);//可用金额不变
-            param.put("recharge_bal",param.get("tran_amt"));//充值金额增加
-            oneDML.updateVaCustVirtualAcctBalAdd(param);
+            //4.1扣减会员虚拟账户余额
+            data.put("usable_bal",data.get("tran_amt"));//提现只能提可靠用金额
+            data.put("recharge_bal",0);//充值金额不变
+            oneDML.updateVaCustVirtualAcctBalSub(data);
 
             //4.2记录充值明细
-            oneDML.insertVaCustWithdrawSeq(param);
+            oneDML.insertVaCustWithdrawSeq(data);
+
             //5.更新账务流水(依据支付状态)
-            updateCmAcctTranSeq.process(param);
+            updateCmAcctTranSeq.process(data);
         }catch(Exception e){
             if(flag)
-                updateCmAcctTranSeq.process(param);
+                updateCmAcctTranSeq.process(data);
             throw e;
         }
     }
