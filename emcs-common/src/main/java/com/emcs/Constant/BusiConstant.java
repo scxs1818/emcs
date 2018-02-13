@@ -156,8 +156,9 @@ public interface BusiConstant {
     String SEQ_CUST_MERCH_BAN_ACC = "cust_ban_acc_seq_no";
     String SEQ_CUST_MERCH_VIR_ACC = "cust_vir_acc_seq_no";
 
-    String LIMIT_AMT = "limit_amt";
+    String SIG_LIMIT_AMT = "sig_limit_amt";
     String LIMIT_CNT = "limit_cnt";
+    String SUM_LIMIT_AMT = "sum_limit_cnt";
     String PIPE = "|";
 
     /**平台资金存管专户 */

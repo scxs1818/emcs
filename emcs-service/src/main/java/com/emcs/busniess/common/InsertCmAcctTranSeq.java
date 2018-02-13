@@ -15,12 +15,12 @@ import java.util.Map;
 @Service
 public class InsertCmAcctTranSeq extends PubService {
     @Override
-    public void process(Map<String, Object> param) {
+    public void process(Map<String, Object> data) {
 //        数据封装带补充
-        Map sysMap = (Map)param.get("SYS_HEAD");
-        param.put("TRAN_DATE",new Date());
+        Map sysMap = (Map)data.get("SYS_HEAD");
+        data.put("TRAN_DATE",new Date());
         String seqNo = oneSelect.getNextVal(BusiConstant.Quence.CM_TRAN_SEQ.gname());
-        param.put("pub_seq_no",seqNo);
-        oneDML.insertCmAcctTranSeq(param);
+        data.put("pub_seq_no",seqNo);
+        oneDML.insertCmAcctTranSeq(data);
     }
 }

@@ -20,5 +20,5 @@ public abstract class PubService {
     protected OneTableSelectMapper oneSelect;
     @Resource
     protected ManyTableSelectMapper manySelect;
-    public abstract void process(Map<String, Object> param);
+    public abstract void process(Map<String, Object> data);
 }
