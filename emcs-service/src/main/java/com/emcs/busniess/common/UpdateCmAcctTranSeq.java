@@ -9,7 +9,6 @@ package com.emcs.busniess.common;
 /**
  * Created by Administrator on 2018/2/4.
  */
-@Transactional
 @Service
 public class UpdateCmAcctTranSeq extends PubService {
     @Override

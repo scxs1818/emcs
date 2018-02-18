@@ -36,10 +36,10 @@
 </select>
 
 <!--查询会员银行账户信息-->
-<select id="selectVaCustAcctInfo" parameterType="hashMap"  resultType="int" >
+<select id="selectVaCustAcctInfo" parameterType="hashMap"  resultType="hashMap" >
     select
       acct_id,cust_id,acct_type,acct_no,acct_status,acct_category,acct_name,
-      is_this_bank,acct_br_no,acct_br_name,currency,update_date,update_user
+      is_this_bank,acct_br_no,acct_br_name,currency
     from va_cust_acct_info
     <trim prefix="where" prefixOverrides="and">
         <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
@@ -77,12 +77,13 @@
 </select>
 
 <!--查询商户银行账户信息-->
-<select id="selectVaMerchAcctInfo" parameterType="hashMap"  resultType="int" >
+<select id="selectVaMerchAcctInfo" parameterType="hashMap"  resultType="hashMap" >
     select
         acct_id,merch_id,acct_type,acct_no,acct_status,acct_category,acct_name,
-        is_this_bank,acct_br_no,acct_br_name,currency,update_date,update_user
+        is_this_bank,acct_br_no,acct_br_name,currency
     from va_merch_acct_info
     <trim prefix="where" prefixOverrides="and">
+        <if test="acct_category !=null and acct_category!='' "> and acct_category = #{acct_category} </if>
         <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
         <if test="acct_type !=null and acct_type!='' "> and acct_type = #{acct_type}</if>
         <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
@@ -196,8 +197,8 @@
     from va_cust_recharge_seq
     <trim prefix="where" prefixOverrides="and">
         <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-        <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
-        <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
+        <if test="payee_id !=null and payee_id!='' "> and payee_id = #{payee_id} </if>
+        <if test="payee_virid !=null and payee_virid!='' "> and payee_virid = #{payee_virid} </if>
         <if test="tran_date !=null and tran_date!='' "> and tran_date = str_to_date(#{tran_date},'%Y%m%d') </if>
         <if test="order_no !=null and order_no!='' "> and order_no = #{order_no} </if>
     </trim>
@@ -210,14 +211,12 @@
     from va_merch_recharge_seq
     <trim prefix="where" prefixOverrides="and">
         <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
-        <if test="merch_id !=null and cust_id!='' "> and merch_id = #{merch_id} </if>
-        <if test="vir_acct_id !=null and vir_acct_id!='' "> and vir_acct_id = #{vir_acct_id} </if>
+        <if test="payee_id !=null and payee_id!='' "> and payee_id = #{payee_id} </if>
+        <if test="payee_virid !=null and payee_virid!='' "> and payee_virid = #{payee_virid} </if>
         <if test="tran_date !=null and tran_date!='' "> and tran_date = str_to_date(#{tran_date},'%Y%m%d') </if>
         <if test="order_no !=null and order_no!='' "> and order_no = #{order_no} </if>
     </trim>
 </select>
-
-
 
 <!--查询系统信息用于缓存-->
 <select id="selectCmSystemForCache" parameterType="hashMap"  resultType="hashMap" >
@@ -265,9 +264,39 @@
         select tran_type cache_key1,para_key cache_key2,para_value from cm_business_para where para_status='1'
     </select>
 
-    <!--查询判断订单是否重复申请-->
+    <!--查询判断订单申请是否重复提交-->
     <select id="selectVaOrderInfoForRepeat" parameterType="hashMap"  resultType="integer" >
         select count(1) from va_order_info where order_no = #{order_no}
+    </select>
+
+    <!--查询判断订单处理是否重复提交-->
+    <select id="selectVaOrderSeqForRepeat" parameterType="hashMap"  resultType="integer" >
+        select count(1) from va_order_seq where order_no = #{order_no}
+    </select>
+
+    <!--查询判断转账是否重复提交-->
+    <select id="selectVaTransferSeqForRepeat" parameterType="hashMap"  resultType="integer" >
+        select count(1) from va_transfer_seq where order_no = #{order_no}
+    </select>
+
+    <!--查询判断会员充值是否重复提交-->
+    <select id="selectVaCustRechargeSeqForRepeat" parameterType="hashMap"  resultType="integer" >
+        select count(1) from va_cust_recharge_seq where order_no = #{order_no}
+    </select>
+
+    <!--查询判断商户充值是否重复提交-->
+    <select id="selectVaMerchRechargeSeqForRepeat" parameterType="hashMap"  resultType="integer" >
+        select count(1) from va_merch_recharge_seq where order_no = #{order_no}
+    </select>
+
+    <!--查询判断会员提现是否重复提交-->
+    <select id="selectVaCustWithdrawSeqForRepeat" parameterType="hashMap"  resultType="integer" >
+        select count(1) from va_cust_withdraw_seq where order_no = #{order_no}
+    </select>
+
+    <!--查询判断商户提现是否重复提交-->
+    <select id="selectVaMerchWithdrawSeqForRepeat" parameterType="hashMap"  resultType="integer" >
+        select count(1) from va_merch_withdraw_seq where order_no = #{order_no}
     </select>
 
     <!--查询原订单信息-->
@@ -277,11 +306,5 @@
         from va_order_info
         where order_no = #{order_no_old}
     </select>
-
-    <!--查询订单信息是否重复提交-->
-    <select id="selectVaOrderSeqForRepeat" parameterType="hashMap"  resultType="integer" >
-        select count(1) from va_order_seq where order_no = #{order_no}
-    </select>
-
 
 </mapper>

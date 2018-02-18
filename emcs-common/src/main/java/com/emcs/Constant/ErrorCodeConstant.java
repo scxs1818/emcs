@@ -26,6 +26,7 @@ public interface ErrorCodeConstant {
         VAZ019("VAZ019","收款方信息不存在或者异常状态"),
         VAZ020("VAZ020","重复提交"),
         VAZ021("VAZ021","已经超出当日允许交易金额"),
+        VAZ022("VAZ022","付款方虚拟账户余额不足"),
         ;
         public String code() {
             return code;

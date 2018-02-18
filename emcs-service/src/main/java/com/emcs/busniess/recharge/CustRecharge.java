@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Service
 @Transactional
-public class CustRecharge extends SupperService{
+public class CustRecharge extends ServiceTransactionalY{
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired

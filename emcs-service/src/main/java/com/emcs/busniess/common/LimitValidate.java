@@ -26,9 +26,37 @@ public class LimitValidate extends PubService {
 
         validatePayer(data);
         validatePayee(data);
+        validateRepeat(data);
+    }
+
+    public void validateRepeat(Map<String, Object> data) {
+        Object tranType = data.get("tran_type");
+        int cnt;
+        if (BusiConstant.TranType.CUST_PURCHASE_APPLY.val().equals(tranType)||
+                BusiConstant.TranType.CUST_PURCHASE_CONFIRM.val().equals(tranType)||
+                BusiConstant.TranType.CUST_PURCHASE_REVOKE.val().equals(tranType)) {
+            cnt = oneSelect.selectVaOrderSeqForRepeat(data);
+        }else if (BusiConstant.TranType.TRANSFER_MERCH_TO_MERCH.val().equals(tranType) ||
+                BusiConstant.TranType.TRANSFER_MERCH_TO_CUST.val().equals(tranType) ||
+                BusiConstant.TranType.TRANSFER_CUST_TO_MERCH.val().equals(tranType) ||
+                BusiConstant.TranType.TRANSFER_CUST_TO_CUST.val().equals(tranType)) {
+            cnt = oneSelect.selectVaTransferSeqForRepeat(data);
+        } else if (BusiConstant.TranType.MERCH_WITHDRAW.val().equals(tranType) ){
+            cnt = oneSelect.selectVaMerchWithdrawSeqForRepeat(data);
+        }else if (BusiConstant.TranType.CUST_WITHDRAW.val().equals(tranType)) {
+            cnt = oneSelect.selectVaCustWithdrawSeqForRepeat(data);
+        }else if (BusiConstant.TranType.MERCH_RECHARGE.val().equals(tranType)) {
+            cnt = oneSelect.selectVaMerchRechargeSeqForRepeat(data);
+        }else if (BusiConstant.TranType.CUST_RECHARGE.val().equals(tranType)) {
+            cnt = oneSelect.selectVaCustRechargeSeqForRepeat(data);
+        }else{
+          throw new BusiException("未知业务类型");
+        }
+        if(cnt>0)throw new BusiException(PubErrorCode.VAZ020.code(),PubErrorCode.VAZ020.val());
     }
 
     public void validatePayee(Map<String, Object> data) {
+
         Object payeeType = data.get("payee_type");
         List<Map<String, Object>> virAcctBalList;
         if (BusiConstant.Role.CUST.val().equals(payeeType)) {
@@ -51,6 +79,8 @@ public class LimitValidate extends PubService {
         //3.判断商户虚拟账户是否存在转入限制
         if (!"Y".equals(virAcctBalMap.get("is_in")))
             throw new BusiException(PubErrorCode.VAZ015.code(), PubErrorCode.VAZ015.val());
+
+        log.info("virAcctBalMap="+virAcctBalMap);
 
         //4.总限额校验
         BigDecimal total_limit = (BigDecimal) virAcctBalMap.get("total_limit");
@@ -90,16 +120,16 @@ public class LimitValidate extends PubService {
     }
 
     public void validatePayer(Map<String, Object> data) {
+        log.info("validatePayer="+data);
         Object payerType = data.get("payer_type"), tranType = data.get("tran_type");
 
         List<Map<String, Object>> virAcctBalList;
-        if (BusiConstant.Role.CUST.equals(payerType)) {
+        if (BusiConstant.Role.CUST.val().equals(payerType)) {
             if (oneSelect.selectIsExistVaCustInfo(data) == 0)
                 throw new BusiException(PubErrorCode.VAZ018.code(), PubErrorCode.VAZ018.val());
 
             virAcctBalList = manySelect.manyVaCustVirtualAcctBalLock(data);
-        }
-        if (BusiConstant.Role.MERCH.equals(payerType)) {
+        }else if (BusiConstant.Role.MERCH.val().equals(payerType)) {
             if (oneSelect.selectIsExistVaMerchInfo(data) == 0)
                 throw new BusiException(PubErrorCode.VAZ018.code(), PubErrorCode.VAZ018.val());
 
@@ -117,14 +147,14 @@ public class LimitValidate extends PubService {
         //3.判断商户虚拟账户是否存在转出限制
         if (!"Y".equals(virAcctBalMap.get("is_out")))
             throw new BusiException(PubErrorCode.VAZ011.code(), PubErrorCode.VAZ011.val());
-
+        log.info("virAcctBalMap="+virAcctBalMap);
         BigDecimal balance_limit = (BigDecimal) virAcctBalMap.get("balance_limit");
         BigDecimal actural_bal = (BigDecimal) virAcctBalMap.get("actural_bal");
         BigDecimal usable_bal = (BigDecimal) virAcctBalMap.get("usable_bal");
         BigDecimal recharge_bal = (BigDecimal) virAcctBalMap.get("recharge_bal");
         BigDecimal balance_value = (BigDecimal) virAcctBalMap.get("balance_value");
         BigDecimal tran_amt = new BigDecimal(data.get("tran_amt") + "");
-
+        log.info("actural_bal="+actural_bal+"usable_bal="+usable_bal+"recharge_bal="+recharge_bal+"tran_amt="+tran_amt);
         //4.校验余额
         if (BusiConstant.TranType.CUST_PURCHASE_APPLY.val().equals(tranType) ||
                 BusiConstant.TranType.TRANSFER_MERCH_TO_MERCH.val().equals(tranType) ||
@@ -132,12 +162,12 @@ public class LimitValidate extends PubService {
                 BusiConstant.TranType.TRANSFER_CUST_TO_MERCH.val().equals(tranType) ||
                 BusiConstant.TranType.TRANSFER_CUST_TO_CUST.val().equals(tranType)) {
             if (usable_bal.add(recharge_bal).compareTo(tran_amt) == -1)
-                throw new BusiException(PubErrorCode.VAZ011.code(), PubErrorCode.VAZ011.val());
+                throw new BusiException(PubErrorCode.VAZ022.code(), PubErrorCode.VAZ022.val());
 
         } else if (BusiConstant.TranType.MERCH_WITHDRAW.val().equals(tranType) ||
                 BusiConstant.TranType.MERCH_WITHDRAW.val().equals(tranType)) {
             if (usable_bal.compareTo(tran_amt) == -1)
-                throw new BusiException(PubErrorCode.VAZ011.code(), PubErrorCode.VAZ011.val());
+                throw new BusiException(PubErrorCode.VAZ016.code(), PubErrorCode.VAZ016.val());
         }
 
         //5.备付金校验

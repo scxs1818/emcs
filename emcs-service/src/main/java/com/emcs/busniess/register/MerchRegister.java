@@ -47,7 +47,7 @@ public class MerchRegister extends SupperService {
         //6.绑定商户与银行账户信息
         oneDML.insertVaMerchAccInfo(param);
 
-        param.put("vir_acct_type","202");
+        param.put("vir_acct_type","201");
         List<Map<String,Object>> virAcctTypeList = oneSelect.selectVaVirtualAcctType(param);
         param.putAll(virAcctTypeList.get(0));
 
