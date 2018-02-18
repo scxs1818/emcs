@@ -11,6 +11,7 @@ import com.emcs.pub.runtime.core.Logger;
 import com.emcs.pub.runtime.core.LoggerFactory;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/2/13.
  */
+@Service
 public abstract class SupperService {
     protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
     @Resource
@@ -36,13 +38,13 @@ public abstract class SupperService {
             after(data);
             result.setMsg("交易成功");
             result.setStatus("S");
-            data.put("tran_status","S");
+            data.put("tran_status","01");
             data.put("ret_code","000000");
         }catch(Exception e){
             log.error("交易失败",e);
             result.setMsg(e.getMessage());
             result.setStatus("F");
-            data.put("tran_status","F");
+            data.put("tran_status","02");
             data.put("ret_code","");
             data.put("fail_reason",e.getMessage());
             DoException.doThrowException(e);

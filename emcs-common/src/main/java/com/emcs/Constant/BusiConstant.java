@@ -1,5 +1,9 @@
 package com.emcs.Constant;
 
+import javafx.scene.input.DataFormat;
+
+import java.text.DateFormatSymbols;
+
 /**
  * Created by Administrator on 2018/2/3.
  */
@@ -105,7 +109,7 @@ public interface BusiConstant {
         public String desc() {
             return desc;
         }
-        public String vaue(){
+        public String val(){
             return val;
         }
     }
@@ -140,6 +144,10 @@ public interface BusiConstant {
     String CACHE_VA_VIRTUAL_ACCT_TYPE = "va_virtual_acct_type";
     String CACHE_CM_SYSTEM = "cm_system ";
     String CACHE_CM_BUSINESS_PARA = "cm_business_para";
+
+    String FOR_STA_06 = "HHmmss";
+    String FOR_STA_08 = "yyyyMMdd";
+    String FOR_STA_14 = "yyyyMMddHHmmss";
 
     String SEQ_NAME_MERCH = "merch_seq_no";
     String SEQ_NAME_PLAT = "plat_seq_no";

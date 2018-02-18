@@ -38,32 +38,30 @@ public class CacheData {
     /**从数据加载缓存*/
     private static Map<String, Object> loadCache(OneTableSelectMapper oneSelect,String tableName) {
         List<Map<String, Object>> list = loadtable(oneSelect,tableName);
+        log.info("加载的缓存数据:"+list);
         if(CheckEmpty.isEmpty(list))return null;
         Map<String,Object> cacheMap = new ConcurrentHashMap<String,Object>();
-        for (Map<String, Object> tempData : list) {
-            /**创建高并发容器存放缓存数据*/
-            Map<String,Object> map = new ConcurrentHashMap<String,Object>();
-            /**将临时数据放入缓存容器,并将临时数据置为null,便于垃圾回收*/
-            map.putAll(tempData);
-            tempData = null;
-            if(CheckEmpty.isEmpty(map.get("cache_key1"))){
-                cacheMap.put(tableName, map);
+        for (Map<String, Object> tp : list) {
+            if(CheckEmpty.isEmpty(tp.get("cache_key1"))){
+                cacheMap.putAll(tp);
+                tp = null;
                 break;
             }
-            cacheMap.put(map.get("cache_key1")+ (CheckEmpty.isEmpty(map.get("cache_key2"))? "" : "|"+ map.get("cache_key2")), map.get("para_value"));
+            String key = tp.get("cache_key1")+ (CheckEmpty.isEmpty(tp.get("cache_key2"))? "" : "|"+ tp.get("cache_key2"));
+            cacheMap.put(key,tp.get("para_value"));
         }
-        cacheMap.put(tableName, cacheMap);
+        cacheMaps.put(tableName, cacheMap);
         log.info("添加的缓存对象名称:[" + tableName + "],缓存对象的内容为:"+cacheMap);
         return cacheMap;
     }
 
     private static List<Map<String,Object>> loadtable(OneTableSelectMapper oneSelect,String tableName) {
         List<Map<String,Object>> list = null;
-        if(Cache.VA_VIRTUAL_ACCT_TYPE.vaue().equals(tableName)){
+        if(Cache.VA_VIRTUAL_ACCT_TYPE.val().equals(tableName)){
             list = oneSelect.selectVaVirtualAcctType(null);
-        }else if(Cache.CM_BUSINESS_PARA.vaue().equals(tableName)){
+        }else if(Cache.CM_BUSINESS_PARA.val().equals(tableName)){
             list = oneSelect.selectCmBusinessParaForCache(null);
-        }else if(Cache.CM_SYSTEM.vaue().equals(tableName)){
+        }else if(Cache.CM_SYSTEM.val().equals(tableName)){
             list = oneSelect.selectCmSystemForCache(null);
         }
         return list;
@@ -92,7 +90,7 @@ public class CacheData {
     }
 
     /**修改缓存数据[tableName-缓存对象名称]*/
-    public void addCacheData(String tableName,Map<String, Object> cacheMap) {
+    public static void addCacheData(String tableName,Map<String, Object> cacheMap) {
         if (CheckEmpty.isEmpty(tableName)){
             log.warn("缓存对象名称不能为空");
             return;

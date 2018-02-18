@@ -21,6 +21,7 @@ public interface OneTableDMLMapper{
     int insertVaMerchWithdrawSeq(Map<String, Object> params);
     int updateVaMerchVirtualAcctBalSub(Map<String, Object> params);
     int insertVaMerchVirtualAcct(Map<String,Object> params);
+    int dayEndTransferAmtForMerch(Map<String,Object> params);
 
     int insertVaCustAccInfo(Map<String, Object> map);
     int insertVaCustInfo(Map<String,Object> map);
@@ -30,6 +31,7 @@ public interface OneTableDMLMapper{
     int insertVaCustVirtualAcct(Map<String,Object> params);
     int insertVaCustRechargeSeq(Map<String,Object> params);
     int insertVaCustWithdrawSeq(Map<String,Object> params);
+    int dayEndTransferAmtForCust(Map<String,Object> params);
 
     int insertCmAcctTranSeq(Map<String,Object> params);
     int updateCmAcctTranSeq(Map<String,Object> params);
@@ -46,7 +48,9 @@ public interface OneTableDMLMapper{
 
 
     int insertVaTransferSeq(Map<String,Object> params);
-
     int insertTestUser(Map<String,Object> params);
+    int updateProduceDay(Map<String,Object> params);
+
+
 
 }

@@ -10,6 +10,7 @@ import com.emcs.busniess.common.SendNetPay;
 import com.emcs.supers.SupperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -17,7 +18,8 @@ import java.util.Map;
  * Created by Administrator on 2018/2/4.
  */
 @Service
-public class MerchRecharge extends SupperService{
+@Transactional
+public class MerchRecharge extends ServiceTransactionalY{
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired
@@ -50,8 +52,10 @@ public class MerchRecharge extends SupperService{
             oneDML.insertVaMerchRechargeSeq(data);
 
             //5.更新账务流水(依据支付状态)
+            data.put("tran_status","01");//记账成功
             updateCmAcctTranSeq.process(data);
         }catch(Exception e){
+            data.put("tran_status","02");//记账失败
             if(flag)
                 updateCmAcctTranSeq.process(data);
             throw e;

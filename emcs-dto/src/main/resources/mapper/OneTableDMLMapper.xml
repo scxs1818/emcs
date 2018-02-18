@@ -175,8 +175,8 @@
             recharge_bal = recharge_bal - #{recharge_bal}
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
-            <if test="merch_id!=null and merch_id!=''">and merch_id=#{merch_id}</if>
-            <if test="merch_virid!=null and merch_virid!=''">and merch_virid=#{merch_virid}</if>
+            <if test="payer_id!=null and payer_id!=''">and merch_id=#{payer_id}</if>
+            <if test="payer_virid!=null and payer_virid!=''">and merch_virid=#{payer_virid}</if>
         </trim>
     </update>
 
@@ -188,8 +188,8 @@
             recharge_bal = recharge_bal + #{recharge_bal}
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
-            <if test="merch_id!=null and merch_id!=''">and merch_id=#{merch_id}</if>
-            <if test="merch_virid!=null and merch_virid!=''">and merch_virid=#{merch_virid}</if>
+            <if test="payee_id!=null and payee_id!=''">and merch_id=#{payee_id}</if>
+            <if test="payee_virid!=null and payee_virid!=''">and merch_virid=#{payee_virid}</if>
         </trim>
     </update>
 
@@ -311,8 +311,8 @@
             recharge_bal = recharge_bal + #{recharge_bal}
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
-            <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
-            <if test="cust_virid!=null and cust_virid!=''">and cust_virid=#{cust_virid}</if>
+            <if test="payee_id!=null and payee_id!=''">and cust_id=#{payee_id}</if>
+            <if test="payee_virid!=null and payee_virid!=''">and cust_virid=#{payee_virid}</if>
         </trim>
     </insert>
 
@@ -324,8 +324,8 @@
             recharge_bal = recharge_bal - #{recharge_bal}
         <trim prefix="where" prefixOverrides="and">
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
-            <if test="cust_id!=null and cust_id!=''">and cust_id=#{cust_id}</if>
-            <if test="cust_virid!=null and cust_virid!=''">and cust_virid=#{cust_virid}</if>
+            <if test="payer_id!=null and payer_id!=''">and cust_id=#{payer_id}</if>
+            <if test="payer_virid!=null and payer_virid!=''">and cust_virid=#{payer_virid}</if>
         </trim>
     </update>
 
@@ -343,13 +343,13 @@
 
     <!--插入会员提现流水-->
     <insert id="insertVaCustWithdrawSeq" parameterType="hashMap">
-        insert into va_cust_recharge_seq
+        insert into va_cust_withdraw_seq
         (
         cust_withdraw_seq,order_no,pub_seq_no,payer_id,plat_id,
-        payer_virid,tran_type,tran_amt,tran_date
+        payer_virid,tran_type,tran_amt,tran_date,payee_acct_no
         ) values (
-        #{cust_withdraw_seq},#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
-        #{payer_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
+        getnextval('cust_withdraw_seq'),#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
+        #{payer_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d'),#{payee_acct_no}
         )
     </insert>
 
@@ -363,7 +363,7 @@
         payee_acct_sort,payee_is_this_bank,payee_acct_bank_no,payee_acct_bank_name,tran_status,ret_code,
         ret_msg,host_seq_no,host_tran_status,is_check,is_recover,reversed,oper_time,user_id,contrast,refund_status
         ) values (
-        #{tran_seq_no},#{pub_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},#{business_name},
+        getnextval('tran_seq_no'),#{pub_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},#{business_name},
         #{order_no},#{order_no_old},#{ref_no},#{merch_id},#{merch_name},#{cust_id},#{cust_name},#{payer_name},#{payer_vir_acct_no},
         #{payee_name},#{payee_vir_acct_no},#{plat_id},#{plat_name},#{payer_acct_no},#{payer_acct_name},#{payer_acct_sort},
         #{payer_is_this_bank},#{payer_acct_bank_no},#{payer_acct_bank_name},#{payee_acct_no},#{payee_acct_name},
@@ -442,10 +442,10 @@
     <insert id="insertVaTransferSeq" parameterType="hashMap">
         insert into va_transfer_seq(
           transfer_seq_no,pub_seq_no,order_no,plat_id,payer_id,payer_virid,payee_id,payee_virid,
-          pay_type,tran_amt,tran_type,create_date,transfer_seq_no
+          pay_type,tran_amt,tran_type,create_date
           ) values (
-          #{transfer_seq_no},#{pub_seq_no},#{order_no},#{plat_id},#{payer_id},#{payer_virid},#{payee_id},#{payee_virid},
-          #{pay_type},#{tran_amt},#{tran_type},#{create_date},#{transfer_seq_no})
+          getnextval('transfer_seq_no'),#{pub_seq_no},#{order_no},#{plat_id},#{payer_id},#{payer_virid},#{payee_id},#{payee_virid},
+          #{pay_type},#{tran_amt},#{tran_type},str_to_date(concat(#{tran_date},#{tran_time}),'%Y%m%d%H%i%s'))
     </insert>
 
     <!--插入商户充值流水信息-->
@@ -465,10 +465,10 @@
         insert into va_merch_Withdraw_seq
         (
         merch_withdraw_seq,order_no,pub_seq_no,payer_id,plat_id,
-        payer_virid,tran_type,tran_amt,tran_date
+        payer_virid,tran_type,tran_amt,tran_date,payee_acct_no
         ) values (
         #{merch_withdraw_seq},#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
-        #{payer_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d')
+        #{payer_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d'),#{payee_acct_no}
         )
     </insert>
 
@@ -491,5 +491,17 @@
         #{inner_oder_no},#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{plat_virid},#{payer_id},#{payer_virid},#{payee_id},
         #{payee_virid},#{pay_type},#{tran_amt},#{usable_bal},#{recharge_bal},#{tran_type},#{order_status},#{create_date},#{update_date})
     </insert>
+
+    <update id="dayEndTransferAmtForCust" parameterType="hashMap">
+      update  va_cust_virtual_acct_bal set usable_bal=usable_bal+recharge_bal,recharge_bal=0 where recharge_bal>0
+    </update>
+    <update id="dayEndTransferAmtForMerch" parameterType="hashMap">
+        update  va_merch_virtual_acct_bal set usable_bal=usable_bal+recharge_bal,recharge_bal=0 where recharge_bal>0
+    </update>
+
+    <!--更新生产日切-->
+    <update id="updateProduceDay" parameterType="hashMap">
+        update  cm_system set prev_run_date=run_date,run_date=#{run_date}
+    </update>
 
 </mapper>

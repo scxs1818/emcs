@@ -25,7 +25,7 @@ insert into cm_business_para values('10','sum_limit_amt','5000','会员单笔最
 insert into cm_business_para values('10','sig_limit_amt','5000','会员单笔最大采购金额','1',(select curdate() from dual),'admin');
 
 TRUNCATE TABLE CM_SYSTEM;
-INSERT INTO `CM_SYSTEM` VALUES ((SELECT date_format(CURDATE(),'Y%m%d%') FROM DUAL),(SELECT date_format(CURDATE()-1,'Y%m%d%') FROM DUAL),NULL,'Y');
+INSERT INTO `CM_SYSTEM` VALUES ((select date_format(now(),'%Y%m%d')),(select date_format(now(),'%Y%m%d') FROM DUAL),NULL,'Y');
 
 truncate table va_sequence_p;
 insert into va_sequence_p values('plat_seq_no',4,'1','平台编号');

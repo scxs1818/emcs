@@ -31,9 +31,9 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectVaCustAcctInfo(Map<String, Object> param);
 
 
-    int selectVaOrderSeqForRepeat(Map<String, Object> param);
+
+
     List<Map<String,Object>> selectVaOrderInfoForOld(Map<String, Object> param);
-    int selectVaOrderInfoForRepeat(Map<String, Object> param);
 
     List<Map<String,Object>> selectCmBusinessParaForCache(Map<String, Object> param);
     List<Map<String,Object>> selectCmSystemForCache(Map<String, Object> param);
@@ -43,5 +43,11 @@ public interface OneTableSelectMapper{
     List<Object> selectDbTables(Map<String,Object> param);
     String getNextVal(String param);
 
-
+    int selectVaOrderSeqForRepeat(Map<String, Object> param);
+    int selectVaOrderInfoForRepeat(Map<String, Object> param);
+    int selectVaTransferSeqForRepeat(Map<String, Object> param);
+    int selectVaCustRechargeSeqForRepeat(Map<String, Object> param);
+    int selectVaMerchRechargeSeqForRepeat(Map<String, Object> param);
+    int selectVaCustWithdrawSeqForRepeat(Map<String, Object> param);
+    int selectVaMerchWithdrawSeqForRepeat(Map<String, Object> param);
 }

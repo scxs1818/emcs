@@ -1,6 +1,6 @@
 package com.emcs.controller;
 
-import com.emcs.busniess.withDraw.MerberWithdraw;
+import com.emcs.busniess.withDraw.MermberWithdraw;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 public class WithdrawController {
     @Autowired
-    MerberWithdraw withdraw;
+    MermberWithdraw withdraw;
 
     @RequestMapping("/merber")
     public CommonResult merberWithdraw(@RequestParam Map<String,Object> param) {
