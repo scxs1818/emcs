@@ -22,7 +22,6 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/2/3.
  */
-@Transactional
 @Service
 public abstract class ServiceTransactionalY {
     @Autowired
@@ -69,6 +68,6 @@ public abstract class ServiceTransactionalY {
         }
         return result;
     }
-
+    @Transactional
     protected abstract void process(Map<String, Object> data);
 }

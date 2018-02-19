@@ -97,18 +97,44 @@ CREATE TABLE `CM_TRAN_SEQ`(
    PRIMARY KEY(`PUB_SEQ_NO`)
 ) COMMENT '交易流水记录表';
 
+drop table if exists eod_proc_rule;
+create table eod_proc_rule  (
+   prd_no               varchar(30 )               not null comment '产品编号',
+   step_no              varchar(2 )                not null comment '步骤号',
+   class_bean         varchar(100 ) comment '类路径',
+   step_desc            varchar(100 )  comment '步骤描述',
+   status               varchar (6 )  comment '1-启用,0-禁用',
+   primary key(prd_no,step_no)
+)comment '任务表';
+
+drop table if exists `va_bind_seq`;
+create table `va_bind_seq` (
+  `bind_seq_no` varchar(32) not null comment '绑卡流水号',
+  `plat_id` varchar(32) not null comment '平台编号',
+  `mermber_id` varchar(32) not null comment '会员编号',
+  `acct_type` varchar(32) not null comment '账户类型',
+  `acct_category` varchar(32) not null comment '账户类别:0-对公,1-对私',
+  `acct_no` varchar(32) not null comment '账户',
+  `acct_name` varchar(100) default null comment '账户名称',
+  `tel_no` varchar(12) not null comment '手机号码',
+  `global_id` varchar(12) not null comment '证件号码',
+  `create_date` date comment '创建日期',
+  primary key (`bind_seq_no`)
+) comment='绑卡记录表' ;
+
 DROP TABLE IF EXISTS `VA_CUST_ACCT_INFO`;
 CREATE TABLE `VA_CUST_ACCT_INFO` (
   `ACCT_ID` VARCHAR(32) NOT NULL COMMENT '账户编号',
   `CUST_ID` VARCHAR(32) NOT NULL COMMENT '会员编号',
   `ACCT_TYPE` VARCHAR(32) NOT NULL COMMENT '账户类型 0：结算账户1：交易平台存管专户2：银行内部账户',
-  `ACCT_NO` VARCHAR(32) NOT NULL COMMENT '账户',
+  `ACCT_NO` VARCHAR(32) NOT NULL COMMENT '银行账号',
   `ACCT_STATUS` VARCHAR(4) NOT NULL COMMENT '账户状态N：正常F：冻结C：注销',
-  `ACCT_CATEGORY` VARCHAR(100) DEFAULT NULL  COMMENT '账户类别',
+  `TEL_NO` VARCHAR(12) NOT NULL COMMENT '手机号码',
+  `ACCT_CATEGORY` VARCHAR(100) DEFAULT NULL  COMMENT '账户类别:1-对公,2-对私',
   `ACCT_NAME` VARCHAR(100) DEFAULT NULL COMMENT '账户名称',
   `IS_THIS_BANK` VARCHAR(4) DEFAULT NULL COMMENT '是否本行账户',
-  `ACCT_BR_NO` VARCHAR(32) DEFAULT NULL COMMENT '开户行号',
-  `ACCT_BR_NAME` VARCHAR(100) DEFAULT NULL COMMENT '开户行名称',
+  `BANK_NO` VARCHAR(32) DEFAULT NULL COMMENT '开户行号',
+  `BANK_NAME` VARCHAR(100) DEFAULT NULL COMMENT '开户行名称',
   `CURRENCY` VARCHAR(4) NOT NULL COMMENT '币种',
   `UPDATE_DATE` DATETIME DEFAULT NULL COMMENT '更新日期',
   `UPDATE_USER` VARCHAR(32) DEFAULT NULL COMMENT '更新操作员',
@@ -234,17 +260,18 @@ DROP TABLE IF EXISTS `VA_MERCH_ACCT_INFO`;
 CREATE TABLE `VA_MERCH_ACCT_INFO` (
   `ACCT_ID` VARCHAR(32) NOT NULL COMMENT '账户编号',
   `MERCH_ID` VARCHAR(32) NOT NULL COMMENT '商户编号',
-  `ACCT_TYPE` VARCHAR(32) NOT NULL COMMENT '账户类型 0：结算账户1：交易平台存管专户2：银行内部账户',
+  `ACCT_TYPE` VARCHAR(32) NOT NULL COMMENT '账户类型 0-结算账户,1-交易平台存管专户,2-银行内部账户',
   `ACCT_CATEGORY` VARCHAR(32) NOT NULL COMMENT '账户类别:0-对公,1-对私',
   `ACCT_NO` VARCHAR(32) NOT NULL COMMENT '账户',
+  `ACCT_STATUS` VARCHAR(4) NOT NULL COMMENT '账户状态N：正常F：冻结C：注销',
+  `TEL_NO` VARCHAR(12) NOT NULL COMMENT '手机号码',
   `ACCT_NAME` VARCHAR(100) DEFAULT NULL COMMENT '账户名称',
   `IS_THIS_BANK` VARCHAR(4) DEFAULT NULL COMMENT '是否本行账户',
-  `ACCT_BR_NO` VARCHAR(32) DEFAULT NULL COMMENT '开户行号',
-  `ACCT_BR_NAME` VARCHAR(100) DEFAULT NULL COMMENT '开户行名称',
+  `BANK_NO` VARCHAR(32) DEFAULT NULL COMMENT '开户行号',
+  `BANK_NAME` VARCHAR(100) DEFAULT NULL COMMENT '开户行名称',
   `CURRENCY` VARCHAR(4) NOT NULL COMMENT '币种',
   `UPDATE_DATE` DATETIME DEFAULT NULL COMMENT '更新日期',
   `UPDATE_USER` VARCHAR(32) DEFAULT NULL COMMENT '更新操作员',
-  `ACCT_STATUS` VARCHAR(4) NOT NULL COMMENT '账户状态N：正常F：冻结C：注销',
   PRIMARY KEY (`ACCT_ID`)
 ) COMMENT='商户银行账户信息表' ;
 
@@ -369,10 +396,8 @@ drop table if exists `va_order_info`;
 create table `va_order_info`(
 	`inner_oder_no` varchar(32) comment '内部订单流水号',
 	`order_no`  varchar(32) not null comment '订单号',
-	`order_no_old`  varchar(32) not null comment '原订单号',
 	`pub_seq_no` varchar(32) not null comment '公共流水号',
 	`plat_id` varchar(32) not null comment '平台编号',
-	`plat_virid` varchar(6) not null comment '平台虚拟账户编号',
 	`payer_id`  varchar(32) not null comment '付款方编号',
 	`payer_virid`  varchar(32) not null comment '付款方虚拟账户编号',
 	`payee_id` varchar(32) not null comment '收款方编号',
@@ -392,7 +417,7 @@ drop table if exists `va_order_seq`;
 create table `va_order_seq`(
 	`oder_seq_no` varchar(32) comment '订单流水号',
 	`order_no`  varchar(32) not null comment '订单号',
-	`order_no_old`  varchar(32) not null comment '原订单号',
+	`order_no_old`  varchar(32)  comment '原订单号',
 	`pub_seq_no` varchar(32) not null comment '公共流水号',
 	`plat_id` varchar(32) not null comment '平台编号',
 	`payer_id`  varchar(32) not null comment '付款方编号',
@@ -413,14 +438,15 @@ CREATE TABLE `VA_PLAT_ACCT_INFO` (
   `ACCT_TYPE` VARCHAR(32) NOT NULL COMMENT '账户类型 0-平台清算专户,1-平台结算账户,2-商户结算账户,3-支付机构内部账户',
   `ACCT_CATEGORY` VARCHAR(32) NOT NULL COMMENT '账户类别:0-对公,1-对私',
   `ACCT_NO` VARCHAR(32) NOT NULL COMMENT '账户',
+  `ACCT_STATUS` VARCHAR(4) NOT NULL COMMENT '账户状态N：正常F：冻结C：注销',
+  `TEL_NO` VARCHAR(12) NOT NULL COMMENT '手机号码',
   `ACCT_NAME` VARCHAR(100) DEFAULT NULL COMMENT '账户名称',
   `IS_THIS_BANK` VARCHAR(4) DEFAULT NULL COMMENT '是否本行账户',
-  `ACCT_BR_NO` VARCHAR(32) DEFAULT NULL COMMENT '开户行号',
-  `ACCT_BR_NAME` VARCHAR(100) DEFAULT NULL COMMENT '开户行名称',
+  `BANK_NO` VARCHAR(32) DEFAULT NULL COMMENT '开户行号',
+  `BANK_NAME` VARCHAR(100) DEFAULT NULL COMMENT '开户行名称',
   `CURRENCY` VARCHAR(4) NOT NULL COMMENT '币种',
   `UPDATE_DATE` DATETIME DEFAULT NULL COMMENT '更新日期',
   `UPDATE_USER` VARCHAR(32) DEFAULT NULL COMMENT '更新操作员',
-  `ACCT_STATUS` VARCHAR(4) NOT NULL COMMENT '账户状态N：正常F：冻结C：注销',
   PRIMARY KEY (`ACCT_ID`)
 ) ;
 

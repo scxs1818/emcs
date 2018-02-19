@@ -28,7 +28,9 @@ public interface ErrorCodeConstant {
         VAZ021("VAZ021","已经超出当日允许交易金额"),
         VAZ022("VAZ022","付款方虚拟账户余额不足"),
         VAZ023("VAZ023","请检查更新条件是否正确"),
-
+        VAZ024("VAZ024","证件信息与登记证件信息不一致"),
+        VAZ025("VAZ025","此卡已绑定过"),
+        VAZ026("VAZ026","此卡不存在"),
         ;
         public String code() {
             return code;

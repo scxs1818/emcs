@@ -19,7 +19,6 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/2/13.
  */
-@Service
 public abstract class SupperService {
     protected Logger log = LoggerFactory.getLogger(SupperService.class);
     @Resource

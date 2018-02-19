@@ -27,6 +27,8 @@ insert into cm_business_para values('10','sig_limit_amt','5000','会员单笔最
 TRUNCATE TABLE CM_SYSTEM;
 INSERT INTO `CM_SYSTEM` VALUES ((select date_format(now(),'%Y%m%d')),(select date_format(now(),'%Y%m%d') FROM DUAL),NULL,'Y');
 
+insert into eod_proc_rule values('9999','1','com.emcs.eod.eod_proc_rule.java','日切','1');
+
 truncate table va_sequence_p;
 insert into va_sequence_p values('plat_seq_no',4,'1','平台编号');
 insert into va_sequence_p values('plat_vir_acc_seq_no',6,'1v','平台虚拟账户编号');
@@ -46,6 +48,7 @@ insert into va_sequence_p values('cust_recharge_seq',16,'cr','会员充值流水
 insert into va_sequence_p values('merch_recharge_seq',16,'mr','商户充值流水号');
 insert into va_sequence_p values('cust_withdraw_seq',16,'cw','会员提现流水号');
 insert into va_sequence_p values('merch_withdraw_seq',16,'mw','商户提现流水号');
+insert into va_sequence_p values('bind_seq_no',12,'bk','绑卡流水号');
 
 truncate table va_sequence_v;
 insert into va_sequence_v values('plat_seq_no',0,1,'平台编号');
@@ -66,6 +69,7 @@ insert into va_sequence_v values('cust_recharge_seq',0,1,'会员充值流水号'
 insert into va_sequence_v values('merch_recharge_seq',0,1,'商户充值流水号');
 insert into va_sequence_v values('cust_withdraw_seq',0,1,'会员提现流水号');
 insert into va_sequence_v values('merch_withdraw_seq',0,1,'商户提现流水号');
+insert into va_sequence_v values('bind_seq_no',0,1,'绑卡流水号');
 
 TRUNCATE TABLE VA_VIRTUAL_ACCT_TYPE;
 INSERT INTO `VA_VIRTUAL_ACCT_TYPE` VALUES ('101','平台虚拟账户','1','Y','Y','Y',132450.00000000,'Y','F',20.3600000,'ADMIN','ADMIN','');

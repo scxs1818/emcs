@@ -22,13 +22,14 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectVaMerchVirtualAcctBalLock(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchAcctInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchWithdrawSeqSum(Map<String, Object> param);
-
+    List<Map<String,Object>> selectVaMerchInfo(Map<String, Object> param);
 
     List<Map<String,Object>> selectVaCustVirtualAcctInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustWithdrawSeqSum(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustRechargeSeqSum(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustVirtualAcctBalLock(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustAcctInfo(Map<String, Object> param);
+    List<Map<String,Object>> selectVaCustInfo(Map<String, Object> param);
 
 
     List<Map<String,Object>> selectEodProcRule(Map<String, Object> param);

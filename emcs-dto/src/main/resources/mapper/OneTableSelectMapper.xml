@@ -38,12 +38,14 @@
 <!--查询会员银行账户信息-->
 <select id="selectVaCustAcctInfo" parameterType="hashMap"  resultType="hashMap" >
     select
-      acct_id,cust_id,acct_type,acct_no,acct_status,acct_category,acct_name,
-      is_this_bank,acct_br_no,acct_br_name,currency
+      acct_id,cust_id,acct_type,acct_no,acct_status,tel_no,acct_category,acct_name,
+      is_this_bank,bank_no,bank_name,currency
     from va_cust_acct_info
     <trim prefix="where" prefixOverrides="and">
         <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
         <if test="acct_type !=null and acct_type!='' "> and acct_type = #{acct_type}</if>
+        <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+        <if test="acct_no !=null and acct_no!='' "> and acct_no = #{acct_no}</if>
         <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
     </trim>
 </select>
@@ -54,6 +56,18 @@
             <if test="status !=null and status!='' "> and status = #{status} </if>
             <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
             <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+        </trim>
+    </select>
+
+    <!--查询存在会员信息-->
+    <select id="selectVaCustInfo" parameterType="hashMap"  resultType="hashMap" >
+        select cust_id,cust_name,user_id,status,global_type,global_id,tel_no,email,address,plat_id
+        from va_cust_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+            <if test="global_id !=null and global_id!='' "> and global_id = #{global_id} </if>
         </trim>
     </select>
 
@@ -79,16 +93,30 @@
 <!--查询商户银行账户信息-->
 <select id="selectVaMerchAcctInfo" parameterType="hashMap"  resultType="hashMap" >
     select
-        acct_id,merch_id,acct_type,acct_no,acct_status,acct_category,acct_name,
-        is_this_bank,acct_br_no,acct_br_name,currency
+        acct_id,merch_id,acct_type,acct_no,tel_no,acct_status,acct_category,acct_name,
+        is_this_bank,bank_no,bank_name,currency
     from va_merch_acct_info
     <trim prefix="where" prefixOverrides="and">
         <if test="acct_category !=null and acct_category!='' "> and acct_category = #{acct_category} </if>
         <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
         <if test="acct_type !=null and acct_type!='' "> and acct_type = #{acct_type}</if>
+        <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+        <if test="acct_no !=null and acct_no!='' "> and acct_no = #{acct_no}</if>
         <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
     </trim>
 </select>
+
+    <!--查询存在会员信息-->
+    <select id="selectVaMerchInfo" parameterType="hashMap"  resultType="hashMap" >
+        select merch_id,merch_name,legal_person,url,status,global_type,global_id,tel_no,email,address,plat_id
+        from va_merch_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+            <if test="merch_id !=null and cust_id!='' "> and merch_id = #{cust_id} </if>
+            <if test="global_id !=null and global_id!='' "> and global_id = #{global_id} </if>
+        </trim>
+    </select>
 
 <!--查询平台信息-->
 <select id="selectPlatInfo" parameterType="hashMap"  resultType="hashMap" >
