@@ -301,10 +301,18 @@
 
     <!--查询原订单信息-->
     <select id="selectVaOrderInfoForOld" parameterType="hashMap"  resultType="hashMap" >
-        select inner_oder_no,order_no,plat_id,plat_virid,payer_id,payer_virid,payee_id,
-          payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status,date_format(create_date, '%Y%m%d')
+        select inner_oder_no,order_no,plat_id,payer_id,payer_virid,payee_id,
+          payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status,date_format(create_date, '%Y%m%d%H%i%s')
         from va_order_info
         where order_no = #{order_no_old}
+        <if test="order_status!=null and order_status!=''"> and order_status=#{order_status}</if>
+        for update
+    </select>
+
+    <select id="selectEodProcRule" parameterType="hashMap"  resultType="hashMap" >
+        select prd_no,step_no,class_bean,step_desc,status
+        from eod_proc_rule
+        where status = '1'
     </select>
 
 </mapper>

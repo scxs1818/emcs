@@ -27,6 +27,8 @@ public interface ErrorCodeConstant {
         VAZ020("VAZ020","重复提交"),
         VAZ021("VAZ021","已经超出当日允许交易金额"),
         VAZ022("VAZ022","付款方虚拟账户余额不足"),
+        VAZ023("VAZ023","请检查更新条件是否正确"),
+
         ;
         public String code() {
             return code;

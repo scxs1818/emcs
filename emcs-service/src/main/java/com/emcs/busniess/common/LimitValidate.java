@@ -92,6 +92,13 @@ public class LimitValidate extends PubService {
             if (total_limit.compareTo(actural_bal.add(tran_amt)) == -1)
                 throw new BusiException(PubErrorCode.VAZ010.code(), PubErrorCode.VAZ010.val());
         }
+
+        //5.数据组装
+        if (BusiConstant.Role.CUST.val().equals(payeeType)) {
+            data.put("payee_virid",virAcctBalMap.get("cust_virid"));
+        }else{
+            data.put("payee_virid",virAcctBalMap.get("merch_virid"));
+        }
     }
 
     public void businessValidate(Map<String, Object> data) {
@@ -180,5 +187,13 @@ public class LimitValidate extends PubService {
                     throw new BusiException(PubErrorCode.VAZ012.code(), PubErrorCode.VAZ012.val());
             }
         }
+
+        //6.数据组装
+        if (BusiConstant.Role.CUST.val().equals(payerType)) {
+            data.put("payer_virid",virAcctBalMap.get("cust_virid"));
+        }else{
+            data.put("payer_virid",virAcctBalMap.get("merch_virid"));
+        }
+
     }
 }

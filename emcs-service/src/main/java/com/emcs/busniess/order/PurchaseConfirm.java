@@ -1,7 +1,7 @@
 package com.emcs.busniess.order;
 
 import com.emcs.Constant.BusiConstant;
-import com.emcs.Constant.ErrorCodeConstant;
+import com.emcs.Constant.ErrorCodeConstant.*;
 import com.emcs.busniess.common.LimitValidate;
 import com.emcs.cache.CacheData;
 import com.emcs.exception.BusiException;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +27,13 @@ public class PurchaseConfirm extends ServiceTransactionalY {
 
         //校验平台
         if(oneSelect.selectIsExistVaPlatInfo(data)==0)
-            throw new BusiException(ErrorCodeConstant.PlatErrorCode.VAP001.code(), ErrorCodeConstant.PlatErrorCode.VAP001.val());
+            throw new BusiException(PlatErrorCode.VAP001.code(), PlatErrorCode.VAP001.val());
 
+        data.put("order_status","01");
         List<Map<String,Object>> oldOrderList = oneSelect.selectVaOrderInfoForOld(data);
 
         if(CheckEmpty.isEmpty(oldOrderList))throw new BusiException("原订单不存在");
+        if(!"01".equals(oldOrderList.get(0).get("order_status")))throw new BusiException("原订单不能确认,请查看该订单状态");
 
         if(oneSelect.selectVaOrderSeqForRepeat(data)>0)throw new BusiException("重复提交");
 
@@ -43,7 +46,7 @@ public class PurchaseConfirm extends ServiceTransactionalY {
 
         if(!(data.get("payee_id")+"").equals(oldOrderMap.get("payee_id")))throw new BusiException("收款方信息有误");
 
-        String rundate = CacheData.getCacheObj(oneSelect,BusiConstant.CACHE_CM_SYSTEM).get("run_date")+"";
+        String rundate = data.get("tran_date")+"";
         BigDecimal recharge_bal = (BigDecimal)oldOrderMap.get("recharge_bal");
         BigDecimal usable_bal = (BigDecimal)oldOrderMap.get("usable_bal");
 
@@ -63,9 +66,18 @@ public class PurchaseConfirm extends ServiceTransactionalY {
         oldOrderMap.put("merch_virid",oldOrderMap.get("payee_virid"));
 
         //增加供应商余额
-        oneDML.updateVaMerchVirtualAcctBalAdd(oldOrderMap);
+        if(oneDML.updateVaMerchVirtualAcctBalAdd(oldOrderMap)!=1)throw new BusiException(PubErrorCode.VAZ023.val(),PubErrorCode.VAZ023.code());
 
         //插入采购确认流水信息
-        oneDML.insertVaOrderSeq(oldOrderMap);
+        data.putAll(oldOrderMap);
+        data.put("create_date",data.get("tran_date")+""+data.get("tran_time"));
+        oneDML.insertVaOrderSeq(data);
+
+        Map<String,Object> param = new HashMap<>();
+        param.put("update_date",data.get("tran_date")+""+data.get("tran_time"));
+        param.put("order_no",data.get("order_no"));
+        param.put("plat_id",data.get("plat_id"));
+        param.put("order_status","05");
+        if(oneDML.updateVaOrderInfo(param)!=1)throw new BusiException(PubErrorCode.VAZ023.val(),PubErrorCode.VAZ023.code());
     }
 }

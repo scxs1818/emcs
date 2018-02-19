@@ -31,6 +31,7 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectVaCustAcctInfo(Map<String, Object> param);
 
 
+    List<Map<String,Object>> selectEodProcRule(Map<String, Object> param);
 
 
     List<Map<String,Object>> selectVaOrderInfoForOld(Map<String, Object> param);

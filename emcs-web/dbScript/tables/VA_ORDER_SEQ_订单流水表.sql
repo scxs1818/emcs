@@ -2,7 +2,7 @@ drop table if exists `va_order_seq`;
 create table `va_order_seq`(
 	`oder_seq_no` varchar(32) comment '订单流水号',
 	`order_no`  varchar(32) not null comment '订单号',
-	`order_no_old`  varchar(32) not null comment '原订单号',
+	`order_no_old`  varchar(32)  comment '原订单号',
 	`pub_seq_no` varchar(32) not null comment '公共流水号',
 	`plat_id` varchar(32) not null comment '平台编号',
 	`payer_id`  varchar(32) not null comment '付款方编号',

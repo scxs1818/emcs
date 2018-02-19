@@ -30,7 +30,7 @@ public class CustPurchaseApply extends PubService {
 
         //记订单信息
         data.put("order_status","01");//订单确认
-        data.put("create_date", CacheData.getCacheObj(oneSelect, BusiConstant.CACHE_CM_SYSTEM).get("run_date"));
+        data.put("create_date", data.get("tran_date")+""+data.get("tran_time"));
         oneDML.insertVaOrderInfo(data);
 
         //记订单流水信息

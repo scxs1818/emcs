@@ -2,10 +2,8 @@ drop table if exists `va_order_info`;
 create table `va_order_info`(
 	`inner_oder_no` varchar(32) comment '内部订单流水号',
 	`order_no`  varchar(32) not null comment '订单号',
-	`order_no_old`  varchar(32) not null comment '原订单号',
 	`pub_seq_no` varchar(32) not null comment '公共流水号',
 	`plat_id` varchar(32) not null comment '平台编号',
-	`plat_virid` varchar(6) not null comment '平台虚拟账户编号',
 	`payer_id`  varchar(32) not null comment '付款方编号',
 	`payer_virid`  varchar(32) not null comment '付款方虚拟账户编号',
 	`payee_id` varchar(32) not null comment '收款方编号',

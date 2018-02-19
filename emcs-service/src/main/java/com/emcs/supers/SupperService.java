@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Service
 public abstract class SupperService {
-    protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
+    protected Logger log = LoggerFactory.getLogger(SupperService.class);
     @Resource
     protected OneTableSelectMapper oneSelect;
     @Resource

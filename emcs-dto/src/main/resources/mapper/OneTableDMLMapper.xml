@@ -40,7 +40,7 @@
 
     <!---扣减平台虚拟账户余额-->
     <update id="updateVaPlatVirtualAcctBalSub" parameterType="hashMap">
-        update va_merch_virtual_acct_bal set
+        update va_plat_virtual_acct_bal set
         actural_bal = actural_bal - #{tran_amt},
         usable_bal = usable_bal - #{usable_bal},
         recharge_bal = recharge_bal - #{recharge_bal}
@@ -53,7 +53,7 @@
 
     <!---增加平台虚拟账户余额-->
     <update id="updateVaPlatVirtualAcctBalAdd" parameterType="hashMap">
-        update va_merch_virtual_acct_bal set
+        update va_plat_virtual_acct_bal set
         actural_bal = actural_bal + #{tran_amt},
         usable_bal = usable_bal + #{usable_bal},
         recharge_bal = recharge_bal + #{recharge_bal}
@@ -193,6 +193,18 @@
         </trim>
     </update>
 
+    <update id="updateVaMerchVirtualAcctBalAddForRefund" parameterType="hashMap">
+        update va_merch_virtual_acct_bal set
+        actural_bal = actural_bal + #{tran_amt},
+        usable_bal = usable_bal + #{usable_bal},
+        recharge_bal = recharge_bal + #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="payer_id!=null and payer_id!=''">and merch_id=#{payer_id}</if>
+            <if test="payer_virid!=null and payer_virid!=''">and merch_virid=#{payer_virid}</if>
+        </trim>
+    </update>
+
     <!---注册商户虚拟账户-->
     <insert id="insertVaMerchVirtualAcct" parameterType="hashMap">
         insert into va_merch_virtual_acct
@@ -313,6 +325,18 @@
             <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
             <if test="payee_id!=null and payee_id!=''">and cust_id=#{payee_id}</if>
             <if test="payee_virid!=null and payee_virid!=''">and cust_virid=#{payee_virid}</if>
+        </trim>
+    </insert>
+
+    <insert id="updateVaCustVirtualAcctBalAddForRefund" parameterType="hashMap">
+        update va_cust_virtual_acct_bal SET
+        actural_bal = actural_bal + #{tran_amt},
+        usable_bal = usable_bal + #{usable_bal},
+        recharge_bal = recharge_bal + #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="payer_id!=null and payer_id!=''">and cust_id=#{payer_id}</if>
+            <if test="payer_virid!=null and payer_virid!=''">and cust_virid=#{payer_virid}</if>
         </trim>
     </insert>
 
@@ -478,19 +502,29 @@
           oder_seq_no,order_no,order_no_old,pub_seq_no,plat_id,payer_id,payer_virid,
           payee_id,payee_virid,pay_type,tran_amt,tran_type,create_date
         ) values (
-          #{oder_seq_no},#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{payer_id},#{payer_virid},
-          #{payee_id},#{payee_virid},#{pay_type},#{tran_amt},#{tran_type},#{create_date})
+          getnextval('oder_seq_no'),#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{payer_id},#{payer_virid},
+          #{payee_id},#{payee_virid},#{pay_type},#{tran_amt},#{tran_type},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
     </insert>
 
     <!--插入订单信息表-->
     <insert id="insertVaOrderInfo" parameterType="hashMap">
         insert into va_order_info(
-        inner_oder_no,order_no,order_no_old,pub_seq_no,plat_id,plat_virid,payer_id,payer_virid,payee_id,
-        payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status,create_date,update_date)
+        inner_oder_no,order_no,pub_seq_no,plat_id,payer_id,payer_virid,payee_id,
+        payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status,create_date
         ) values (
-        #{inner_oder_no},#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{plat_virid},#{payer_id},#{payer_virid},#{payee_id},
-        #{payee_virid},#{pay_type},#{tran_amt},#{usable_bal},#{recharge_bal},#{tran_type},#{order_status},#{create_date},#{update_date})
+        getnextval('inner_oder_no'),#{order_no},#{pub_seq_no},#{plat_id},#{payer_id},#{payer_virid},#{payee_id},
+        #{payee_virid},#{pay_type},#{tran_amt},#{usable_bal},#{recharge_bal},#{tran_type},#{order_status},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
     </insert>
+
+    <update id="updateVaOrderInfo" parameterType="hashMap">
+        update va_order_info set order_status=#{order_status},update_date=str_to_date(#{update_date},'%Y%m%d%H%i%s')
+        <trim prefix="where" prefixOverrides="and">
+            <if test="tran_type !=null and tran_type!='' ">and tran_type=#{tran_type}</if>
+            <if test="plat_id !=null and plat_id!='' ">and plat_id=#{plat_id}</if>
+            <if test="pub_seq_no !=null and pub_seq_no!='' ">and pub_seq_no=#{pub_seq_no}</if>
+            <if test="order_no !=null and order_no!='' "> and order_no=#{order_no}</if>
+        </trim>
+    </update>
 
     <update id="dayEndTransferAmtForCust" parameterType="hashMap">
       update  va_cust_virtual_acct_bal set usable_bal=usable_bal+recharge_bal,recharge_bal=0 where recharge_bal>0

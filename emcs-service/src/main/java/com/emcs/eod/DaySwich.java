@@ -10,6 +10,7 @@ import com.emcs.pub.runtime.core.Logger;
 import com.emcs.pub.runtime.core.LoggerFactory;
 import com.emcs.supers.PubService;
 import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.SuperTask;
 import com.emcs.supers.SupperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,15 +26,11 @@ import java.util.Map;
  */
 @Service
 @Transactional
-public class DaySwich {
-    @Resource
-    protected OneTableSelectMapper oneSelect;
-    @Resource
-    protected OneTableDMLMapper oneDML;
+public class DaySwich extends SuperTask {
     @Autowired
     FromRecharBalToUsableBal transfer;
     protected Logger log = LoggerFactory.getLogger(DaySwich.class);
-    public void process(Map<String, Object> data) {
+    public void process(Map<String, Object> data,OneTableSelectMapper oneSelect,OneTableDMLMapper oneDML) {
         String server_date = new SimpleDateFormat("YYYYMMdd").format(new Date());
         Map<String,Object> cacheMap = CacheData.getCacheObj(oneSelect,BusiConstant.Cache.CM_SYSTEM.val());
         String run_date = cacheMap.get("run_date")+"";

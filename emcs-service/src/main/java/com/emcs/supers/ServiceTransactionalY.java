@@ -56,12 +56,12 @@ public abstract class ServiceTransactionalY {
             process(data);
             result.setMsg("交易成功");
             result.setStatus("S");
-            data.put("tran_status","S");
+            data.put("tran_status","01");
         } catch (Exception e) {
             log.error("交易失败", e);
             result.setMsg(e.getMessage());
             result.setStatus("F");
-            data.put("tran_status","F");
+            data.put("tran_status","02");
             data.put("fail_reason",e.getMessage());
             DoException.doThrowException(e);
         }finally {
