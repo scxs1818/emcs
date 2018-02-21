@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 @Service
 public class PlatformRegister extends ServiceTransactionalY {
-
     public void process(Map<String, Object> data){
 
         // 1.校验支付商户编码是否存在

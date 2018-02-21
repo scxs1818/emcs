@@ -47,8 +47,10 @@ public class MerchWithdraw extends ServiceTransactionalY {
             oneDML.insertVaMerchWithdrawSeq(data);
 
             //5.更新账务流水(依据支付状态)
+            data.put("tran_status","01");
             updateCmAcctTranSeq.process(data);
         }catch(Exception e){
+            data.put("tran_status","02");
             if(flag)
                 updateCmAcctTranSeq.process(data);
             throw e;

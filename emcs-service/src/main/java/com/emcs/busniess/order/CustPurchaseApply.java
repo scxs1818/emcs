@@ -16,7 +16,7 @@ import java.util.Map;
 public class CustPurchaseApply extends PubService {
     @Override
     public void process(Map<String, Object> data) {
-        Map<String,Object>  payerMap = (Map<String,Object>)data.get("pyaerInfo");
+        Map<String,Object>  payerMap = (Map<String,Object>)data.get("payerInfo");
         BigDecimal usable_bal = new BigDecimal(payerMap.get("usable_bal")+"");
         BigDecimal tran_amt = new BigDecimal(data.get("tran_amt")+"");
         if(usable_bal.compareTo(tran_amt)==-1){

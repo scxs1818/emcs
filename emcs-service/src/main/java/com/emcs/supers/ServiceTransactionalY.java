@@ -14,6 +14,7 @@ import com.emcs.pub.runtime.core.LoggerFactory;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -22,22 +23,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/2/3.
  */
-@Service
 public abstract class ServiceTransactionalY {
-    @Autowired
-    InsertCmTranSeq icts;
-    @Autowired
-    UpdateCmTranSeq ucts;
-    protected CommonResult before(Map<String, Object> data) {
-        icts.process(data);//插入交易流水
-        return result;
-    }
-
-    protected CommonResult after(Map<String, Object> data) {
-        ucts.process(data);//更新交易流水
-        return result;
-    }
-
     protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
     @Resource
     protected OneTableSelectMapper oneSelect;
@@ -47,9 +33,24 @@ public abstract class ServiceTransactionalY {
     protected ManyTableSelectMapper manySelect;
     @Resource
     protected ManyTableDMLMapper manyDML;
-    protected CommonResult result = new CommonResult();
 
+    @Autowired
+    InsertCmTranSeq icts;
+    @Autowired
+    UpdateCmTranSeq ucts;
+
+    protected CommonResult before(Map<String, Object> data) {
+        icts.process(data);//插入交易流水
+        return result;
+    }
+    protected CommonResult after(Map<String, Object> data) {
+        ucts.process(data);//更新交易流水
+        return result;
+    }
+
+    @Transactional
     public CommonResult doService(Map<String, Object> data) {
+        log.info("请求的数据:"+data);
         try {
             before(data);
             process(data);
@@ -58,16 +59,20 @@ public abstract class ServiceTransactionalY {
             data.put("tran_status","01");
         } catch (Exception e) {
             log.error("交易失败", e);
-            result.setMsg(e.getMessage());
+            String errormsg = e.getMessage();
+            if(errormsg!=null&&errormsg.length()>500)
+                errormsg = errormsg.substring(0,500);
+            result.setMsg(errormsg);
             result.setStatus("F");
             data.put("tran_status","02");
-            data.put("fail_reason",e.getMessage());
+            data.put("fail_reason",errormsg);
             DoException.doThrowException(e);
         }finally {
             after(data);
         }
         return result;
     }
-    @Transactional
+
+    protected CommonResult result = new CommonResult();
     protected abstract void process(Map<String, Object> data);
 }

@@ -33,7 +33,7 @@ public class PurchaseApply extends ServiceTransactionalY{
         if(oneSelect.selectIsExistVaPlatInfo(data)==0)
             throw new BusiException(ErrorCodeConstant.PlatErrorCode.VAP001.code(), ErrorCodeConstant.PlatErrorCode.VAP001.val());
 
-        if(Integer.parseInt(oneSelect.selectVaOrderInfoForRepeat(data)+"")>0)throw new BusiException("重复申请");
+        if(Integer.parseInt(oneSelect.selectVaOrderInfoForRepeat(data)+"")>0)throw new BusiException(ErrorCodeConstant.PubErrorCode.VAZ020.code(), ErrorCodeConstant.PubErrorCode.VAZ020.val());
 
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
             data.put("tran_type", BusiConstant.TranType.CUST_PURCHASE_APPLY.val());

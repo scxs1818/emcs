@@ -411,7 +411,7 @@
         payee_acct_sort,payee_is_this_bank,payee_acct_bank_no,payee_acct_bank_name,tran_status,ret_code,
         ret_msg,host_seq_no,host_tran_status,is_check,is_recover,reversed,oper_time,user_id,contrast,refund_status
         ) values (
-        getnextval('tran_seq_no'),#{pub_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},#{business_name},
+        #{tran_seq_no},#{pub_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},#{business_name},
         #{order_no},#{order_no_old},#{ref_no},#{merch_id},#{merch_name},#{cust_id},#{cust_name},#{payer_name},#{payer_vir_acct_no},
         #{payee_name},#{payee_vir_acct_no},#{plat_id},#{plat_name},#{payer_acct_no},#{payer_acct_name},#{payer_acct_sort},
         #{payer_is_this_bank},#{payer_acct_bank_no},#{payer_acct_bank_name},#{payee_acct_no},#{payee_acct_name},
@@ -515,7 +515,7 @@
         merch_withdraw_seq,order_no,pub_seq_no,payer_id,plat_id,
         payer_virid,tran_type,tran_amt,tran_date,payee_acct_no
         ) values (
-        #{merch_withdraw_seq},#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
+        getnextval('merch_withdraw_seq'),#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
         #{payer_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d'),#{payee_acct_no}
         )
     </insert>
@@ -564,10 +564,23 @@
 
     <!--插入绑卡流水信息-->
     <insert id="insertVaBindSeq" parameterType="hashMap">
-        insert into va_bind_seq(bind_seq_no,plat_id,mermber_id,acct_type,acct_category,acct_no,acct_name,tel_no,global_id,create_date
+        insert into va_bind_seq(bind_seq_no,plat_id,member_id,acct_type,acct_category,acct_no,acct_name,tel_no,global_id,create_date
           ) values (
-        #{bind_seq_no},#{plat_id},#{mermber_id},#{acct_type},#{acct_category},#{acct_no},#{acct_name},#{tel_no},#{global_id},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
+        #{bind_seq_no},#{plat_id},#{member_id},#{acct_type},#{acct_category},#{acct_no},#{acct_name},#{tel_no},#{global_id},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
     </insert>
 
+    <!--插入日终任务日志记录表-->
+    <insert id="insertEodProcPrdLog" parameterType="hashMap">
+        insert into eod_proc_prd_log(proc_log_seq,prd_no,tran_date,step_no,step_desc,class_bean,status,remark
+        ) values (
+        #{proc_log_seq},#{prd_no},#{tran_date},#{step_no},#{step_desc},#{class_bean},#{status},#{remark})
+    </insert>
+
+    <!--插入日终产品日志表-->
+    <insert id="insertEodProcLog" parameterType="hashMap">
+        insert into eod_proc_log(proc_log_seq,tran_time,tran_date,prd_no,status,remark
+        ) values (
+        getnextval('proc_log_seq'),#{tran_time},#{tran_date},#{prd_no},#{status},#{remark})
+    </insert>
 
 </mapper>

@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/5.
  */
 @Service
-public class MermberWithdraw extends ServiceTransactionalY{
+public class MemberWithdraw extends ServiceTransactionalY{
     @Autowired
     LimitValidate validate;
     @Autowired

@@ -113,7 +113,7 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="status !=null and status!='' "> and status = #{status} </if>
             <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
-            <if test="merch_id !=null and cust_id!='' "> and merch_id = #{cust_id} </if>
+            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
             <if test="global_id !=null and global_id!='' "> and global_id = #{global_id} </if>
         </trim>
     </select>
@@ -136,6 +136,16 @@
         <if test="pay_merch_id !=null and pay_merch_id!='' "> and pay_merch_id = #{pay_merch_id} </if>
     </trim>
 </select>
+
+    <!--查询平台信息-->
+    <select id="selectPlatInfoSim" parameterType="hashMap"  resultType="hashMap" >
+        select plat_id,pay_merch_id,plat_name,status from va_plat_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
+            <if test="pay_merch_id !=null and pay_merch_id!='' "> and pay_merch_id = #{pay_merch_id} </if>
+        </trim>
+    </select>
 
 <!--查询商户虚拟账户信息-->
 <select id="selectVaMerchVirtualAcctInfo" parameterType="hashMap"  resultType="hashMap" >
@@ -337,10 +347,37 @@
         for update
     </select>
 
+    <select id="selectVaOrderInfoLock" parameterType="hashMap"  resultType="hashMap" >
+        select inner_oder_no,order_no,plat_id,payer_id,payer_virid,payee_id,
+        payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status,date_format(create_date, '%Y%m%d%H%i%s')
+        from va_order_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="order_status!=null and order_status!=''"> and order_status=#{order_status}</if>
+            <if test="payer_virid!=null and payer_virid!=''"> and payer_virid=#{payer_virid}</if>
+            <if test="payee_virid!=null and payee_virid!=''"> and payee_virid=#{payee_virid}</if>
+            <if test="order_no!=null and order_no!=''"> and order_no=#{order_no}</if>
+        </trim>
+        for update
+    </select>
+
+    <!--查询任务制定信息-->
     <select id="selectEodProcRule" parameterType="hashMap"  resultType="hashMap" >
         select prd_no,step_no,class_bean,step_desc,status
         from eod_proc_rule
         where status = '1'
+    </select>
+
+    <!--查询产品日志信息-->
+    <select id="selectEodProcLog" parameterType="hashMap"  resultType="hashMap" >
+        select proc_log_seq,tran_time,tran_date,prd_no,status,remark from eod_proc_log where tran_date = #{tran_date}
+        <if test="status!=null and status!=''"> and status=#{status}</if>
+        <if test="prd_no!=null and prd_no!=''"> and prd_no=#{prd_no}</if>
+        <if test="proc_log_seq!=null and proc_log_seq!=''"> and proc_log_seq=#{proc_log_seq}</if>
+    </select>
+
+    <!--查询定时任务信息-->
+    <select id="selectScheduleJob" parameterType="hashMap"  resultType="hashMap" >
+        select job_code,job_name,start_time,end_time,interval_time,exec_mode,exec_node,class_bean,valid_flag from schedule_job where valid_flag='1'
     </select>
 
 </mapper>

@@ -37,41 +37,39 @@ public class BindCard extends ServiceTransactionalY{
         data.put("currency","RMB");
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
             param.put("cust_id",data.get("member_id"));
+            data.put("cust_id",data.get("member_id"));
             meberList = oneSelect.selectVaCustInfo(param);
             if(CheckEmpty.isEmpty(meberList))
                 throw new BusiException(CustErrorCode.VAC001.code(),CustErrorCode.VAC001.val());
-            if(!(data.get("global_id")+"").equals(meberList.get(0).get("global_id")))
-                throw new BusiException(PubErrorCode.VAZ024.code(),PubErrorCode.VAZ024.val());
 
             meberList = null;
             meberList = oneSelect.selectVaCustAcctInfo(data);
             if(!CheckEmpty.isEmpty(meberList))
                 throw new BusiException(PubErrorCode.VAZ025.code(),PubErrorCode.VAZ025.val());
-            data.put("acct_status","N");
-            oneDML.insertVaCustAccInfo(data);
 
             validateKeysInfo.process(data);
+
+            data.put("acct_status","N");
+            oneDML.insertVaCustAccInfo(data);
 
             data.put("bind_seq_no",oneSelect.getNextVal(BusiConstant.Quence.BIND_SEQ_NO.val()));
             oneDML.insertVaBindSeq(data);
         }else if(BusiConstant.ROLE_MERCH.equals(data.get("role_type"))){
             param.put("merch_id",data.get("member_id"));
+            data.put("merch_id",data.get("member_id"));
             meberList = oneSelect.selectVaMerchInfo(param);
             if(CheckEmpty.isEmpty(meberList))
                 throw new BusiException(MerchErrorCode.VAB001.code(),MerchErrorCode.VAB001.val());
-
-            if(!(data.get("global_id")+"").equals(meberList.get(0).get("global_id")))
-                throw new BusiException(PubErrorCode.VAZ024.code(),PubErrorCode.VAZ024.val());
 
             meberList = null;
             meberList = oneSelect.selectVaMerchAcctInfo(data);
             if(!CheckEmpty.isEmpty(meberList))
                 throw new BusiException(PubErrorCode.VAZ025.code(),PubErrorCode.VAZ025.val());
 
+            validateKeysInfo.process(data);
+
             data.put("acct_status","N");
             oneDML.insertVaMerchAccInfo(data);
-
-            validateKeysInfo.process(data);
 
             data.put("bind_seq_no",oneSelect.getNextVal(BusiConstant.Quence.BIND_SEQ_NO.val()));
             oneDML.insertVaBindSeq(data);

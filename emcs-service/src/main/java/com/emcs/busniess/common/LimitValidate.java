@@ -154,14 +154,14 @@ public class LimitValidate extends PubService {
         //3.判断商户虚拟账户是否存在转出限制
         if (!"Y".equals(virAcctBalMap.get("is_out")))
             throw new BusiException(PubErrorCode.VAZ011.code(), PubErrorCode.VAZ011.val());
-        log.info("virAcctBalMap="+virAcctBalMap);
+
         BigDecimal balance_limit = (BigDecimal) virAcctBalMap.get("balance_limit");
         BigDecimal actural_bal = (BigDecimal) virAcctBalMap.get("actural_bal");
         BigDecimal usable_bal = (BigDecimal) virAcctBalMap.get("usable_bal");
         BigDecimal recharge_bal = (BigDecimal) virAcctBalMap.get("recharge_bal");
         BigDecimal balance_value = (BigDecimal) virAcctBalMap.get("balance_value");
         BigDecimal tran_amt = new BigDecimal(data.get("tran_amt") + "");
-        log.info("actural_bal="+actural_bal+"usable_bal="+usable_bal+"recharge_bal="+recharge_bal+"tran_amt="+tran_amt);
+
         //4.校验余额
         if (BusiConstant.TranType.CUST_PURCHASE_APPLY.val().equals(tranType) ||
                 BusiConstant.TranType.TRANSFER_MERCH_TO_MERCH.val().equals(tranType) ||
@@ -172,7 +172,7 @@ public class LimitValidate extends PubService {
                 throw new BusiException(PubErrorCode.VAZ022.code(), PubErrorCode.VAZ022.val());
 
         } else if (BusiConstant.TranType.MERCH_WITHDRAW.val().equals(tranType) ||
-                BusiConstant.TranType.MERCH_WITHDRAW.val().equals(tranType)) {
+                BusiConstant.TranType.CUST_WITHDRAW.val().equals(tranType)) {
             if (usable_bal.compareTo(tran_amt) == -1)
                 throw new BusiException(PubErrorCode.VAZ016.code(), PubErrorCode.VAZ016.val());
         }
@@ -194,6 +194,5 @@ public class LimitValidate extends PubService {
         }else{
             data.put("payer_virid",virAcctBalMap.get("merch_virid"));
         }
-
     }
 }

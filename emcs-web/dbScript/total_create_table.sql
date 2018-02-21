@@ -97,27 +97,51 @@ CREATE TABLE `CM_TRAN_SEQ`(
    PRIMARY KEY(`PUB_SEQ_NO`)
 ) COMMENT '交易流水记录表';
 
-drop table if exists eod_proc_rule;
-create table eod_proc_rule  (
-   prd_no               varchar(30 )               not null comment '产品编号',
-   step_no              varchar(2 )                not null comment '步骤号',
-   class_bean         varchar(100 ) comment '类路径',
-   step_desc            varchar(100 )  comment '步骤描述',
-   status               varchar (6 )  comment '1-启用,0-禁用',
-   primary key(prd_no,step_no)
-)comment '任务表';
+drop table if exists `eod_proc_log`;
+create table `eod_proc_log`  (
+   `proc_log_seq`             varchar(32)              not null comment '日终日志流水号',
+   `tran_time`       varchar(9) comment '时间',
+   `tran_date`            varchar(8) comment '日期',
+   `prd_no`               varchar(4) comment '产品编号',
+   `status`               varchar(6) comment '执行结果',
+   `remark`               varchar(100) comment '备注',
+   primary key (`proc_log_seq`)
+) comment '产品日志表';
+
+drop table  if exists `eod_proc_prd_log`;
+create table `eod_proc_prd_log`(
+  `proc_log_seq`      varchar(32)               not null comment '日终日志流水号',
+  `prd_no`        varchar(4)                not null comment '产品编号',
+  `tran_date`     varchar(8)                not null comment '日期',
+  `step_no`       varchar(2)                not null comment '任务步骤号',
+  `step_desc`     varchar(100) comment '任务步骤描述',
+  `class_bean`  varchar(100) comment '要执行的服务',
+  `status`        varchar(6) comment '执行结果',
+  `remark`        varchar(100) comment '备注',
+  primary key (`tran_date`,`step_no`,`prd_no`)
+)comment '日终任务执行记录表';
+
+drop table if exists `eod_proc_rule`;
+create table `eod_proc_rule`  (
+   `prd_no`               varchar(30 )               not null comment '产品编号',
+   `step_no`              varchar(2 )                not null comment '步骤号',
+   `class_bean`         varchar(100 ) comment '要执行的服务',
+   `step_desc`            varchar(100 )  comment '步骤描述',
+   `status`              varchar (6 )  comment '1-启用,0-禁用',
+   primary key(`prd_no`,`step_no`)
+)comment '任务制定表';
 
 drop table if exists `va_bind_seq`;
 create table `va_bind_seq` (
-  `bind_seq_no` varchar(32) not null comment '绑卡流水号',
-  `plat_id` varchar(32) not null comment '平台编号',
-  `mermber_id` varchar(32) not null comment '会员编号',
-  `acct_type` varchar(32) not null comment '账户类型',
-  `acct_category` varchar(32) not null comment '账户类别:0-对公,1-对私',
-  `acct_no` varchar(32) not null comment '账户',
+  `bind_seq_no` varchar(32) not null  comment '绑卡流水号',
+  `plat_id` varchar(32) comment '平台编号',
+  `member_id` varchar(32) comment '会员编号',
+  `acct_type` varchar(32) comment '账户类型',
+  `acct_category` varchar(32) comment '账户类别:0-对公,1-对私',
+  `acct_no` varchar(32) comment '账户',
   `acct_name` varchar(100) default null comment '账户名称',
-  `tel_no` varchar(12) not null comment '手机号码',
-  `global_id` varchar(12) not null comment '证件号码',
+  `tel_no` varchar(12) comment '手机号码',
+  `global_id` varchar(20) comment '证件号码',
   `create_date` date comment '创建日期',
   primary key (`bind_seq_no`)
 ) comment='绑卡记录表' ;

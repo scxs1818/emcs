@@ -1,4 +1,6 @@
 package com.emcs.timer;
+        import com.emcs.Constant.BusiConstant;
+        import com.emcs.cache.CacheData;
         import com.emcs.exception.BusiException;
         import com.emcs.mapper.OneTableDMLMapper;
         import com.emcs.mapper.OneTableSelectMapper;
@@ -16,7 +18,7 @@ package com.emcs.timer;
 /**
  * Created by Administrator on 2018/2/19.
  */
-@Component
+//@Component
 public class EODTimerListener {
     private Logger log = LoggerFactory.getLogger(EODTimerListener.class);
     @Resource
@@ -24,8 +26,16 @@ public class EODTimerListener {
     @Resource
     OneTableDMLMapper oneDML;
 
-    @Scheduled(cron="0 0/1 8-20 * * ?")
+//    @Scheduled(cron="0 0/1 8-20 * * ?")
     public void process() {
+        Map<String,Object> sysMap = CacheData.getCacheObj(oneSlect, BusiConstant.Cache.CM_SYSTEM.val());
+        sysMap.put("tran_date",sysMap.get("run_date"));
+        sysMap.put("prd_no","9999");//日切
+        List<Map<String,Object>> procLogList = oneSlect.selectEodProcLog(sysMap);
+        if(!CheckEmpty.isEmpty(procLogList)){
+//           if("000000".equals(procLogList.get(0).get("status")))
+        }
+        log.info("日终处理.......");
         List<Map<String,Object>> taskList = oneSlect.selectEodProcRule(null);
         if(CheckEmpty.isEmpty(taskList))return;
         try{

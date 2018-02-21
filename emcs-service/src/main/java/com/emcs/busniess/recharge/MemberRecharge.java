@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/4.
  */
 @Service
-public class MermberRecharge extends ServiceTransactionalY {
+public class MemberRecharge extends ServiceTransactionalY {
     @Autowired
     CustRecharge custRecharge;
     @Autowired

@@ -1,5 +1,7 @@
 package com.emcs.mapper;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Map;
 
 /**
@@ -56,6 +58,10 @@ public interface OneTableDMLMapper{
     int insertVaTransferSeq(Map<String,Object> params);
     int insertTestUser(Map<String,Object> params);
     int updateProduceDay(Map<String,Object> params);
+
+    int insertEodProcPrdLog(Map<String,Object> params);
+    int insertEodProcLog(Map<String,Object> params);
+
 
 
 

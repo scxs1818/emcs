@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/3.
  */
 public abstract class ServiceTransactionalN{
-    protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
+    protected Logger log = LoggerFactory.getLogger(ServiceTransactionalN.class);
     @Resource
     protected OneTableSelectMapper oneSelect;
     @Resource

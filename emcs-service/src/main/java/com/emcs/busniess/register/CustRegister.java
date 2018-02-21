@@ -58,7 +58,7 @@ public class CustRegister extends ServiceTransactionalY {
         //绑卡
         if(!CheckEmpty.isEmpty(data.get("acct_no"))){
             try{
-                data.put("mermber_id",data.get("cust_id"));
+                data.put("member_id",data.get("cust_id"));
                 data.remove("pay_merch_id");
                 data.put("role_type", Role.CUST.val());
                 bindCard.process(data);

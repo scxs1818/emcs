@@ -35,7 +35,6 @@ public class MerchRecharge extends ServiceTransactionalY{
         boolean flag = false;
         try{
             //2.记账无流水
-            data.put("tran_seq_no",oneSelect.getNextVal(BusiConstant.Quence.TRAN_SEQ_NO.val()));
             insertCmAcctTranSeq.process(data);
             flag = true;
             //3.发支付(下面两种方式,根据实际实现2选1)

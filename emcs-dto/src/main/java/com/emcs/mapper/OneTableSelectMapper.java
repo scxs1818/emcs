@@ -15,6 +15,8 @@ public interface OneTableSelectMapper{
     int selectIsExistVaCustInfo(Map<String, Object> param);
 
     List<Map<String,Object>> selectPlatInfo(Map<String, Object> param);
+    List<Map<String,Object>> selectPlatInfoSim(Map<String, Object> param);
+
 
     List<Map<String,Object>> selectMerchInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchVirtualAcctInfo(Map<String, Object> param);
@@ -23,6 +25,8 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectVaMerchAcctInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchWithdrawSeqSum(Map<String, Object> param);
     List<Map<String,Object>> selectVaMerchInfo(Map<String, Object> param);
+    List<Map<String,Object>> selectVaMerchInfoSim(Map<String, Object> param);
+
 
     List<Map<String,Object>> selectVaCustVirtualAcctInfo(Map<String, Object> param);
     List<Map<String,Object>> selectVaCustWithdrawSeqSum(Map<String, Object> param);
@@ -33,9 +37,13 @@ public interface OneTableSelectMapper{
 
 
     List<Map<String,Object>> selectEodProcRule(Map<String, Object> param);
+    List<Map<String,Object>> selectEodProcLog(Map<String, Object> param);
+    List<Map<String,Object>> selectScheduleJob(Map<String, Object> param);
 
 
     List<Map<String,Object>> selectVaOrderInfoForOld(Map<String, Object> param);
+    List<Map<String,Object>> selectVaOrderInfoLock(Map<String, Object> param);
+
 
     List<Map<String,Object>> selectCmBusinessParaForCache(Map<String, Object> param);
     List<Map<String,Object>> selectCmSystemForCache(Map<String, Object> param);

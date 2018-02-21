@@ -71,7 +71,7 @@ public class MerchRegister extends ServiceTransactionalY {
         if(!CheckEmpty.isEmpty(data.get("acct_no"))){
             try{
                 data.remove("pay_merch_id");
-                data.put("mermber_id",data.get("merch_id"));
+                data.put("member_id",data.get("merch_id"));
                 data.put("role_type", Role.MERCH.val());
                 bindCard.process(data);
             }catch (Exception e){

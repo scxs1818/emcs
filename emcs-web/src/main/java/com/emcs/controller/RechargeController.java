@@ -1,6 +1,6 @@
 package com.emcs.controller;
 
-import com.emcs.busniess.recharge.MermberRecharge;
+import com.emcs.busniess.recharge.MemberRecharge;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 public class RechargeController {
     @Autowired
-    MermberRecharge recharge;
+    MemberRecharge recharge;
 
     @RequestMapping("/merber")
     public CommonResult merberRecharge(@RequestParam Map<String,Object> param) {

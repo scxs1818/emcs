@@ -12,6 +12,7 @@ import com.emcs.pub.runtime.core.LoggerFactory;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/2/13.
  */
+@Transactional
 public abstract class SupperService {
     protected Logger log = LoggerFactory.getLogger(SupperService.class);
     @Resource
@@ -52,6 +54,7 @@ public abstract class SupperService {
         }
         return result;
     }
+
     protected abstract void process(Map<String, Object> data);
     @Autowired
     InsertCmTranSeq icts;

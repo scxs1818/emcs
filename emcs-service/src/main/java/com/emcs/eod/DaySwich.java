@@ -4,6 +4,8 @@ import com.emcs.Constant.BaseEnum;
 import com.emcs.Constant.BusiConstant;
 import com.emcs.cache.CacheData;
 import com.emcs.exception.BusiException;
+import com.emcs.mapper.ManyTableDMLMapper;
+import com.emcs.mapper.ManyTableSelectMapper;
 import com.emcs.mapper.OneTableDMLMapper;
 import com.emcs.mapper.OneTableSelectMapper;
 import com.emcs.pub.runtime.core.Logger;
@@ -25,10 +27,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/18.
  */
 @Service
-@Transactional
 public class DaySwich extends SuperTask {
-    @Autowired
-    FromRecharBalToUsableBal transfer;
     protected Logger log = LoggerFactory.getLogger(DaySwich.class);
     public void process(Map<String, Object> data,OneTableSelectMapper oneSelect,OneTableDMLMapper oneDML) {
         String server_date = new SimpleDateFormat("YYYYMMdd").format(new Date());
@@ -38,7 +37,12 @@ public class DaySwich extends SuperTask {
             if(run_date.compareTo(server_date)<0){
                 cacheMap.put("ser_status_flag","N");
                 CacheData.addCacheData(BusiConstant.CACHE_CM_SYSTEM,cacheMap);
-                transfer.process(data);
+
+                oneSelect.selectVaCustVirtualAcctBalLock(null);
+                oneDML.dayEndTransferAmtForCust(null);
+                oneSelect.selectVaMerchVirtualAcctBalLock(null);
+                oneDML.dayEndTransferAmtForMerch(null);
+
                 cacheMap.put("ser_status_flag","Y");
                 CacheData.addCacheData(BusiConstant.CACHE_CM_SYSTEM,cacheMap);
                 data.put("run_date",server_date);

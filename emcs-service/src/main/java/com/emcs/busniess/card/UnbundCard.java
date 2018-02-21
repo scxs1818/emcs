@@ -6,6 +6,7 @@ import com.emcs.exception.BusiException;
 import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.util.CheckEmpty;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class UnbundCard extends ServiceTransactionalY{
         Map<String,Object> param = new HashMap<>();
         param.put("status","N");
         List<Map<String,Object>> meberList;
-        data.put("create_date",data.get("tran_date")+""+data.get("tra_time"));
+        data.put("create_date",data.get("tran_date")+""+data.get("tran_time"));
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
             param.put("cust_id",data.get("member_id"));
             meberList = oneSelect.selectVaCustInfo(param);

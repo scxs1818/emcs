@@ -59,12 +59,12 @@ public class PurchaseRevoke extends ServiceTransactionalY{
             oldOrderMap.put("tran_type", BusiConstant.TranType.CUST_PURCHASE_REVOKE.val());
             oldOrderMap.put("cust_id",oldOrderMap.get("payer_id"));
             oldOrderMap.put("cust_virid",oldOrderMap.get("payer_virid"));
-            if(oneDML.updateVaCustVirtualAcctBalAddForRefund(oldOrderMap)!=1)throw new BusiException(PubErrorCode.VAZ023.val(), PubErrorCode.VAZ023.code());
+            if(oneDML.updateVaCustVirtualAcctBalAddForRefund(oldOrderMap)!=1)throw new BusiException(PubErrorCode.VAZ023.code(), PubErrorCode.VAZ023.val());
         }else if(BusiConstant.ROLE_MERCH.equals(data.get("role_type"))){
             oldOrderMap.put("tran_type", BusiConstant.TranType.MERCH_PURCHASE_REVOKE.val());
             oldOrderMap.put("merch_id",oldOrderMap.get("payer_id"));
             oldOrderMap.put("merch_virid",oldOrderMap.get("payer_virid"));
-            if(oneDML.updateVaMerchVirtualAcctBalAddForRefund(oldOrderMap)!=1)throw new BusiException(PubErrorCode.VAZ023.val(), PubErrorCode.VAZ023.code());
+            if(oneDML.updateVaMerchVirtualAcctBalAddForRefund(oldOrderMap)!=1)throw new BusiException(PubErrorCode.VAZ023.code(), PubErrorCode.VAZ023.val());
         }else{
             throw new BusiException("角色类型错误","600009");
         }
