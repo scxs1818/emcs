@@ -11,7 +11,7 @@ public interface ErrorCodeConstant {
         VAZ004("VAZ004","手机号码不合法"),
         VAZ005("VAZ005","必输字段为空"),
         VAZ006("VAZ006","执行数据操作失败"),
-        VAZ007("VAZ007","付款方角色类型错误"),
+        VAZ007("VAZ007","角色类型错误"),
         VAZ008("VAZ008","已经超出单笔限额"),
         VAZ009("VAZ009","已经超出当日允许交易次数"),
         VAZ010("VAZ010","收款方账户已经超出当日总限额"),
@@ -27,6 +27,10 @@ public interface ErrorCodeConstant {
         VAZ020("VAZ020","重复提交"),
         VAZ021("VAZ021","已经超出当日允许交易金额"),
         VAZ022("VAZ022","付款方虚拟账户余额不足"),
+        VAZ023("VAZ023","请检查更新条件是否正确"),
+        VAZ024("VAZ024","证件信息与登记证件信息不一致"),
+        VAZ025("VAZ025","此卡已绑定过"),
+        VAZ026("VAZ026","此卡不存在"),
         ;
         public String code() {
             return code;

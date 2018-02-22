@@ -1,16 +1,12 @@
 package com.emcs.busniess.recharge;
 
-import com.emcs.Constant.BusiConstant;
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.PubServiceY;
 import com.emcs.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.busniess.common.SendCorePay;
 import com.emcs.busniess.common.UpdateCmAcctTranSeq;
-import com.emcs.exception.BusiException;
 import com.emcs.busniess.common.SendNetPay;
-import com.emcs.supers.SupperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -18,8 +14,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/4.
  */
 @Service
-@Transactional
-public class MerchRecharge extends ServiceTransactionalY{
+public class MerchRecharge extends PubServiceY {
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired
@@ -29,13 +24,12 @@ public class MerchRecharge extends ServiceTransactionalY{
     @Autowired
     SendNetPay sendNetPay;
     @Override
-    protected void process(Map<String, Object> data) {
+    public void process(Map<String, Object> data) {
         Map<String,Object> payeeMap = (Map<String,Object>)data.get("payeeInfo");
 
         boolean flag = false;
         try{
             //2.记账无流水
-            data.put("tran_seq_no",oneSelect.getNextVal(BusiConstant.Quence.TRAN_SEQ_NO.val()));
             insertCmAcctTranSeq.process(data);
             flag = true;
             //3.发支付(下面两种方式,根据实际实现2选1)

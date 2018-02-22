@@ -1,7 +1,7 @@
 drop table if exists  `cm_acct_tran_seq`;
 create table `cm_acct_tran_seq` (
   `tran_seq_no`           varchar(32)       not null comment '银行账务流水号',
-   `pub_seq_no` varchar(32) not null comment '公共流水号',
+   `pub_seq_no` varchar(32)  comment '公共流水号',
   `tran_date`             date comment '交易日期',
   `tran_time`             varchar(10) comment '交易时间',
   `curreny`               varchar(4) comment '币种',

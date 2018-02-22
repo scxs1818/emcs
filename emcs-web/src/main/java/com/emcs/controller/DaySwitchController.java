@@ -19,7 +19,7 @@ public class DaySwitchController {
     @RequestMapping("switch")
     public void switchDay(){
         Map<String,Object> data = new HashMap<>();
-        ds.process(data);
+//        ds.process(data);
     }
 
 

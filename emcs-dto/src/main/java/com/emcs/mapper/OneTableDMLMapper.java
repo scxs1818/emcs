@@ -1,5 +1,7 @@
 package com.emcs.mapper;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Map;
 
 /**
@@ -13,6 +15,7 @@ public interface OneTableDMLMapper{
     int updateVaPlatVirtualAcctBalSub(Map<String, Object> params);
     int insertVaPlatVirtualAcct(Map<String,Object> params);
 
+    int updateVaMerchVirtualAcctBalAddForRefund(Map<String, Object> map);
     int insertVaMerchAccInfo(Map<String, Object> map);
     int insertVaMerchInfo(Map<String,Object> map);
     int insertVaMerchVirtualAcctBal(Map<String, Object> params);
@@ -22,7 +25,10 @@ public interface OneTableDMLMapper{
     int updateVaMerchVirtualAcctBalSub(Map<String, Object> params);
     int insertVaMerchVirtualAcct(Map<String,Object> params);
     int dayEndTransferAmtForMerch(Map<String,Object> params);
+    int deleteVaMerchAcctInfo(Map<String,Object> params);
 
+
+    int updateVaCustVirtualAcctBalAddForRefund(Map<String, Object> map);
     int insertVaCustAccInfo(Map<String, Object> map);
     int insertVaCustInfo(Map<String,Object> map);
     int insertVaCustVirtualAcctBal(Map<String, Object> params);
@@ -32,6 +38,7 @@ public interface OneTableDMLMapper{
     int insertVaCustRechargeSeq(Map<String,Object> params);
     int insertVaCustWithdrawSeq(Map<String,Object> params);
     int dayEndTransferAmtForCust(Map<String,Object> params);
+    int deleteVaCustAcctInfo(Map<String,Object> params);
 
     int insertCmAcctTranSeq(Map<String,Object> params);
     int updateCmAcctTranSeq(Map<String,Object> params);
@@ -45,11 +52,18 @@ public interface OneTableDMLMapper{
 
     int insertVaVirAcctSeq(Map<String,Object> params);
     int updateVaVirAcctSeq(Map<String,Object> params);
+    int insertVaBindSeq(Map<String,Object> params);
 
 
     int insertVaTransferSeq(Map<String,Object> params);
     int insertTestUser(Map<String,Object> params);
     int updateProduceDay(Map<String,Object> params);
+
+    int insertEodProcPrdLog(Map<String,Object> params);
+    int insertEodProcLog(Map<String,Object> params);
+    int updateEodProcPrdLog(Map<String,Object> params);
+
+
 
 
 

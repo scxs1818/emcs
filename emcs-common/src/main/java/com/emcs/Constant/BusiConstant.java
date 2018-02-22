@@ -23,8 +23,8 @@ public interface BusiConstant {
 
         TRANSFER("transfer_seq_no","转账流水号"),
         CM_TRAN_SEQ("cm_seq_no","交易公共流水号"),
-        TRAN_SEQ_NO("tran_seq_no","交易公共流水号"),
-
+        TRAN_SEQ_NO("tran_seq_no","账务流水号"),
+        BIND_SEQ_NO("bind_seq_no","绑卡流水号"),
 
         ;
         private String val;
@@ -169,8 +169,16 @@ public interface BusiConstant {
     String ACCT_TYPE_PLAT_SETTLE = "1";
     /** 商户结算账户 */
     String ACCT_TYPE_MERCH_SETTLE = "2";
+    /**会员卡*/
+    String ACCT_TYPE_CUST = "3";
     /**内部户*/
-    String ACCT_TYPE_INNER = "3";
+    String ACCT_TYPE_INNER = "4";
+
+    /**对公*/
+    String ACCT_CATE_PUB = "1";
+    /**对私*/
+    String ACCT_CATE_PRI = "2";
+
     /**平台*/
     String ROLE_PLAT = "1";
     /**商户*/

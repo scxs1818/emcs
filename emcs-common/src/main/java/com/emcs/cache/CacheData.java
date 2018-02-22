@@ -68,7 +68,7 @@ public class CacheData {
     }
 
     /** 清除指定缓存对象(注:该操作发生在缓存对象在数据库发生改变时,需清除老的缓存时使用) */
-    public void clear(String tableName) {
+    public static void clear(String tableName) {
         Map<String,Object> removeMap = cacheMaps.remove(tableName);
         if (!CheckEmpty.isEmpty(removeMap)) {
             removeMap = null;
@@ -77,7 +77,7 @@ public class CacheData {
     }
 
     /** 清除所有缓存对象 */
-    public void clearAll() {
+    public static void clearAll() {
         Iterator<String> it = cacheMaps.keySet().iterator();
         while (it.hasNext()) {
             String tableName = it.next();

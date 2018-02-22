@@ -1,17 +1,11 @@
 package com.emcs.busniess.recharge;
 
-import com.emcs.Constant.BusiConstant;
 import com.emcs.busniess.common.*;
-import com.emcs.supers.ServiceTransactionalY;
-import com.emcs.exception.BusiException;
-import com.emcs.supers.SupperService;
-import com.emcs.util.CheckEmpty;
+import com.emcs.supers.PubServiceY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +13,7 @@ import java.util.Map;
  */
 @Service
 @Transactional
-public class CustRecharge extends ServiceTransactionalY{
+public class CustRecharge extends PubServiceY {
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired
@@ -29,13 +23,12 @@ public class CustRecharge extends ServiceTransactionalY{
     @Autowired
     SendNetPay sendNetPay;
     @Override
-    protected void process(Map<String, Object> data) {
+    public void process(Map<String, Object> data) {
 
         Map<String,Object> payeeMap = (Map<String,Object>)data.get("payeeInfo");
         boolean flag = false;
         try{
             //2.记账无流水
-            data.put("tran_seq_no",oneSelect.getNextVal(BusiConstant.Quence.TRAN_SEQ_NO.val()));
             insertCmAcctTranSeq.process(data);
             flag = true;
 
@@ -53,8 +46,10 @@ public class CustRecharge extends ServiceTransactionalY{
             oneDML.insertVaCustRechargeSeq(data);
 
             //5.更新账务流水(依据支付状态)
+            data.put("tran_status","01");//记账成功
             updateCmAcctTranSeq.process(data);
         }catch(Exception e){
+            data.put("tran_status","02");//记账失败
             if(flag)
                 updateCmAcctTranSeq.process(data);
             throw e;

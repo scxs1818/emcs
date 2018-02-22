@@ -2,7 +2,7 @@ package com.emcs.busniess.withDraw;
 import com.emcs.Constant.BusiConstant;
 import com.emcs.Constant.ErrorCodeConstant;
 import com.emcs.busniess.common.LimitValidate;
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.InServiceY;
 import com.emcs.exception.BusiException;
 import com.emcs.util.CheckEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/5.
  */
 @Service
-public class MermberWithdraw extends ServiceTransactionalY{
+public class MemberWithdraw extends InServiceY {
     @Autowired
     LimitValidate validate;
     @Autowired

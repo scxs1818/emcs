@@ -17,3 +17,5 @@ insert into va_sequence_p values('cust_recharge_seq',16,'cr','会员充值流水
 insert into va_sequence_p values('merch_recharge_seq',16,'mr','商户充值流水号');
 insert into va_sequence_p values('cust_withdraw_seq',16,'cw','会员提现流水号');
 insert into va_sequence_p values('merch_withdraw_seq',16,'mw','商户提现流水号');
+insert into va_sequence_p values('bind_seq_no',12,'bk','绑卡流水号');
+insert into va_sequence_p values('proc_log_seq',12,'rz','日终日志流水号');

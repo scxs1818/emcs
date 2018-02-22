@@ -1,6 +1,6 @@
 package com.emcs.busniess.withDraw;
 
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.PubServiceY;
 import com.emcs.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.busniess.common.SendCorePay;
 import com.emcs.busniess.common.UpdateCmAcctTranSeq;
@@ -8,15 +8,13 @@ import com.emcs.busniess.common.SendNetPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2018/2/5.
  */
 @Service
-public class CustWithdraw extends ServiceTransactionalY {
+public class CustWithdraw extends PubServiceY {
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired
@@ -26,7 +24,7 @@ public class CustWithdraw extends ServiceTransactionalY {
     @Autowired
     SendNetPay sendNetPay;
     @Override
-    protected void process(Map<String, Object> data) {
+    public void process(Map<String, Object> data) {
         boolean flag = false;
         try{
             //2.记账无流水
@@ -46,8 +44,10 @@ public class CustWithdraw extends ServiceTransactionalY {
             oneDML.insertVaCustWithdrawSeq(data);
 
             //5.更新账务流水(依据支付状态)
+            data.put("tran_status","01");
             updateCmAcctTranSeq.process(data);
         }catch(Exception e){
+            data.put("tran_status","02");
             if(flag)
                 updateCmAcctTranSeq.process(data);
             throw e;

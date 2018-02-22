@@ -40,7 +40,7 @@
 
     <!---扣减平台虚拟账户余额-->
     <update id="updateVaPlatVirtualAcctBalSub" parameterType="hashMap">
-        update va_merch_virtual_acct_bal set
+        update va_plat_virtual_acct_bal set
         actural_bal = actural_bal - #{tran_amt},
         usable_bal = usable_bal - #{usable_bal},
         recharge_bal = recharge_bal - #{recharge_bal}
@@ -53,7 +53,7 @@
 
     <!---增加平台虚拟账户余额-->
     <update id="updateVaPlatVirtualAcctBalAdd" parameterType="hashMap">
-        update va_merch_virtual_acct_bal set
+        update va_plat_virtual_acct_bal set
         actural_bal = actural_bal + #{tran_amt},
         usable_bal = usable_bal + #{usable_bal},
         recharge_bal = recharge_bal + #{recharge_bal}
@@ -98,16 +98,16 @@
     <insert id="insertVaPlatAccInfo" parameterType="hashMap">
         insert into va_plat_acct_info
         (
-            acct_id,plat_id,acct_type,
+            acct_id,plat_id,acct_type,tel_no,
             acct_no,acct_name,is_this_bank,
-            acct_br_no,acct_br_name,currency,
+            bank_no,bank_name,currency,
             update_date,update_user,acct_status,acct_category
         )
         values
         (
-            getnextval('plat_ban_acc_seq_no'),#{plat_id},#{acct_type},
+            getnextval('plat_ban_acc_seq_no'),#{plat_id},#{acct_type},#{tel_no},
             #{acct_no},#{acct_name},#{is_this_bank},
-            #{acct_br_no},#{acct_br_name},#{currency},
+            #{bank_no},#{bank_name},#{currency},
             #{update_date},#{update_user},#{acct_status},#{acct_category}
         )
     </insert>
@@ -147,14 +147,14 @@
         (
         acct_id,merch_id,acct_type,
         acct_no,acct_name,is_this_bank,
-        acct_br_no,acct_br_name,currency,
+        bank_no,bank_name,currency,tel_no,
         update_date,update_user,acct_status,acct_category
         )
         values
         (
         getnextval('merch_ban_acc_seq_no'),#{merch_id},#{acct_type},
         #{acct_no},#{acct_name},#{is_this_bank},
-        #{acct_br_no},#{acct_br_name},#{currency},
+        #{bank_no},#{bank_name},#{currency},#{tel_no},
         #{update_date},#{update_user},#{acct_status},#{acct_category}
         )
     </insert>
@@ -193,6 +193,18 @@
         </trim>
     </update>
 
+    <update id="updateVaMerchVirtualAcctBalAddForRefund" parameterType="hashMap">
+        update va_merch_virtual_acct_bal set
+        actural_bal = actural_bal + #{tran_amt},
+        usable_bal = usable_bal + #{usable_bal},
+        recharge_bal = recharge_bal + #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="payer_id!=null and payer_id!=''">and merch_id=#{payer_id}</if>
+            <if test="payer_virid!=null and payer_virid!=''">and merch_virid=#{payer_virid}</if>
+        </trim>
+    </update>
+
     <!---注册商户虚拟账户-->
     <insert id="insertVaMerchVirtualAcct" parameterType="hashMap">
         insert into va_merch_virtual_acct
@@ -222,6 +234,18 @@
             #{source_user},#{effect_date},#{merch_name}
         )
     </insert>
+
+    <!--删除商户银行卡信息-->
+    <delete id="deleteVaMerchAcctInfo" parameterType="hashMap" >
+        delete from va_merch_acct_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
+            <if test="acct_type !=null and acct_type!='' "> and acct_type = #{acct_type}</if>
+            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+            <if test="acct_no !=null and acct_no!='' "> and acct_no = #{acct_no}</if>
+            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+        </trim>
+    </delete>
 
     <!--注册会员信息-->
     <insert id="insertVaCustInfo" parameterType="hashMap" >
@@ -253,17 +277,29 @@
         (
             acct_id,cust_id,acct_type,
             acct_no,acct_name,is_this_bank,
-            acct_br_no,acct_br_name,currency,
+            bank_no,bank_name,currency,tel_no,
             update_date,update_user,acct_status,acct_category
         )
         values
         (
             getnextval('cust_ban_acc_seq_no'),#{cust_id},#{acct_type},
             #{acct_no},#{acct_name},#{is_this_bank},
-            #{acct_br_no},#{acct_br_name},#{currency},
+            #{bank_no},#{bank_name},#{currency},#{tel_no},
             #{update_date},#{update_user},#{acct_status},#{acct_category}
         )
     </insert>
+
+    <!--删除会员银行卡信息-->
+    <delete id="deleteVaCustAcctInfo" parameterType="hashMap">
+        delete from va_cust_acct_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="acct_status !=null and acct_status!='' "> and acct_status = #{acct_status} </if>
+            <if test="acct_type !=null and acct_type!='' "> and acct_type = #{acct_type}</if>
+            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+            <if test="acct_no !=null and acct_no!='' "> and acct_no = #{acct_no}</if>
+            <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
+        </trim>
+    </delete>
 
     <!--注册会员虚拟账户-->
     <insert id="insertVaCustVirtualAcct" parameterType="hashMap">
@@ -316,6 +352,18 @@
         </trim>
     </insert>
 
+    <insert id="updateVaCustVirtualAcctBalAddForRefund" parameterType="hashMap">
+        update va_cust_virtual_acct_bal SET
+        actural_bal = actural_bal + #{tran_amt},
+        usable_bal = usable_bal + #{usable_bal},
+        recharge_bal = recharge_bal + #{recharge_bal}
+        <trim prefix="where" prefixOverrides="and">
+            <if test="vir_acct_type!=null and vir_acct_type!=''">and vir_acct_type=#{vir_acct_type}</if>
+            <if test="payer_id!=null and payer_id!=''">and cust_id=#{payer_id}</if>
+            <if test="payer_virid!=null and payer_virid!=''">and cust_virid=#{payer_virid}</if>
+        </trim>
+    </insert>
+
     <!--扣减会员虚拟账户余额-->
     <update id="updateVaCustVirtualAcctBalSub" parameterType="hashMap">
         update va_cust_virtual_acct_bal SET
@@ -363,7 +411,7 @@
         payee_acct_sort,payee_is_this_bank,payee_acct_bank_no,payee_acct_bank_name,tran_status,ret_code,
         ret_msg,host_seq_no,host_tran_status,is_check,is_recover,reversed,oper_time,user_id,contrast,refund_status
         ) values (
-        getnextval('tran_seq_no'),#{pub_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},#{business_name},
+        #{tran_seq_no},#{pub_seq_no},#{tran_date},#{tran_time},#{curreny},#{tran_amt},#{tran_type},#{business_code},#{business_name},
         #{order_no},#{order_no_old},#{ref_no},#{merch_id},#{merch_name},#{cust_id},#{cust_name},#{payer_name},#{payer_vir_acct_no},
         #{payee_name},#{payee_vir_acct_no},#{plat_id},#{plat_name},#{payer_acct_no},#{payer_acct_name},#{payer_acct_sort},
         #{payer_is_this_bank},#{payer_acct_bank_no},#{payer_acct_bank_name},#{payee_acct_no},#{payee_acct_name},
@@ -467,7 +515,7 @@
         merch_withdraw_seq,order_no,pub_seq_no,payer_id,plat_id,
         payer_virid,tran_type,tran_amt,tran_date,payee_acct_no
         ) values (
-        #{merch_withdraw_seq},#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
+        getnextval('merch_withdraw_seq'),#{order_no},#{pub_seq_no},#{payer_id},#{plat_id},
         #{payer_virid},#{tran_type},#{tran_amt},str_to_date(#{tran_date},'%Y%m%d'),#{payee_acct_no}
         )
     </insert>
@@ -478,19 +526,29 @@
           oder_seq_no,order_no,order_no_old,pub_seq_no,plat_id,payer_id,payer_virid,
           payee_id,payee_virid,pay_type,tran_amt,tran_type,create_date
         ) values (
-          #{oder_seq_no},#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{payer_id},#{payer_virid},
-          #{payee_id},#{payee_virid},#{pay_type},#{tran_amt},#{tran_type},#{create_date})
+          getnextval('oder_seq_no'),#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{payer_id},#{payer_virid},
+          #{payee_id},#{payee_virid},#{pay_type},#{tran_amt},#{tran_type},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
     </insert>
 
     <!--插入订单信息表-->
     <insert id="insertVaOrderInfo" parameterType="hashMap">
         insert into va_order_info(
-        inner_oder_no,order_no,order_no_old,pub_seq_no,plat_id,plat_virid,payer_id,payer_virid,payee_id,
-        payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status,create_date,update_date)
+        inner_oder_no,order_no,pub_seq_no,plat_id,payer_id,payer_virid,payee_id,
+        payee_virid,pay_type,tran_amt,usable_bal,recharge_bal,tran_type,order_status,create_date
         ) values (
-        #{inner_oder_no},#{order_no},#{order_no_old},#{pub_seq_no},#{plat_id},#{plat_virid},#{payer_id},#{payer_virid},#{payee_id},
-        #{payee_virid},#{pay_type},#{tran_amt},#{usable_bal},#{recharge_bal},#{tran_type},#{order_status},#{create_date},#{update_date})
+        getnextval('inner_oder_no'),#{order_no},#{pub_seq_no},#{plat_id},#{payer_id},#{payer_virid},#{payee_id},
+        #{payee_virid},#{pay_type},#{tran_amt},#{usable_bal},#{recharge_bal},#{tran_type},#{order_status},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
     </insert>
+
+    <update id="updateVaOrderInfo" parameterType="hashMap">
+        update va_order_info set order_status=#{order_status},update_date=str_to_date(#{update_date},'%Y%m%d%H%i%s')
+        <trim prefix="where" prefixOverrides="and">
+            <if test="tran_type !=null and tran_type!='' ">and tran_type=#{tran_type}</if>
+            <if test="plat_id !=null and plat_id!='' ">and plat_id=#{plat_id}</if>
+            <if test="pub_seq_no !=null and pub_seq_no!='' ">and pub_seq_no=#{pub_seq_no}</if>
+            <if test="order_no !=null and order_no!='' "> and order_no=#{order_no}</if>
+        </trim>
+    </update>
 
     <update id="dayEndTransferAmtForCust" parameterType="hashMap">
       update  va_cust_virtual_acct_bal set usable_bal=usable_bal+recharge_bal,recharge_bal=0 where recharge_bal>0
@@ -503,5 +561,24 @@
     <update id="updateProduceDay" parameterType="hashMap">
         update  cm_system set prev_run_date=run_date,run_date=#{run_date}
     </update>
+
+    <!--插入绑卡流水信息-->
+    <insert id="insertVaBindSeq" parameterType="hashMap">
+        insert into va_bind_seq(bind_seq_no,plat_id,member_id,acct_type,acct_category,acct_no,acct_name,tel_no,global_id,create_date
+          ) values (
+        #{bind_seq_no},#{plat_id},#{member_id},#{acct_type},#{acct_category},#{acct_no},#{acct_name},#{tel_no},#{global_id},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
+    </insert>
+
+    <!--更新不成功的任务为初始化状态-->
+    <update id="updateEodProcPrdLog" parameterType="hashMap">
+        update eod_proc_prd_log set status='666666',remark='' where status!='000000' and prd_no=#{prd_no} and tran_date=#{tran_date}
+    </update>
+
+    <!--插入日终产品日志表-->
+    <insert id="insertEodProcLog" parameterType="hashMap">
+        insert into eod_proc_log(proc_log_seq,tran_time,tran_date,prd_no,status,remark
+        ) values (
+        getnextval('proc_log_seq'),#{tran_time},#{tran_date},#{prd_no},#{status},#{remark})
+    </insert>
 
 </mapper>

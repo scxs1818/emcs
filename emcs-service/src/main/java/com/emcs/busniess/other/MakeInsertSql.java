@@ -1,6 +1,6 @@
 package com.emcs.busniess.other;
 
-import com.emcs.supers.PubService;
+import com.emcs.supers.PubServiceY;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -9,7 +9,7 @@ import java.util.*;
  * Created by Administrator on 2018/2/9.
  */
 @Service
-public class MakeInsertSql extends PubService {
+public class MakeInsertSql extends PubServiceY {
     private  Map<String,Map<String,Object> > cacheObject = null;
     @Override
     public void process(Map<String, Object> param) {

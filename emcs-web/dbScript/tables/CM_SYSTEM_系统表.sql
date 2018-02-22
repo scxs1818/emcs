@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS  `CM_SYSTEM`;
-CREATE TABLE `CM_SYSTEM` (
-   `RUN_DATE`             varchar(8)                           NOT NULL COMMENT '系统日期',
-   `PREV_RUN_DATE`       varchar(8)                           NOT NULL COMMENT '前一工作日',
-   `CORE_RUN_DATE`       varchar(8)                             COMMENT '三方日期',
-   `SER_STATUS_FLAG`	VARCHAR(2)		       NOT NULL COMMENT '服务状态标志:N-关闭,Y-开启'
-)COMMENT '系统表';
+drop table if exists  `cm_system`;
+create table `cm_system` (
+   `run_date`             varchar(8)                           not null comment '系统日期',
+   `prev_run_date`       varchar(8)                           not null comment '前一工作日',
+   `core_run_date`       varchar(8)                             comment '三方日期',
+   `ser_status_flag`	varchar(2)		       not null comment '服务状态标志:n-关闭,y-开启'
+)comment '系统表';

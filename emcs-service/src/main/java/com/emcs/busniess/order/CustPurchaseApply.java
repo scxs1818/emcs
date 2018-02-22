@@ -1,11 +1,8 @@
 package com.emcs.busniess.order;
 
-import com.emcs.Constant.BusiConstant;
-import com.emcs.cache.CacheData;
-import com.emcs.supers.PubService;
+import com.emcs.supers.PubServiceY;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -13,10 +10,10 @@ import java.util.Map;
  * Created by Administrator on 2018/2/6.
  */
 @Service
-public class CustPurchaseApply extends PubService {
+public class CustPurchaseApply extends PubServiceY {
     @Override
     public void process(Map<String, Object> data) {
-        Map<String,Object>  payerMap = (Map<String,Object>)data.get("pyaerInfo");
+        Map<String,Object>  payerMap = (Map<String,Object>)data.get("payerInfo");
         BigDecimal usable_bal = new BigDecimal(payerMap.get("usable_bal")+"");
         BigDecimal tran_amt = new BigDecimal(data.get("tran_amt")+"");
         if(usable_bal.compareTo(tran_amt)==-1){
@@ -30,7 +27,7 @@ public class CustPurchaseApply extends PubService {
 
         //记订单信息
         data.put("order_status","01");//订单确认
-        data.put("create_date", CacheData.getCacheObj(oneSelect, BusiConstant.CACHE_CM_SYSTEM).get("run_date"));
+        data.put("create_date", data.get("tran_date")+""+data.get("tran_time"));
         oneDML.insertVaOrderInfo(data);
 
         //记订单流水信息
