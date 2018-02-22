@@ -1,6 +1,6 @@
 package com.emcs.busniess.common;
 
-import com.emcs.supers.PubService;
+import com.emcs.supers.PubServiceY;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +11,7 @@ import java.util.Map;
  */
 @Transactional
 @Service
-public class UpdateVaVirAcctSeq extends PubService {
+public class UpdateVaVirAcctSeq extends PubServiceY {
     @Override
     public void process(Map<String, Object> data) {
         //封装带补充

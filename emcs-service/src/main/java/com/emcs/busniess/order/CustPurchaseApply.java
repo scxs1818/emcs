@@ -1,11 +1,8 @@
 package com.emcs.busniess.order;
 
-import com.emcs.Constant.BusiConstant;
-import com.emcs.cache.CacheData;
-import com.emcs.supers.PubService;
+import com.emcs.supers.PubServiceY;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -13,7 +10,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/6.
  */
 @Service
-public class CustPurchaseApply extends PubService {
+public class CustPurchaseApply extends PubServiceY {
     @Override
     public void process(Map<String, Object> data) {
         Map<String,Object>  payerMap = (Map<String,Object>)data.get("payerInfo");

@@ -569,12 +569,10 @@
         #{bind_seq_no},#{plat_id},#{member_id},#{acct_type},#{acct_category},#{acct_no},#{acct_name},#{tel_no},#{global_id},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
     </insert>
 
-    <!--插入日终任务日志记录表-->
-    <insert id="insertEodProcPrdLog" parameterType="hashMap">
-        insert into eod_proc_prd_log(proc_log_seq,prd_no,tran_date,step_no,step_desc,class_bean,status,remark
-        ) values (
-        #{proc_log_seq},#{prd_no},#{tran_date},#{step_no},#{step_desc},#{class_bean},#{status},#{remark})
-    </insert>
+    <!--更新不成功的任务为初始化状态-->
+    <update id="updateEodProcPrdLog" parameterType="hashMap">
+        update eod_proc_prd_log set status='666666',remark='' where status!='000000' and prd_no=#{prd_no} and tran_date=#{tran_date}
+    </update>
 
     <!--插入日终产品日志表-->
     <insert id="insertEodProcLog" parameterType="hashMap">

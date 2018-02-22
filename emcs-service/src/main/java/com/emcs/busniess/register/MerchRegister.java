@@ -1,19 +1,13 @@
 package com.emcs.busniess.register;
 
-import com.emcs.Constant.BusiConstant;
-import com.emcs.busniess.card.BindCard;
-import com.emcs.busniess.common.ValidateKeysInfo;
-import com.emcs.supers.ServiceTransactionalN;
-import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.Constant.BusiConstant.*;
 import com.emcs.Constant.ErrorCodeConstant.*;
+import com.emcs.busniess.card.BindCard;
 import com.emcs.exception.BusiException;
-import com.emcs.supers.SupperService;
+import com.emcs.supers.InServiceY;
 import com.emcs.util.CheckEmpty;
-import com.sun.org.apache.bcel.internal.generic.CHECKCAST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +17,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/3.
  */
 @Service
-public class MerchRegister extends ServiceTransactionalY {
+public class MerchRegister extends InServiceY {
     @Autowired
     BindCard bindCard;
     @Override

@@ -16,10 +16,11 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 /**
+ * 通信接入的Service,非事务执行
  * Created by Administrator on 2018/2/3.
  */
-public abstract class ServiceTransactionalN{
-    protected Logger log = LoggerFactory.getLogger(ServiceTransactionalN.class);
+public abstract class InServiceN {
+    protected Logger log = LoggerFactory.getLogger(InServiceN.class);
     @Resource
     protected OneTableSelectMapper oneSelect;
     @Resource
@@ -30,19 +31,22 @@ public abstract class ServiceTransactionalN{
     protected ManyTableDMLMapper manyDML;
     protected CommonResult result = new CommonResult();
     public CommonResult doService(Map<String, Object> data){
-        try{
+        log.info("请求的数据:"+data);
+        try {
             before(data);
             process(data);
-            after(data);
             result.setMsg("交易成功");
             result.setStatus("S");
-            data.put("tran_status","S");
-        }catch(Exception e){
-            log.error("交易失败",e);
-            result.setMsg(e.getMessage());
+            data.put("tran_status","01");
+        } catch (Exception e) {
+            log.error("交易失败", e);
+            String errormsg = e.getMessage();
+            if(errormsg!=null&&errormsg.length()>500)
+                errormsg = errormsg.substring(0,500);
+            result.setMsg(errormsg);
             result.setStatus("F");
-            data.put("tran_status","F");
-            data.put("fail_reason",e.getMessage());
+            data.put("tran_status","02");
+            data.put("fail_reason",errormsg);
             DoException.doThrowException(e);
         }finally {
             after(data);

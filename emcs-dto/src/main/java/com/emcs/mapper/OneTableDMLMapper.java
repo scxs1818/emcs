@@ -61,6 +61,8 @@ public interface OneTableDMLMapper{
 
     int insertEodProcPrdLog(Map<String,Object> params);
     int insertEodProcLog(Map<String,Object> params);
+    int updateEodProcPrdLog(Map<String,Object> params);
+
 
 
 

@@ -1,11 +1,11 @@
-DROP TABLE IF EXISTS `CM_BUSINESS_PARA`;
-CREATE TABLE `CM_BUSINESS_PARA` (
-   `TRAN_TYPE`            VARCHAR(4)                   NOT NULL COMMENT '交易类型',
-   `PARA_KEY`             VARCHAR(50)                   NOT NULL COMMENT '业务参数代码',
-   `PARA_VALUE`           VARCHAR(32)                   NOT NULL COMMENT '参数值',
-   `PARA_DESC`            VARCHAR(100)                  NOT NULL COMMENT '参数描述',
-   `PARA_STATUS`          VARCHAR(4)                    NOT NULL COMMENT '参数状态',
-   `UPDATE_DATE`          DATE                          NULL COMMENT '参数维护日期',
-   `UPDATE_USER`          VARCHAR(32)                   NULL COMMENT '操作员',
-   PRIMARY KEY  (`TRAN_TYPE`,`PARA_KEY`)
-)COMMENT '业务参数表';
+drop table if exists `cm_business_para`;
+create table `cm_business_para` (
+   `tran_type`            varchar(4)                   not null comment '交易类型',
+   `para_key`             varchar(50)                   not null comment '业务参数代码',
+   `para_value`           varchar(32)                   not null comment '参数值',
+   `para_desc`            varchar(100)                  not null comment '参数描述',
+   `para_status`          varchar(4)                    not null comment '参数状态',
+   `update_date`          date                          null comment '参数维护日期',
+   `update_user`          varchar(32)                   null comment '操作员',
+   primary key  (`tran_type`,`para_key`)
+)comment '业务参数表';

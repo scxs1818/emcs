@@ -39,6 +39,7 @@ public interface OneTableSelectMapper{
     List<Map<String,Object>> selectEodProcRule(Map<String, Object> param);
     List<Map<String,Object>> selectEodProcLog(Map<String, Object> param);
     List<Map<String,Object>> selectScheduleJob(Map<String, Object> param);
+    List<Map<String,Object>> selectEodProcPrdLog(Map<String, Object> param);
 
 
     List<Map<String,Object>> selectVaOrderInfoForOld(Map<String, Object> param);

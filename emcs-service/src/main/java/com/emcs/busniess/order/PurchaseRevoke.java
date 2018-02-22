@@ -2,12 +2,9 @@ package com.emcs.busniess.order;
 
 import com.emcs.Constant.BusiConstant;
 import com.emcs.Constant.ErrorCodeConstant.*;
-import com.emcs.busniess.common.LimitValidate;
-import com.emcs.cache.CacheData;
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.InServiceY;
 import com.emcs.exception.BusiException;
 import com.emcs.util.CheckEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -18,7 +15,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/6.
  */
 @Service
-public class PurchaseRevoke extends ServiceTransactionalY{
+public class PurchaseRevoke extends InServiceY {
 
     @Override
     protected void process(Map<String, Object> data) {

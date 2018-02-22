@@ -1,18 +1,11 @@
 package com.emcs.busniess.recharge;
 
-import com.emcs.Constant.BusiConstant;
 import com.emcs.busniess.common.*;
-import com.emcs.supers.PubService;
-import com.emcs.supers.ServiceTransactionalY;
-import com.emcs.exception.BusiException;
-import com.emcs.supers.SupperService;
-import com.emcs.util.CheckEmpty;
+import com.emcs.supers.PubServiceY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +13,7 @@ import java.util.Map;
  */
 @Service
 @Transactional
-public class CustRecharge extends PubService{
+public class CustRecharge extends PubServiceY {
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired

@@ -1,8 +1,6 @@
 package com.emcs.supers;
 
-import com.emcs.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.busniess.common.InsertCmTranSeq;
-import com.emcs.busniess.common.UpdateCmAcctTranSeq;
 import com.emcs.busniess.common.UpdateCmTranSeq;
 import com.emcs.exception.DoException;
 import com.emcs.mapper.ManyTableDMLMapper;
@@ -13,18 +11,17 @@ import com.emcs.pub.runtime.core.Logger;
 import com.emcs.pub.runtime.core.LoggerFactory;
 import com.emcs.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Map;
 
 /**
+ * 通信接入的Service,事务执行
  * Created by Administrator on 2018/2/3.
  */
-public abstract class ServiceTransactionalY {
-    protected Logger log = LoggerFactory.getLogger(ServiceTransactionalY.class);
+public abstract class InServiceY {
+    protected Logger log = LoggerFactory.getLogger(InServiceY.class);
     @Resource
     protected OneTableSelectMapper oneSelect;
     @Resource

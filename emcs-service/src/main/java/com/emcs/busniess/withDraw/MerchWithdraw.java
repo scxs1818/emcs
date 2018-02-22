@@ -1,6 +1,6 @@
 package com.emcs.busniess.withDraw;
 
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.PubServiceY;
 import com.emcs.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.busniess.common.SendCorePay;
 import com.emcs.busniess.common.SendNetPay;
@@ -8,15 +8,13 @@ import com.emcs.busniess.common.UpdateCmAcctTranSeq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2018/2/5.
  */
 @Service
-public class MerchWithdraw extends ServiceTransactionalY {
+public class MerchWithdraw extends PubServiceY {
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired
@@ -26,7 +24,7 @@ public class MerchWithdraw extends ServiceTransactionalY {
     @Autowired
     SendNetPay sendNetPay;
     @Override
-    protected void process(Map<String, Object> data) {
+    public void process(Map<String, Object> data) {
         boolean flag = false;
         try{
             //2.记账无流水

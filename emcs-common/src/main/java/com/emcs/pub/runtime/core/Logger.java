@@ -32,4 +32,11 @@ public final class Logger {
         logger.error(message,t);
     }
 
+    public void warn(String message,Throwable t) {
+        logger.warn(message,t);
+    }
+
+    public void warn(String message) {
+        logger.warn(message);
+    }
 }

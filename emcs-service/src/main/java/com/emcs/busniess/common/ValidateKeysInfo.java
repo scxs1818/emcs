@@ -1,6 +1,6 @@
 package com.emcs.busniess.common;
 
-import com.emcs.supers.PubService;
+import com.emcs.supers.PubServiceY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/19.
  */
 @Service
-public class ValidateKeysInfo extends PubService{
+public class ValidateKeysInfo extends PubServiceY {
     @Autowired
     ValidateFourKeysInfo validateFourKeysInfo;
     @Autowired

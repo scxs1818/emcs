@@ -90,6 +90,17 @@
     </trim>
 </select>
 
+    <select id="selectVaMerchInfoSim" parameterType="hashMap"  resultType="hashMap" >
+        select
+        merch_id,merch_name,plat_id,status
+        from va_merch_info
+        <trim prefix="where" prefixOverrides="and">
+            <if test="status !=null and status!='' "> and status = #{status} </if>
+            <if test="merch_id !=null and merch_id!='' "> and merch_id = #{merch_id} </if>
+            <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no} </if>
+        </trim>
+    </select>
+
 <!--查询商户银行账户信息-->
 <select id="selectVaMerchAcctInfo" parameterType="hashMap"  resultType="hashMap" >
     select
@@ -353,6 +364,7 @@
         from va_order_info
         <trim prefix="where" prefixOverrides="and">
             <if test="order_status!=null and order_status!=''"> and order_status=#{order_status}</if>
+            <if test="payee_id!=null and payee_id!=''"> and payee_id=#{payee_id}</if>
             <if test="payer_virid!=null and payer_virid!=''"> and payer_virid=#{payer_virid}</if>
             <if test="payee_virid!=null and payee_virid!=''"> and payee_virid=#{payee_virid}</if>
             <if test="order_no!=null and order_no!=''"> and order_no=#{order_no}</if>
@@ -370,6 +382,14 @@
     <!--查询产品日志信息-->
     <select id="selectEodProcLog" parameterType="hashMap"  resultType="hashMap" >
         select proc_log_seq,tran_time,tran_date,prd_no,status,remark from eod_proc_log where tran_date = #{tran_date}
+        <if test="status!=null and status!=''"> and status=#{status}</if>
+        <if test="prd_no!=null and prd_no!=''"> and prd_no=#{prd_no}</if>
+        <if test="proc_log_seq!=null and proc_log_seq!=''"> and proc_log_seq=#{proc_log_seq}</if>
+    </select>
+
+    <!--查询产品任务日志信息-->
+    <select id="selectEodProcPrdLog" parameterType="hashMap"  resultType="hashMap" >
+        select prd_no,step_no,step_desc,class_bean,status from eod_proc_prd_log where tran_date = #{tran_date}
         <if test="status!=null and status!=''"> and status=#{status}</if>
         <if test="prd_no!=null and prd_no!=''"> and prd_no=#{prd_no}</if>
         <if test="proc_log_seq!=null and proc_log_seq!=''"> and proc_log_seq=#{proc_log_seq}</if>

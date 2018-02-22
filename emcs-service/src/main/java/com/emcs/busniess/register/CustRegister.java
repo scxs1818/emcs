@@ -1,11 +1,10 @@
 package com.emcs.busniess.register;
 
 import com.emcs.Constant.ErrorCodeConstant.*;
-import com.emcs.busniess.card.BindCard;
-import com.emcs.supers.ServiceTransactionalY;
 import com.emcs.Constant.BusiConstant.*;
+import com.emcs.busniess.card.BindCard;
 import com.emcs.exception.BusiException;
-import com.emcs.supers.SupperService;
+import com.emcs.supers.InServiceY;
 import com.emcs.util.CheckEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/3.
  */
 @Service
-public class CustRegister extends ServiceTransactionalY {
+public class CustRegister extends InServiceY {
     @Autowired
     BindCard bindCard;
     @Override

@@ -4,7 +4,7 @@ import com.emcs.Constant.BusiConstant;
 import com.emcs.Constant.ErrorCodeConstant.*;
 import com.emcs.busniess.common.ValidateKeysInfo;
 import com.emcs.exception.BusiException;
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.InServiceY;
 import com.emcs.util.CheckEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/6.
  */
 @Service
-public class BindCard extends ServiceTransactionalY{
+public class BindCard extends InServiceY {
     @Autowired
     ValidateKeysInfo validateKeysInfo;
     @Override

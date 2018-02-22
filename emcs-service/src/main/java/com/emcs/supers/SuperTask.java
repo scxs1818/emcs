@@ -18,8 +18,17 @@ import java.util.Map;
  */
 @Transactional(propagation=Propagation.REQUIRES_NEW)
 public abstract class SuperTask {
+    @Resource
+    protected OneTableSelectMapper oneS;
+    @Resource
+    protected OneTableDMLMapper oneDML;
+    @Resource
+    protected ManyTableSelectMapper manyS;
+    @Resource
+    protected ManyTableDMLMapper manyDML;
+
     protected Logger log = LoggerFactory.getLogger(SuperTask.class);
-    public void process(Map<String, Object> data, OneTableSelectMapper oneSelect, OneTableDMLMapper oneDML, ManyTableSelectMapper manySelect, ManyTableDMLMapper manyDML){}
-    public abstract void process(Map<String, Object> data, OneTableSelectMapper oneSelect, OneTableDMLMapper oneDML);
+    public void process(Map<String, Object> data, OneTableSelectMapper oneS, OneTableDMLMapper oneDML, ManyTableSelectMapper manySelect, ManyTableDMLMapper manyDML){}
+    public  void process(Map<String, Object> data, OneTableSelectMapper oneS, OneTableDMLMapper oneDML){};
     public void process(Map<String, Object> data){}
 }

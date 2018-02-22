@@ -2,7 +2,7 @@ package com.emcs.busniess.transferAccounts;
 
 import com.emcs.Constant.BusiConstant;
 import com.emcs.Constant.ErrorCodeConstant.*;
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.InServiceY;
 import com.emcs.busniess.common.InsertCmAcctTranSeq;
 import com.emcs.busniess.common.LimitValidate;
 import com.emcs.busniess.common.UpdateCmAcctTranSeq;
@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/5.
  */
 @Service
-public class TransferAccounts extends ServiceTransactionalY{
+public class TransferAccounts extends InServiceY {
     @Autowired
     InsertCmAcctTranSeq insertCmAcctTranSeq;
     @Autowired

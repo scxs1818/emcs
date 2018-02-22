@@ -3,10 +3,9 @@ package com.emcs.busniess.card;
 import com.emcs.Constant.BusiConstant;
 import com.emcs.Constant.ErrorCodeConstant;
 import com.emcs.exception.BusiException;
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.InServiceY;
 import com.emcs.util.CheckEmpty;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +16,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/6.
  */
 @Service
-public class UnbundCard extends ServiceTransactionalY{
+public class UnbundCard extends InServiceY {
     @Override
     protected void process(Map<String, Object> data) {
 

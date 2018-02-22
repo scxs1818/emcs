@@ -1,11 +1,10 @@
 package com.emcs.busniess.common;
 
 import com.emcs.Constant.BusiConstant;
-import com.emcs.Constant.ErrorCodeConstant;
 import com.emcs.Constant.ErrorCodeConstant.*;
 import com.emcs.cache.CacheUtil;
 import com.emcs.exception.BusiException;
-import com.emcs.supers.PubService;
+import com.emcs.supers.PubServiceY;
 import com.emcs.util.CheckEmpty;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class LimitValidate extends PubService {
+public class LimitValidate extends PubServiceY {
     @Override
     public void process(Map<String, Object> data) {
         limitValidate(data);

@@ -1,15 +1,13 @@
 package com.emcs.busniess.recharge;
 import com.emcs.Constant.ErrorCodeConstant.*;
 import com.emcs.busniess.common.LimitValidate;
-import com.emcs.supers.PubService;
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.InServiceN;
+import com.emcs.supers.InServiceY;
 import com.emcs.Constant.BusiConstant;
 import com.emcs.exception.BusiException;
-import com.emcs.supers.SupperService;
 import com.emcs.util.CheckEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ import java.util.Map;
  * Created by Administrator on 2018/2/4.
  */
 @Service
-public class MemberRecharge extends ServiceTransactionalY {
+public class MemberRecharge extends InServiceN {
     @Autowired
     CustRecharge custRecharge;
     @Autowired

@@ -1,17 +1,15 @@
 package com.emcs.busniess.register;
 import com.emcs.Constant.BusiConstant;
 import com.emcs.Constant.ErrorCodeConstant.*;
-import com.emcs.supers.ServiceTransactionalY;
+import com.emcs.supers.InServiceY;
 import com.emcs.Constant.BusiConstant.*;
 import com.emcs.exception.BusiException;
-import com.emcs.supers.SupperService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 @Service
-public class PlatformRegister extends ServiceTransactionalY {
+public class PlatformRegister extends InServiceY {
     public void process(Map<String, Object> data){
 
         // 1.校验支付商户编码是否存在
