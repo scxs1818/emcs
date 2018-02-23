@@ -574,6 +574,11 @@
         update eod_proc_prd_log set status='666666',remark='' where status!='000000' and prd_no=#{prd_no} and tran_date=#{tran_date}
     </update>
 
+    <!--更新产品处理结果-->
+    <update id="updateEodProcLog" parameterType="hashMap">
+        update eod_proc_log set status=#{status},remark=#{remark} where prd_no=#{prd_no} and tran_date=#{tran_date}
+    </update>
+
     <!--插入日终产品日志表-->
     <insert id="insertEodProcLog" parameterType="hashMap">
         insert into eod_proc_log(proc_log_seq,tran_time,tran_date,prd_no,status,remark

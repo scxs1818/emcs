@@ -9,7 +9,7 @@
 
     <!--批量备份商户虚拟账户余额信息-->
     <insert id="batchVaMerchVirtualAcctBal" parameterType="hashMap">
-        insert into va_cust_merch_acct_bal_day
+        insert into va_merch_virtual_acct_bal_day
         select merch_virid,vir_acct_type,merch_id,#{run_date},actural_bal,usable_bal,freeze_bal,recharge_bal from va_merch_virtual_acct_bal
     </insert>
 

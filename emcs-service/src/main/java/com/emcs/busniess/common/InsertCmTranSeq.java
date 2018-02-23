@@ -17,7 +17,7 @@ public class InsertCmTranSeq extends PubServiceY {
     public void process(Map<String, Object> data) {
         Object trandate = CacheData.getCacheObj(oneSelect,BusiConstant.Cache.CM_SYSTEM.val()).get("run_date");
         data.put("tran_date",trandate);
-        data.put("tran_time",new SimpleDateFormat(BusiConstant.FOR_STA_06).format(new Date()));
+        data.put("tran_time",new SimpleDateFormat(BusiConstant.FOR_STAN_06).format(new Date()));
         data.put("channel_date",trandate);
         data.put("tran_status","00");
         data.put("pub_seq_no",oneSelect.getNextVal(BusiConstant.Quence.CM_TRAN_SEQ.val()));

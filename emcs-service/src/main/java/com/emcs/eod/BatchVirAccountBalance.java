@@ -5,6 +5,7 @@ import com.emcs.mapper.OneTableSelectMapper;
 import com.emcs.supers.SuperTask;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**
@@ -13,9 +14,14 @@ import java.util.Map;
  */
 @Service
 public class BatchVirAccountBalance extends SuperTask{
+    public static BatchVirAccountBalance bvab;
+    @PostConstruct
+    public void init() {
+        bvab = this;
+    }
     @Override
     public void process(Map<String, Object> data) {
-        manyDML.batchVaCustVirtualAcctBal(data);
-        manyDML.batchVaMerchVirtualAcctBal(data);
+        bvab.manyDML.batchVaCustVirtualAcctBal(data);
+        bvab.manyDML.batchVaMerchVirtualAcctBal(data);
     }
 }

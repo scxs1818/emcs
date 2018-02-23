@@ -1,5 +1,6 @@
 package com.emcs.supers;
 
+import com.emcs.mapper.ManyTableDMLMapper;
 import com.emcs.mapper.ManyTableSelectMapper;
 import com.emcs.mapper.OneTableDMLMapper;
 import com.emcs.mapper.OneTableSelectMapper;
@@ -16,6 +17,8 @@ import java.util.Map;
  */
 public abstract class PubServiceY {
     protected Logger log = LoggerFactory.getLogger(PubServiceY.class);
+    @Resource
+    protected ManyTableDMLMapper manyDML;
     @Resource
     protected OneTableDMLMapper oneDML;
     @Resource
