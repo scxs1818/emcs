@@ -18,6 +18,7 @@ public class ValidateIsDaySwitch{
     protected Logger log = LoggerFactory.getLogger(ValidateIsDaySwitch.class);
 
     public boolean process(Map<String, Object> data) {
+        log.info("ValidateIsDaySwitch="+data);
         String server_date = new SimpleDateFormat(BusiConstant.FOR_STAN_08).format(new Date());
         Object run_date = data.get("run_date");
         log.info("server_date="+server_date+",run_date="+run_date);

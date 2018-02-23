@@ -26,5 +26,5 @@ public abstract class PubServiceY {
     @Resource
     protected ManyTableSelectMapper manySelect;
     @Transactional
-    public abstract void process(Map<String, Object> data) throws ClassNotFoundException, IllegalAccessException, InstantiationException;
+    public abstract void process(Map<String, Object> data);
 }

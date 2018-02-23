@@ -20,6 +20,7 @@ public class ValidatePrdIsDoWell{
     @Resource
     protected OneTableSelectMapper oneSelect;
     public boolean process(Map<String, Object> data) {
+        log.info("ValidatePrdIsDoWell="+data);
         List<Map<String,Object>> prdList = oneSelect.selectEodProcLog(data);
         if(!CheckEmpty.isEmpty(prdList)){
             if("000000".equals(prdList.get(0).get("status"))){

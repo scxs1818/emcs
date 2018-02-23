@@ -19,6 +19,7 @@ import java.util.Map;
 public class TaskExecute extends PubServiceY {
     @Override
     public void process(Map<String, Object> data) {
+        log.info("TaskExecute="+data);
         data.put("status", "666666");//查询处理状态
         List<Map<String, Object>> taskList = oneSelect.selectEodProcPrdLog(data);
         for (Map<String, Object> taskMap : taskList) {

@@ -32,6 +32,8 @@ public class AutoEod extends PubServiceY{
     @Resource
     ValidatePrdIsDoWell validatePrdIsDoWell;
     @Resource
+    UpdateEodProcLog updateEodProcLog;
+    @Resource
     protected OneTableSelectMapper oneS;
 
     public static AutoEod autoEod;
@@ -51,10 +53,19 @@ public class AutoEod extends PubServiceY{
         //2.校验是否已经日终
         if(autoEod.validatePrdIsDoWell.process(data))return;
 
-        //3.产品任务的预处理
-        autoEod.taskPre.process(data);
+        try{
+            //3.产品任务的预处理
+            autoEod.taskPre.process(data);
 
-        //4.总调度
-        autoEod.taskExecute.process(data);
+            //4.总调度
+            autoEod.taskExecute.process(data);
+
+            //5.更新产品处理结果
+            data.put("status","000000");
+            autoEod.updateEodProcLog.process(data);
+        }catch (Exception e){
+            data.put("status","999999");
+            autoEod.updateEodProcLog.process(data);
+        }
     }
 }

@@ -49,10 +49,9 @@ public class ScheduleListener {
         log.info("定时任务监听:[ScheduleListener]......");
         List<Map<String, Object>> jobList = oneS.selectScheduleJob(null);
         if (CheckEmpty.isEmpty(jobList)) return;
-
         String classBean = null;
-        for (Map<String, Object> jobMap : jobList) {
 
+        for (Map<String, Object> jobMap : jobList) {
             classBean = jobMap.get("class_bean") + "";
             Class sl = null;
             try {
@@ -62,8 +61,8 @@ public class ScheduleListener {
                 log.info("定时任务[" + classBean + "]执行成功\n");
             } catch (Exception e) {
                 log.error("定时任务[" + classBean + "]执行失败",e);
+                throw new BusiException("999999","产品["+classBean+"]处理失败");
             }
-
         }
     }
 }
