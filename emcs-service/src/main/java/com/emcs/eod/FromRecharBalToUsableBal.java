@@ -5,6 +5,7 @@ import com.emcs.mapper.OneTableSelectMapper;
 import com.emcs.supers.SuperTask;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**
@@ -12,10 +13,18 @@ import java.util.Map;
  */
 @Service
 public class FromRecharBalToUsableBal extends SuperTask{
+    public static FromRecharBalToUsableBal frbtu;
+    @PostConstruct
+    public void init() {
+        frbtu = this;
+    }
+
+
     public void process(Map<String, Object> data, OneTableSelectMapper oneSelect, OneTableDMLMapper oneDML) {
-        oneSelect.selectVaCustVirtualAcctBalLock(null);
-        oneDML.dayEndTransferAmtForCust(null);
-        oneSelect.selectVaMerchVirtualAcctBalLock(null);
-        oneDML.dayEndTransferAmtForMerch(null);
+        frbtu.
+        frbtu.oneS.selectVaCustVirtualAcctBalLock(null);
+        frbtu.oneDML.dayEndTransferAmtForCust(null);
+        frbtu.oneS.selectVaMerchVirtualAcctBalLock(null);
+        frbtu.oneDML.dayEndTransferAmtForMerch(null);
     }
 }

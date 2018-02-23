@@ -1,5 +1,6 @@
 package com.emcs.busniess.common;
 
+import com.emcs.Constant.BusiConstant;
 import com.emcs.mapper.ManyTableDMLMapper;
 import com.emcs.mapper.OneTableDMLMapper;
 import com.emcs.mapper.OneTableSelectMapper;
@@ -26,7 +27,7 @@ public class TaskPretreatment {
 
     public void process(Map<String, Object> data) {
         if (CheckEmpty.isEmpty(data.get("proc_log_seq"))) {
-            data.put("tran_time", new SimpleDateFormat("HHmmss").format(new Date()));
+            data.put("tran_time", new SimpleDateFormat(BusiConstant.FOR_STAN_06).format(new Date()));
             data.put("status", "666666");//正在执行中
             //插入产品日志信息
             oneDML.insertEodProcLog(data);

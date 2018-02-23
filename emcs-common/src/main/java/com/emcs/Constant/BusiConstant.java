@@ -145,10 +145,6 @@ public interface BusiConstant {
     String CACHE_CM_SYSTEM = "cm_system ";
     String CACHE_CM_BUSINESS_PARA = "cm_business_para";
 
-    String FOR_STA_06 = "HHmmss";
-    String FOR_STA_08 = "yyyyMMdd";
-    String FOR_STA_14 = "yyyyMMddHHmmss";
-
     String SEQ_NAME_MERCH = "merch_seq_no";
     String SEQ_NAME_PLAT = "plat_seq_no";
     String SEQ_NAME_CUST = "cust_seq_no";
@@ -192,4 +188,20 @@ public interface BusiConstant {
     String ACCT_BAN = "B";
 
     String[] VIR_SUB_ACCT_PLAT = new String[]{"01","02","03"};
+    /**日期格式*/
+    public static final String FOR_STAN_06 = "HHmmss";
+    public static final String FOR_STAN_09 = "HHmmssSSS";
+    public static final String FOR_STAN_08 = "yyyyMMdd";
+    public static final String FOR_LEAN_10 = "yyyy/MM/dd";
+    public static final String FOR_MIDD_10 = "yyyy-MM-dd";
+    public static final String FOR_CHIN_11 = "yyyy年MM月dd日";
+    public static final String FOR_STAN_14 = "yyyyMMddHHmmss";
+    public static final String FOR_STAN_15 = "yyyyMMdd HHmmss";
+    public static final String FOR_MIDD_19 = "yyyy-MM-dd HH:mm:ss";
+    public static final String FOR_CHIN_21 = "yyyy年MM月dd日 HH时mm分ss秒";
+    public static final String FOR_LEAN_19 = "yyyy/MM/dd HH:mm:ss";
+    public static final String FOR_STAN_17 = "yyyyMMddHHmmssSSS";
+    public static final String FOR_STAN_18 = "yyyyMMdd HHmmssSSS";
+    public static final String FOR_MIDD_23 = "yyyy-MM-dd HH:mm:ss,SSS";
+    public static final String FOR_CHIN_26 = "yyyy年MM月dd日 HH时mm分ss秒SSS毫秒";
 }
