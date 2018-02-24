@@ -80,6 +80,8 @@ public interface BusiConstant {
 
         MERCH_PURCHASE_CONFIRM("13","商户采购确认"),
         CUST_PURCHASE_CONFIRM("14","个人采购确认"),
+        CARD_BIND("15","绑卡"),
+        CARD_UNBIND("16","解绑"),
         ;
         private String val;
         private String desc;

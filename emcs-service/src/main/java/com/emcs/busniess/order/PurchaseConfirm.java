@@ -29,7 +29,8 @@ public class PurchaseConfirm extends InServiceY {
         data.put("order_status","01");
         List<Map<String,Object>> oldOrderList = oneSelect.selectVaOrderInfoForOld(data);
 
-        if(CheckEmpty.isEmpty(oldOrderList))throw new BusiException("原订单不存在");
+        if(CheckEmpty.isEmpty(oldOrderList))throw new BusiException("原订单不存在或原订单已经确认");
+
         if(!"01".equals(oldOrderList.get(0).get("order_status")))throw new BusiException("原订单不能确认,请查看该订单状态");
 
         if(oneSelect.selectVaOrderSeqForRepeat(data)>0)throw new BusiException("重复提交");
@@ -37,7 +38,7 @@ public class PurchaseConfirm extends InServiceY {
         Map<String,Object> oldOrderMap = oldOrderList.get(0);
 
         BigDecimal tran_amt = (BigDecimal)oldOrderMap.get("tran_amt");
-        if(tran_amt.compareTo(new BigDecimal(data.get("tran_amt")+""))!=0)throw new BusiException("确认金额有误");
+        if(tran_amt.compareTo(new BigDecimal(data.get("tran_amt")+""))!=0)throw new BusiException("123456","确认金额有误");
 
         if(!(data.get("payer_id")+"").equals(oldOrderMap.get("payer_id")))throw new BusiException("付款方信息有误");
 

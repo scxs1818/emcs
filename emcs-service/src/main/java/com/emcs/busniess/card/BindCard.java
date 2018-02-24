@@ -35,14 +35,13 @@ public class BindCard extends InServiceY {
         List<Map<String,Object>> meberList;
         data.put("create_date",data.get("tran_date")+""+data.get("tran_time"));
         data.put("currency","RMB");
+        data.put("tran_type",BusiConstant.TranType.CARD_BIND.val());
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
             param.put("cust_id",data.get("member_id"));
             data.put("cust_id",data.get("member_id"));
-            meberList = oneSelect.selectVaCustInfo(param);
-            if(CheckEmpty.isEmpty(meberList))
+            if(CheckEmpty.isEmpty(oneSelect.selectVaCustInfo(param)))
                 throw new BusiException(CustErrorCode.VAC001.code(),CustErrorCode.VAC001.val());
 
-            meberList = null;
             meberList = oneSelect.selectVaCustAcctInfo(data);
             if(!CheckEmpty.isEmpty(meberList))
                 throw new BusiException(PubErrorCode.VAZ025.code(),PubErrorCode.VAZ025.val());

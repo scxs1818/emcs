@@ -49,11 +49,13 @@ public abstract class InServiceY {
     public CommonResult doService(Map<String, Object> data) {
         log.info("请求的数据:"+data);
         try {
+            result = new CommonResult();
             before(data);
             process(data);
             result.setMsg("交易成功");
             result.setStatus("S");
             data.put("tran_status","01");
+            result.setData(data);
         } catch (Exception e) {
             log.error("交易失败", e);
             String errormsg = e.getMessage();
@@ -69,7 +71,6 @@ public abstract class InServiceY {
         }
         return result;
     }
-
-    protected CommonResult result = new CommonResult();
+    private CommonResult result;
     protected abstract void process(Map<String, Object> data);
 }

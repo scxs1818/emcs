@@ -1,3 +1,29 @@
+truncate table cm_business_limit;
+insert into cm_business_limit values('101','1','2','3',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('102','1','1','20000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('103','1','3','20000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('104','2','2','3',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('105','2','1','5000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('106','2','3','5000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('107','3','2','3',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('108','3','1','20000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('109','3','3','20000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('110','4','2','3',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('111','4','1','5000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('112','4','3','5000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('113','56','2','3',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('114','56','1','20000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('115','56','3','20000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('116','78','2','3',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('117','78','1','5000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('119','78','3','5000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('120','9','2','10',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('121','9','3','20000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('122','9','1','20000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('123','10','2','10',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('124','10','3','5000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+insert into cm_business_limit values('125','10','1','5000',(select curdate() from dual),(select curdate()+1000000 from dual),'1','','admin');
+
 truncate table cm_business_para;
 insert into cm_business_para values('1','limit_cnt','3','商户日最大充值次数','1',(select curdate() from dual),'admin');
 insert into cm_business_para values('1','sig_limit_amt','20000','商户单笔最大充值金额','1',(select curdate() from dual),'admin');
@@ -29,6 +55,12 @@ INSERT INTO `CM_SYSTEM` VALUES ((select date_format(now(),'%Y%m%d')),(select dat
 
 truncate table eod_proc_rule;
 insert into eod_proc_rule values('9999','1','com.emcs.eod.eod_proc_rule.java','日切','1');
+
+truncate table schedule_job;
+insert into  schedule_job values ('com.emcs.eod.DaySwich','日切','0:00','20:00','3','1','va','com.emcs.eod.DaySwich','1');
+insert into  schedule_job values ('com.emcs.eod.AutoConfirmOrders','批量订单确认','0:00','20:00','3','1','va','com.emcs.eod.AutoConfirmOrders','1');
+insert into  schedule_job values ('com.emcs.eod.FromRecharBalToUsableBal','日终余额转移','0:00','20:00','3','1','va','com.emcs.eod.FromRecharBalToUsableBal','1');
+insert into  schedule_job values ('com.emcs.eod.AutoEod','自动日终','0:00','20:00','3','1','va','com.emcs.eod.AutoEod','1');
 
 truncate table va_sequence_p;
 insert into va_sequence_p values('plat_seq_no',4,'1','平台编号');

@@ -44,7 +44,7 @@ public class ScheduleListener {
     @Resource
     OneTableSelectMapper oneS;
 
-    @Scheduled(cron = "10 * * * * ?")
+    @Scheduled(cron = "0/30 * * * * ?")
     public void process() {
         log.info("定时任务监听:[ScheduleListener]......");
         List<Map<String, Object>> jobList = oneS.selectScheduleJob(null);

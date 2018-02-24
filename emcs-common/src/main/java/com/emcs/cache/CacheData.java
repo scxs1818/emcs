@@ -13,6 +13,8 @@ import com.emcs.util.CheckEmpty;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.annotation.PostConstruct;
+
 /** 缓存常用数据库配置类 */
 public class CacheData {
     private static Log log = LogFactory.getLog(CacheData.class);

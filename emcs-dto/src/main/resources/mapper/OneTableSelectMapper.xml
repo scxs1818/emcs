@@ -55,6 +55,7 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="status !=null and status!='' "> and status = #{status} </if>
             <if test="tel_no !=null and tel_no!='' "> and tel_no = #{tel_no}</if>
+            <if test="plat_id !=null and plat_id!='' "> and plat_id = #{plat_id} </if>
             <if test="cust_id !=null and cust_id!='' "> and cust_id = #{cust_id} </if>
         </trim>
     </select>

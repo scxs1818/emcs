@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 public class CommonResult implements Serializable {
 	private String status;
 	private String msg;
-	private Object date;
+	private Object data;
 	public String getStatus() {
 		return status;
 	}
@@ -20,11 +20,11 @@ public class CommonResult implements Serializable {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	public Object getDate() {
-		return date;
+	public Object getData() {
+		return data;
 	}
-	public void setDate(Object date) {
-		this.date = date;
+	public void setData(Object date) {
+		this.data = data;
 	}
 	public String toString(){
 		Gson gson = new GsonBuilder().create();

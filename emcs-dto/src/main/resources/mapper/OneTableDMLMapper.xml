@@ -564,11 +564,10 @@
 
     <!--插入绑卡流水信息-->
     <insert id="insertVaBindSeq" parameterType="hashMap">
-        insert into va_bind_seq(bind_seq_no,plat_id,member_id,acct_type,acct_category,acct_no,acct_name,tel_no,global_id,create_date
+        insert into va_bind_seq(bind_seq_no,plat_id,member_id,acct_type,acct_category,acct_no,acct_name,tel_no,global_id,create_date,tran_type,status,bind_desc
           ) values (
-        #{bind_seq_no},#{plat_id},#{member_id},#{acct_type},#{acct_category},#{acct_no},#{acct_name},#{tel_no},#{global_id},str_to_date(#{create_date},'%Y%m%d%H%i%s'))
+        #{bind_seq_no},#{plat_id},#{member_id},#{acct_type},#{acct_category},#{acct_no},#{acct_name},#{tel_no},#{global_id},str_to_date(#{create_date},'%Y%m%d%H%i%s'),#{tran_type},#{status},#{bind_desc})
     </insert>
-
     <!--更新不成功的任务为初始化状态-->
     <update id="updateEodProcPrdLog" parameterType="hashMap">
         update eod_proc_prd_log set status='666666',remark='' where status!='000000' and prd_no=#{prd_no} and tran_date=#{tran_date}

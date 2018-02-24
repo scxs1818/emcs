@@ -29,6 +29,7 @@ public class UnbundCard extends InServiceY {
         param.put("status","N");
         List<Map<String,Object>> meberList;
         data.put("create_date",data.get("tran_date")+""+data.get("tran_time"));
+        data.put("tran_type",BusiConstant.TranType.CARD_UNBIND.val());
         if(BusiConstant.ROLE_CUST.equals(data.get("role_type"))){
             param.put("cust_id",data.get("member_id"));
             meberList = oneSelect.selectVaCustInfo(param);

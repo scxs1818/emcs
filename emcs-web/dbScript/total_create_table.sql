@@ -1,7 +1,7 @@
 drop table if exists  `cm_acct_tran_seq`;
 create table `cm_acct_tran_seq` (
   `tran_seq_no`           varchar(32)       not null comment '银行账务流水号',
-   `pub_seq_no` varchar(32) not null comment '公共流水号',
+   `pub_seq_no` varchar(32)  comment '公共流水号',
   `tran_date`             date comment '交易日期',
   `tran_time`             varchar(10) comment '交易时间',
   `curreny`               varchar(4) comment '币种',
@@ -49,25 +49,53 @@ create table `cm_acct_tran_seq` (
   primary key (`tran_seq_no`)
 )comment '账务流水表';
 
-DROP TABLE IF EXISTS `CM_BUSINESS_PARA`;
-CREATE TABLE `CM_BUSINESS_PARA` (
-   `TRAN_TYPE`            VARCHAR(4)                   NOT NULL COMMENT '交易类型',
-   `PARA_KEY`             VARCHAR(50)                   NOT NULL COMMENT '业务参数代码',
-   `PARA_VALUE`           VARCHAR(32)                   NOT NULL COMMENT '参数值',
-   `PARA_DESC`            VARCHAR(100)                  NOT NULL COMMENT '参数描述',
-   `PARA_STATUS`          VARCHAR(4)                    NOT NULL COMMENT '参数状态',
-   `UPDATE_DATE`          DATE                          NULL COMMENT '参数维护日期',
-   `UPDATE_USER`          VARCHAR(32)                   NULL COMMENT '操作员',
-   PRIMARY KEY  (`TRAN_TYPE`,`PARA_KEY`)
-)COMMENT '业务参数表';
+drop table if exists `cm_business_code`;
+create table   `cm_business_code`(
+`business_code`        varchar(11)        not null comment '业务编码',
+`business_name`        varchar(50)  comment '业务编码名称',
+`super_business_code`  varchar(11)  comment '上级业务编码',
+`code_levels`          varchar(1)  comment '编码层次:包括1级、2级和3级',
+`charge_sign`          varchar(1)  comment '收费标志，y是 n否',
+`limit_sign`           varchar(1)  comment '限额标志，y是 n否',
+`business_type`        varchar(2)  comment '业务编码类型:01-查询 02-金融 03-管理类 04-限制类 05-验证类 06-代理业务类  07-冲正类 08-消息通知类  99-其它',
+`is_financial`     varchar(1)  comment '是否账务交易:y-是,n-不是',
+`time_control_flag`    varchar(1)  comment '时间控制标志：y-限制；n-不限制',
+primary key (`business_code`)
+) comment '业务码表';
 
-DROP TABLE IF EXISTS  `CM_SYSTEM`;
-CREATE TABLE `CM_SYSTEM` (
-   `RUN_DATE`             varchar(8)                           NOT NULL COMMENT '系统日期',
-   `PREV_RUN_DATE`       varchar(8)                           NOT NULL COMMENT '前一工作日',
-   `CORE_RUN_DATE`       varchar(8)                             COMMENT '三方日期',
-   `SER_STATUS_FLAG`	VARCHAR(2)		       NOT NULL COMMENT '服务状态标志:N-关闭,Y-开启'
-)COMMENT '系统表';
+drop table if exists `cm_business_limit`;
+create table `cm_business_limit` (
+   `limit_id`             varchar(16)                   not null comment '限制编号',
+   `business_code`        varchar(16)                   not null comment '业务编码',
+   `limit_type`          varchar(4)                   not null comment '限制类型:1-单笔限额,2-单日允许交易最大次数,3-单日总限额',
+   `limit_value`         decimal(20,8)                  null   comment '单笔限额',
+   `effect_begin`         date                           null comment '生效日期',
+   `effect_end`           date                           null comment '失效日期',
+   `effect_flag`          varchar(4)                    null comment '生效标志y:生效n:失效',
+   `update_date`          varchar(14)                   null comment '更新日期',
+   `update_user`          varchar(32)                   null comment '更新操作员',
+   primary key  (`limit_id`)
+) comment '业务限制表';
+
+drop table if exists `cm_business_para`;
+create table `cm_business_para` (
+   `tran_type`            varchar(4)                   not null comment '交易类型',
+   `para_key`             varchar(50)                   not null comment '业务参数代码',
+   `para_value`           varchar(32)                   not null comment '参数值',
+   `para_desc`            varchar(100)                  not null comment '参数描述',
+   `para_status`          varchar(4)                    not null comment '参数状态',
+   `update_date`          date                          null comment '参数维护日期',
+   `update_user`          varchar(32)                   null comment '操作员',
+   primary key  (`tran_type`,`para_key`)
+)comment '业务参数表';
+
+drop table if exists  `cm_system`;
+create table `cm_system` (
+   `run_date`             varchar(8)                           not null comment '系统日期',
+   `prev_run_date`       varchar(8)                           not null comment '前一工作日',
+   `core_run_date`       varchar(8)                             comment '三方日期',
+   `ser_status_flag`	varchar(2)		       not null comment '服务状态标志:n-关闭,y-开启'
+)comment '系统表';
 
 DROP TABLE  IF EXISTS `CM_TRAN_SEQ` ;
 CREATE TABLE `CM_TRAN_SEQ`(
@@ -131,6 +159,20 @@ create table `eod_proc_rule`  (
    primary key(`prd_no`,`step_no`)
 )comment '任务制定表';
 
+drop table if exists `schedule_job`;
+create table `schedule_job`(
+  `job_code`       varchar(50)              not null comment '任务代码',
+  `job_name`       varchar(100)             not null comment '任务名称',
+  `start_time`     varchar(8)               not null comment '启动时间',
+  `end_time`       varchar(8)               not null comment '终止时间',
+  `interval_time` integer                        not null comment '时间间隔（秒）',
+  `exec_mode`      varchar(1)               not null comment '执行模式 0未执行完不会并发执行，1未执行完会并发执行',
+  `exec_node`      varchar(20)              not null comment '执行节点',
+  `class_bean`     varchar(50)              not null comment '服务',
+  `valid_flag`     varchar(1)               not null comment '启用标志 0-关闭 1-启用',
+  primary key(`job_code`)
+)comment '定时任务配置表';
+
 drop table if exists `va_bind_seq`;
 create table `va_bind_seq` (
   `bind_seq_no` varchar(32) not null  comment '绑卡流水号',
@@ -142,7 +184,10 @@ create table `va_bind_seq` (
   `acct_name` varchar(100) default null comment '账户名称',
   `tel_no` varchar(12) comment '手机号码',
   `global_id` varchar(20) comment '证件号码',
+  `tran_type` varchar(4) comment '交易类型',
+  `status` varchar(4) comment '状态:1-成功,0-失败',
   `create_date` date comment '创建日期',
+  `bind_desc` date comment '描述',
   primary key (`bind_seq_no`)
 ) comment='绑卡记录表' ;
 
@@ -442,7 +487,7 @@ create table `va_order_seq`(
 	`oder_seq_no` varchar(32) comment '订单流水号',
 	`order_no`  varchar(32) not null comment '订单号',
 	`order_no_old`  varchar(32)  comment '原订单号',
-	`pub_seq_no` varchar(32) not null comment '公共流水号',
+	`pub_seq_no` varchar(32)  comment '公共流水号',
 	`plat_id` varchar(32) not null comment '平台编号',
 	`payer_id`  varchar(32) not null comment '付款方编号',
 	`payer_virid`  varchar(32) not null comment '付款方虚拟账户编号',

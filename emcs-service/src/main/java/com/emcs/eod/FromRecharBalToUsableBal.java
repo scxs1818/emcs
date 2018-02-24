@@ -13,18 +13,11 @@ import java.util.Map;
  */
 @Service
 public class FromRecharBalToUsableBal extends SuperTask{
-    public static FromRecharBalToUsableBal frbtu;
-    @PostConstruct
-    public void init() {
-        frbtu = this;
-    }
-
-
     public void process(Map<String, Object> data, OneTableSelectMapper oneSelect, OneTableDMLMapper oneDML) {
-        frbtu.
-        frbtu.oneS.selectVaCustVirtualAcctBalLock(null);
-        frbtu.oneDML.dayEndTransferAmtForCust(null);
-        frbtu.oneS.selectVaMerchVirtualAcctBalLock(null);
-        frbtu.oneDML.dayEndTransferAmtForMerch(null);
+        
+        oneS.selectVaCustVirtualAcctBalLock(null);
+        oneDML.dayEndTransferAmtForCust(null);
+        oneS.selectVaMerchVirtualAcctBalLock(null);
+        oneDML.dayEndTransferAmtForMerch(null);
     }
 }

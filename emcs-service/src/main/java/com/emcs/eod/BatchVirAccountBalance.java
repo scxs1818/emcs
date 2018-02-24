@@ -14,14 +14,9 @@ import java.util.Map;
  */
 @Service
 public class BatchVirAccountBalance extends SuperTask{
-    public static BatchVirAccountBalance bvab;
-    @PostConstruct
-    public void init() {
-        bvab = this;
-    }
     @Override
     public void process(Map<String, Object> data) {
-        bvab.manyDML.batchVaCustVirtualAcctBal(data);
-        bvab.manyDML.batchVaMerchVirtualAcctBal(data);
+        manyDML.batchVaCustVirtualAcctBal(data);
+        manyDML.batchVaMerchVirtualAcctBal(data);
     }
 }
