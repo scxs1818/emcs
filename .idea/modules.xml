@@ -3,10 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/emcs.iml" filepath="$PROJECT_DIR$/emcs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/emcs-common/emcs-common.iml" filepath="$PROJECT_DIR$/emcs-common/emcs-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/emcs-dto/emcs-dto.iml" filepath="$PROJECT_DIR$/emcs-dto/emcs-dto.iml" />
-      <module fileurl="file://$PROJECT_DIR$/emcs-service/emcs-service.iml" filepath="$PROJECT_DIR$/emcs-service/emcs-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/emcs-web/emcs-web.iml" filepath="$PROJECT_DIR$/emcs-web/emcs-web.iml" />
     </modules>
   </component>
 </project>
